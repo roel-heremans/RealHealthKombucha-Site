@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ORIG = ROOT / "original"
-IMG_RE = re.compile(r"https://framerusercontent\.com/images/[A-Za-z0-9_-]+\.[A-Za-z0-9]+")
+IMG_RE = re.compile(r"https://framerusercontent\.com/(?:images|assets)/[A-Za-z0-9_-]+\.(?:jpe?g|png|webp|svg|gif)")
 SLUGS = {"home", "about", "gut-health-101", "reseller", "contact", "shop"}
 
 
@@ -27,3 +27,10 @@ def test_manifest_complete():
         for kind in ("desktop", "phone"):
             assert (ORIG / "screenshots" / f"{slug}-{kind}.png").stat().st_size > 0
     assert (ORIG / "fonts.txt").read_text(encoding="utf-8").strip()
+
+
+def test_og_image_captured():
+    manifest = json.loads((ORIG / "manifest.json").read_text(encoding="utf-8"))
+    og = "https://framerusercontent.com/assets/OQTRXPkK6HaR7C9GovB4aFa7Eak.jpeg"
+    assert og in manifest["images"]
+    assert (ROOT / manifest["images"][og]).stat().st_size > 0

@@ -15,7 +15,7 @@ ORIG = ROOT / "original"
 BASE = "https://www.realhealthkombucha.com/"
 CHROME = "/usr/bin/google-chrome"
 SLUGS = ["", "about", "gut-health-101", "reseller", "contact", "shop"]
-IMG_RE = re.compile(r"https://framerusercontent\.com/images/[A-Za-z0-9_-]+\.[A-Za-z0-9]+")
+IMG_RE = re.compile(r"https://framerusercontent\.com/(?:images|assets)/[A-Za-z0-9_-]+\.(?:jpe?g|png|webp|svg|gif)")
 FONT_RE = re.compile(r"font-family:\s*([^;}]+)")
 
 
@@ -24,10 +24,13 @@ def name(slug):
 
 
 def chrome(*args):
-    return subprocess.run(
+    r = subprocess.run(
         [CHROME, "--headless=new", "--disable-gpu", "--no-sandbox", *args],
-        capture_output=True, text=True, timeout=180, check=True,
+        capture_output=True, text=True, timeout=180,
     )
+    if r.returncode != 0:
+        raise SystemExit(f"chrome failed ({r.returncode}): {r.stderr}")
+    return r
 
 
 def main():
@@ -38,6 +41,8 @@ def main():
     for slug in SLUGS:
         url = BASE + slug
         dom = chrome("--virtual-time-budget=8000", "--dump-dom", url).stdout
+        if len(dom.strip()) < 1000:
+            raise SystemExit(f"empty DOM for {url}")
         page = ORIG / "pages" / f"{name(slug)}.html"
         page.write_text(dom, encoding="utf-8")
         manifest["pages"][name(slug)] = f"original/pages/{name(slug)}.html"
