@@ -1,0 +1,16 @@
+Font families seen in rendered DOM (name: occurrences)
+Inter: 769
+Inter Display: 756
+Playfair Display: 192
+Lato: 98
+Figtree: 96
+Alegreya: 62
+DM Sans: 47
+sans-serif: 6
+Alegreya Placeholder: 6
+DM Sans Placeholder: 6
+Lato Placeholder: 6
+Playfair Display Placeholder: 6
+Figtree Placeholder: 6
+Inter Placeholder: 6
+Inter Display Placeholder: 6
