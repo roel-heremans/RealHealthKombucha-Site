@@ -1,0 +1,283 @@
+/* Real Health Kombucha — shared styles.
+   Colours and sizes measured from the live site (original/screenshots). */
+
+:root {
+  --olive: rgb(44, 47, 36);        /* body text, nav */
+  --banner-green: rgb(77, 89, 43); /* top banner, footer links */
+  --orange: rgb(238, 141, 8);
+  --orange-deep: rgb(236, 86, 0);
+  --off-white: rgb(249, 249, 247);
+  --sage: rgb(219, 223, 208);
+  --sage-text: rgb(173, 178, 158); /* footer tagline, copyright */
+  --grey-green: rgb(115, 120, 101); /* banner social circles */
+  --rule: rgb(130, 133, 122);
+  --white: #fff;
+
+  --font-body: "Lato", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-inter: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-small: "DM Sans", "Inter", system-ui, sans-serif;
+
+  --mobile-bp: 960px; /* documentation only; media queries below use 959px */
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--off-white);
+  color: var(--olive);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+ul { margin: 0; padding: 0; list-style: none; }
+p { margin: 0; }
+main { display: block; }
+
+/* ---------------------------------------------------------------- banner */
+.banner {
+  background: var(--banner-green);
+  color: var(--off-white);
+}
+.banner-inner {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 73px 0 97px;
+}
+body:not(.page-home) .banner-inner { padding-left: 117px; }
+.banner-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.banner a { text-decoration: none; }
+.banner-here { color: var(--orange-deep); }
+a.banner-here:hover { text-decoration: underline; }
+.banner-socials { display: flex; gap: 5px; flex-shrink: 0; }
+.banner-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--grey-green);
+  transition: opacity .2s;
+}
+.banner-socials a:hover { opacity: .8; }
+.banner-socials svg { width: 12px; height: 12px; fill: var(--white); }
+
+/* ---------------------------------------------------------------- header */
+.site-header { background: var(--off-white); position: relative; z-index: 20; }
+.page-home .site-header,
+.page-shop .site-header { background: var(--white); }
+
+.header-inner {
+  height: 237px;
+  display: flex;
+  align-items: center;
+  padding: 0 73px 0 84px;
+}
+.logo { flex-shrink: 0; position: relative; top: -6px; }
+.logo img { width: 172px; }
+
+.site-nav { flex: 1; }
+.site-nav ul { display: flex; align-items: center; gap: 40px; }
+.site-nav li:first-child { margin-left: auto; padding-left: 102px; }
+.site-nav a {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--olive);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color .2s;
+}
+.site-nav a:hover { color: var(--orange-deep); }
+.site-nav .nav-shop { margin-left: auto; }
+.site-nav .nav-shop a {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 23px;
+  border: 1px solid var(--olive);
+  border-radius: 500px;
+  font-weight: 700;
+  transition: background-color .2s, color .2s;
+}
+.site-nav .nav-shop a:hover { background: var(--olive); color: var(--white); }
+
+.menu-toggle {
+  display: none;
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--olive);
+  opacity: .6;
+  transition: transform .2s, opacity .2s;
+}
+
+/* ---------------------------------------------------------------- footer */
+.site-footer { background: var(--off-white); color: var(--olive); }
+.footer-inner {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 100px 0 0;
+  display: grid;
+  grid-template-columns: 389px 1fr 416px;
+  grid-template-areas: "brand nav insta";
+  align-items: start;
+}
+.footer-brand { grid-area: brand; max-width: 300px; }
+.footer-logo { display: block; width: 162px; margin: 19px 0 0 10px; }
+.footer-tagline {
+  margin-top: 71px;
+  color: var(--sage-text);
+  line-height: 24px;
+}
+.footer-socials { display: flex; gap: 12px; margin-top: 28px; }
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--orange-deep);
+  transition: transform .2s;
+}
+.footer-socials a:hover { transform: scale(1.08); }
+.footer-socials svg { width: 14px; height: 14px; fill: var(--white); }
+
+.footer-nav { grid-area: nav; }
+.footer-nav li + li { margin-top: 20px; }
+.footer-nav a {
+  color: var(--banner-green);
+  text-decoration: none;
+  line-height: 24px;
+}
+.footer-nav a:hover,
+.footer-nav a[aria-current="page"] {
+  color: var(--orange-deep);
+  text-decoration: underline;
+}
+
+.footer-instagram { grid-area: insta; }
+.footer-heading { font-weight: 700; line-height: 24px; color: var(--olive); }
+.insta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 38px 4px 0;
+}
+.insta-grid img {
+  width: 100%;
+  aspect-ratio: 8 / 7;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: opacity .2s;
+}
+.insta-grid:hover img { opacity: .92; }
+
+.footer-bottom {
+  max-width: 1258px;
+  margin: 100px auto 0;
+  padding: 31px 0 78px;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  color: var(--sage-text);
+  line-height: 24px;
+}
+
+/* ---------------------------------------------------------------- reveal (opt-in) */
+.js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------------------------------------------------------------- medium */
+@media (max-width: 1299px) {
+  .header-inner { padding: 0 40px; }
+  .banner-inner { padding-right: 40px; }
+  .site-nav ul { gap: 28px; }
+  .site-nav li:first-child { padding-left: 30px; }
+  .footer-inner { padding-left: 40px; padding-right: 40px; grid-template-columns: 1.1fr 1fr 1.2fr; gap: 30px; }
+  .footer-bottom { margin-left: 40px; margin-right: 40px; }
+}
+
+/* ---------------------------------------------------------------- phone / tablet */
+@media (max-width: 959px) {
+  .banner-inner,
+  body:not(.page-home) .banner-inner { height: 42px; padding: 0 15px; }
+  .banner-text { font-family: var(--font-small); font-size: 10px; }
+  .banner-socials { display: none; }
+
+  .header-inner { height: 143px; padding: 0 14px 0 20px; position: relative; }
+  .logo { top: -5px; }
+  .logo img { width: 115px; }
+  .menu-toggle { display: flex; }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: inherit;
+    background-color: var(--off-white);
+    box-shadow: 0 12px 24px rgba(44, 47, 36, .12);
+  }
+  .page-home .site-nav,
+  .page-shop .site-nav { background-color: var(--white); }
+  .site-header.nav-open .site-nav { display: block; }
+  .site-nav ul { flex-direction: column; align-items: stretch; gap: 0; padding: 8px 20px 24px; }
+  .site-nav li:first-child { margin-left: 0; padding-left: 0; }
+  .site-nav li a { display: block; padding: 12px 0; font-size: 18px; }
+  .site-nav .nav-shop { margin: 12px 0 0; }
+  .site-nav .nav-shop a { display: inline-flex; padding: 0 28px; }
+
+  .site-header.nav-open .menu-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .site-header.nav-open .menu-toggle span:nth-child(2) { opacity: 0; }
+  .site-header.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .footer-inner {
+    padding: 81px 30px 0;
+    grid-template-columns: 1fr;
+    grid-template-areas: "brand" "insta" "nav";
+    gap: 0;
+  }
+  .footer-brand { max-width: 300px; }
+  .footer-logo { margin: 0 auto; width: 163px; transform: translateX(15px); }
+  .footer-tagline { margin-top: 70px; }
+  .footer-socials { justify-content: center; }
+  .footer-instagram { margin-top: 38px; }
+  .insta-grid { margin: 28px 0 0; max-width: 440px; }
+  .footer-nav { margin-top: 38px; }
+  .footer-bottom { margin: 56px 30px 0; padding: 31px 0 42px; }
+}

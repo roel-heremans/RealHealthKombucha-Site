@@ -1,0 +1,33 @@
+{% from "partials/icons.html.j2" import icon, href, label %}
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="footer-logo" href="{{ root }}"><img src="{{ root }}assets/img/logo.png" alt="Real Health Kombucha" width="315" height="223" loading="lazy"></a>
+      <p class="footer-tagline">{{ content.footer_tagline | e }}</p>
+      <ul class="footer-socials" aria-label="Social media">
+        <li><a href="{{ content.socials.telegram | e }}" target="_blank" rel="noopener" aria-label="Telegram">{{ icon("telegram") }}</a></li>
+        <li><a href="{{ content.socials.whatsapp | e }}" target="_blank" rel="noopener" aria-label="WhatsApp">{{ icon("whatsapp") }}</a></li>
+        <li><a href="{{ content.socials.instagram | e }}" target="_blank" rel="noopener" aria-label="Instagram">{{ icon("instagram") }}</a></li>
+        <li><a href="{{ content.google_reviews_url | e }}" target="_blank" rel="noopener" aria-label="Google reviews">{{ icon("google") }}</a></li>
+      </ul>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+{%- for slug in content.footer_nav %}
+        <li><a href="{{ href(root, slug) }}"{% if slug == page.slug %} aria-current="page"{% endif %}>{{ label(content, slug) }}</a></li>
+{%- endfor %}
+      </ul>
+    </nav>
+    <div class="footer-instagram">
+      <p class="footer-heading">Follow Us On Instagram</p>
+      <a class="insta-grid" href="{{ content.socials.instagram | e }}" target="_blank" rel="noopener" aria-label="Real Health Kombucha on Instagram">
+{%- for img in content.footer_instagram_images %}
+        <img src="{{ root }}assets/img/{{ img }}" alt="" loading="lazy">
+{%- endfor %}
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {{ year }} Real Health Kombucha. All rights reserved.</p>
+  </div>
+</footer>

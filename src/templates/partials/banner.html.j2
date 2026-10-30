@@ -1,0 +1,13 @@
+{% from "partials/icons.html.j2" import icon, href %}
+{%- if page.slug == "" %}{% set btext, blink = content.banner_home_text, content.banner_home_link %}
+{%- else %}{% set btext, blink = content.banner_default_text, content.banner_default_link %}{% endif %}
+<div class="banner">
+  <div class="banner-inner">
+    <p class="banner-text">{{ btext | e }} {% if blink %}<a class="banner-here" href="{{ href(root, blink) }}">here</a>{% else %}<span class="banner-here">here</span>{% endif %}</p>
+    <ul class="banner-socials" aria-label="Social media">
+      <li><a href="{{ content.socials.telegram | e }}" target="_blank" rel="noopener" aria-label="Telegram">{{ icon("telegram") }}</a></li>
+      <li><a href="{{ content.socials.whatsapp | e }}" target="_blank" rel="noopener" aria-label="WhatsApp">{{ icon("whatsapp") }}</a></li>
+      <li><a href="{{ content.socials.instagram | e }}" target="_blank" rel="noopener" aria-label="Instagram">{{ icon("instagram") }}</a></li>
+    </ul>
+  </div>
+</div>

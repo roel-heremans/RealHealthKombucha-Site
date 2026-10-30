@@ -1,0 +1,14 @@
+{% from "partials/icons.html.j2" import href, label %}
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="{{ root }}" aria-label="Real Health Kombucha – Home"><img src="{{ root }}assets/img/logo.png" alt="Real Health Kombucha" width="315" height="223"></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+{%- for slug in content.nav %}
+        <li{% if slug == "shop" %} class="nav-shop"{% endif %}><a href="{{ href(root, slug) }}"{% if slug == page.slug %} aria-current="page"{% endif %}>{{ label(content, slug) }}</a></li>
+{%- endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>
