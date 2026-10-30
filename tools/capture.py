@@ -1,12 +1,17 @@
 """Capture the live Framer site into original/ (reference for the rebuild).
 
-Usage: python tools/capture.py
+Usage: python tools/capture.py                     # full capture
+       python tools/capture.py --desktop-dom-only  # only (re)dump pages-desktop/,
+                                                   # keep pages/ and screenshots/
+original/pages/ holds the DOM at Chrome's default (~800px) window, i.e. Framer's
+phone/tablet variant; original/pages-desktop/ holds the DOM at 1440px (desktop variant).
 Standard library only; needs google-chrome.
 """
 import html
 import json
 import re
 import subprocess
+import sys
 import urllib.request
 from pathlib import Path
 
@@ -33,29 +38,46 @@ def chrome(*args):
     return r
 
 
+PAGE_SETS = (("pages", "pages", ()), ("pages_desktop", "pages-desktop", ("--window-size=1440,9000",)))
+
+
+def dump_dom(url, folder, extra):
+    dom = chrome("--virtual-time-budget=8000", *extra, "--dump-dom", url).stdout
+    if len(dom.strip()) < 1000:
+        raise SystemExit(f"empty DOM for {url} ({folder})")
+    return dom
+
+
 def main():
-    for d in ("pages", "assets", "screenshots"):
+    desktop_only = "--desktop-dom-only" in sys.argv[1:]
+    for d in ("pages", "pages-desktop", "assets", "screenshots"):
         (ORIG / d).mkdir(parents=True, exist_ok=True)
-    manifest = {"images": {}, "pages": {}}
+    manifest = {"images": {}}
+    for key, folder, extra in PAGE_SETS:
+        manifest[key] = {}
+        for slug in SLUGS:
+            url = BASE + slug
+            dest = ORIG / folder / f"{name(slug)}.html"
+            if not (desktop_only and folder == "pages"):
+                dest.write_text(dump_dom(url, folder, extra), encoding="utf-8")
+                print("dumped", folder, url)
+            manifest[key][name(slug)] = f"original/{folder}/{name(slug)}.html"
+    if not desktop_only:
+        for slug in SLUGS:
+            url = BASE + slug
+            for size, shot in (("1440,9000", "desktop"), ("390,12000", "phone")):
+                chrome("--hide-scrollbars", "--virtual-time-budget=15000",
+                       f"--window-size={size}",
+                       f"--screenshot={ORIG / 'screenshots' / f'{name(slug)}-{shot}.png'}", url)
+            print("screenshots", url)
     fonts = {}
-    for slug in SLUGS:
-        url = BASE + slug
-        dom = chrome("--virtual-time-budget=8000", "--dump-dom", url).stdout
-        if len(dom.strip()) < 1000:
-            raise SystemExit(f"empty DOM for {url}")
-        page = ORIG / "pages" / f"{name(slug)}.html"
-        page.write_text(dom, encoding="utf-8")
-        manifest["pages"][name(slug)] = f"original/pages/{name(slug)}.html"
-        for m in FONT_RE.findall(html.unescape(dom)):
+    page_files = [p for _, folder, _ in PAGE_SETS for p in sorted((ORIG / folder).glob("*.html"))]
+    for p in page_files:
+        for m in FONT_RE.findall(html.unescape(p.read_text(encoding="utf-8"))):
             fam = m.split(",")[0].strip().strip("'\"")
             if fam and not fam.startswith("var("):
                 fonts[fam] = fonts.get(fam, 0) + 1
-        for size, shot in (("1440,9000", "desktop"), ("390,12000", "phone")):
-            chrome("--hide-scrollbars", "--virtual-time-budget=15000",
-                   f"--window-size={size}",
-                   f"--screenshot={ORIG / 'screenshots' / f'{name(slug)}-{shot}.png'}", url)
-        print("captured", url)
-    for p in (ORIG / "pages").glob("*.html"):
+    for p in page_files:
         for img in sorted(set(IMG_RE.findall(html.unescape(p.read_text(encoding="utf-8"))))):
             if img in manifest["images"]:
                 continue

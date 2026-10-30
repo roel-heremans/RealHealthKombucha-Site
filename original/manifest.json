@@ -43,5 +43,13 @@
     "reseller": "original/pages/reseller.html",
     "contact": "original/pages/contact.html",
     "shop": "original/pages/shop.html"
+  },
+  "pages_desktop": {
+    "home": "original/pages-desktop/home.html",
+    "about": "original/pages-desktop/about.html",
+    "gut-health-101": "original/pages-desktop/gut-health-101.html",
+    "reseller": "original/pages-desktop/reseller.html",
+    "contact": "original/pages-desktop/contact.html",
+    "shop": "original/pages-desktop/shop.html"
   }
 }

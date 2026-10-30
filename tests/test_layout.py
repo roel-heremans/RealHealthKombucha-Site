@@ -86,11 +86,15 @@ def test_nav_on_every_page(built):
 
 
 def test_banners(built):
-    home = built / "index.html"
-    b = region(home.read_text(encoding="utf-8"), "div", "banner")
-    assert "Exciting News! 📣 - Get a free 1 Liter Kombucha Bottle here" in norm("".join(b.text))
+    home = (built / "index.html").read_text(encoding="utf-8")
+    b = region(home, "div", "banner")
     assert not any("here" in t for _, t in b.links), "home banner 'here' must not be a link"
     assert not any("Kombucha Bottle" in t for _, t in b.links)
+    # Live site: long wording on desktop, short wording on phone (verbatim, incl. spacing).
+    desktop = norm("".join(region(home, "span", "banner-desktop").text))
+    phone = norm("".join(region(home, "span", "banner-phone").text))
+    assert desktop + " here" == "Exciting News!📣 - Get a free 1 Liter Kombucha Bottle on your next order click here"
+    assert phone + " here" == "Exciting News! 📣 - Get a free 1 Liter Kombucha Bottle here"
 
     for path, prefix in pages(built)[1:]:
         b = region(path.read_text(encoding="utf-8"), "div", "banner")

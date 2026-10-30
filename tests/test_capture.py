@@ -1,3 +1,4 @@
+import html
 import json
 import re
 from pathlib import Path
@@ -12,12 +13,15 @@ def test_manifest_complete():
     manifest_path = ORIG / "manifest.json"
     assert manifest_path.exists(), "run tools/capture.py and commit original/"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    assert set(manifest["pages"]) == SLUGS
-    for rel in manifest["pages"].values():
-        assert (ROOT / rel).stat().st_size > 0
     urls = set()
-    for page in (ORIG / "pages").glob("*.html"):
-        urls |= set(IMG_RE.findall(page.read_text(encoding="utf-8")))
+    for key, folder in (("pages", "pages"), ("pages_desktop", "pages-desktop")):
+        assert key in manifest, key
+        assert set(manifest[key]) == SLUGS, key
+        for slug, rel in manifest[key].items():
+            assert rel == f"original/{folder}/{slug}.html"
+            assert (ROOT / rel).stat().st_size > 1000, rel
+        for page in (ORIG / folder).glob("*.html"):
+            urls |= set(IMG_RE.findall(html.unescape(page.read_text(encoding="utf-8"))))
     assert urls, "no images found in captured pages"
     for url in urls:
         assert url in manifest["images"], url
@@ -34,3 +38,9 @@ def test_og_image_captured():
     og = "https://framerusercontent.com/assets/OQTRXPkK6HaR7C9GovB4aFa7Eak.jpeg"
     assert og in manifest["images"]
     assert (ROOT / manifest["images"][og]).stat().st_size > 0
+
+
+def test_desktop_dom_is_desktop_variant():
+    """pages-desktop/ must hold Framer's desktop variant (long home banner)."""
+    dom = (ORIG / "pages-desktop" / "home.html").read_text(encoding="utf-8")
+    assert "on your next order" in dom

@@ -66,6 +66,7 @@ body:not(.page-home) .banner-inner { padding-left: 117px; }
   text-overflow: ellipsis;
 }
 .banner a { text-decoration: none; }
+.banner-phone { display: none; }
 .banner-here { color: var(--orange-deep); }
 a.banner-here:hover { text-decoration: underline; }
 .banner-socials { display: flex; gap: 5px; flex-shrink: 0; }
@@ -237,6 +238,8 @@ a.banner-here:hover { text-decoration: underline; }
   body:not(.page-home) .banner-inner { height: 42px; padding: 0 15px; }
   .banner-text { font-family: var(--font-small); font-size: 10px; }
   .banner-socials { display: none; }
+  .banner-desktop { display: none; }
+  .banner-phone { display: inline; }
 
   .header-inner { height: 143px; padding: 0 14px 0 20px; position: relative; }
   .logo { top: -5px; }

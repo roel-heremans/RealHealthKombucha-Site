@@ -14,7 +14,10 @@ CONTENT = {
     ],
     # Top banner. The word "here" is appended by the template; it is highlighted,
     # and wrapped in a link only when the *_link slug is non-empty ("" = no link).
+    # Home banner wording differs per breakpoint on the live site (verbatim):
+    # phone/tablet (<960px) uses banner_home_text, desktop uses banner_home_text_desktop.
     "banner_home_text": "Exciting News! 📣 - Get a free 1 Liter Kombucha Bottle",
+    "banner_home_text_desktop": "Exciting News!📣 - Get a free 1 Liter Kombucha Bottle on your next order click",
     "banner_home_link": "",
     "banner_default_text": "For Hotels & Restaurants - Become a Partner",
     "banner_default_link": "reseller",
