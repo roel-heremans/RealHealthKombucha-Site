@@ -54,6 +54,15 @@ Use the system `python3` (it needs Pillow) and google-chrome. See the script's d
 Pushing to `main` runs `.github/workflows/deploy.yml`: install, `pytest -q` (failing tests block the deploy), build, publish `output/` to
 https://roel-heremans.github.io/RealHealthKombucha-Site/ . While `CONTENT["preview"]` is True every page carries a `noindex` meta tag (this is what keeps the test site out of search engines). The generated `robots.txt` disallows all, but on a project Pages site it is served under `/RealHealthKombucha-Site/robots.txt`, which crawlers do not read, so it gives no protection here; it only matters once the site is on its own domain.
 
+## Deploy (phase 2: live site on STRATO)
+The same workflow has a second job, `strato`, that builds with `SITE_ENV=production` (no `noindex`, robots.txt allows all and lists the sitemap) and uploads `output/` over SFTP with `tools/deploy_strato.py`. It only runs when the repository variable `STRATO_DEPLOY` is `true`.
+
+Settings → Secrets and variables → Actions:
+- secrets `STRATO_HOST`, `STRATO_USER`, `STRATO_PASSWORD` (and `STRATO_PORT` if not 22);
+- variables `STRATO_REMOTE_PATH` (the site's own folder, e.g. `/realhealthkombucha`) and `STRATO_DEPLOY` = `true`.
+
+The webspace can also hold sattva-reset.com, so the script refuses the webspace root and any non-empty folder without its manifest `.rhk-deploy.json`; it uploads only changed files and deletes only files it put there itself. The server's host key must match `tools/strato_known_hosts` (`ssh-keyscan -t ed25519,rsa <host>` if the host ever changes). In STRATO's domain settings, realhealthkombucha.com (and www) point to that folder; MX records stay as they are.
+
 ## Visual review
     python tools/screenshots.py https://roel-heremans.github.io/RealHealthKombucha-Site/
 

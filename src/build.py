@@ -1,8 +1,10 @@
 """
 Generate output/ (7 pages x EN/PT, redirects for old URLs, robots.txt, sitemap.xml).
 Edit src/content.py and run: python src/build.py (from project root)
+SITE_ENV=production builds the live site (indexable); anything else builds the noindex test site.
 """
 import datetime
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -119,8 +121,14 @@ def build(out_dir: Path, content: dict) -> None:
     print(f"Done. Output is in {out_dir}")
 
 
+def content_for_env(environ) -> dict:
+    if environ.get("SITE_ENV") == "production":
+        return {**CONTENT, "preview": False}
+    return CONTENT
+
+
 def main():
-    build(OUT_DIR, CONTENT)
+    build(OUT_DIR, content_for_env(os.environ))
 
 
 if __name__ == "__main__":
