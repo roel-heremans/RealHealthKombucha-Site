@@ -103,17 +103,25 @@ def test_no_unused_large_assets(built):
     assert not unused, unused
 
 
-@pytest.mark.skip(reason="re-enabled in Task 3")
 def test_head_has_favicon_description_and_og(built):
-    for page in sorted(built.rglob("index.html")):
-        text = _read(page)
-        m = re.search(r'<link rel="icon"[^>]*href="([^"]+)"', text)
-        assert m, page
-        assert _resolve(page, m.group(1)).is_file(), (page, m.group(1))
-        d = re.search(r'<meta name="description" content="([^"]+)"', text)
-        assert d and d.group(1).strip(), page
-        assert re.search(r'<meta property="og:title" content="[^"]+"', text), page
-        o = re.search(r'<meta property="og:image" content="([^"]+)"', text)
-        assert o and o.group(1).startswith("https://"), page
-        rel = o.group(1).split("realhealthkombucha.com/", 1)[1]
-        assert (built / rel).is_file(), (page, rel)
+    from content import CONTENT
+    from i18n import LANGS, page_path
+    for page in CONTENT["pages"]:
+        for lang in LANGS:
+            f = built / page_path(page, lang) / "index.html"
+            text = _read(f)
+            m = re.search(r'<link rel="icon"[^>]*href="([^"]+)"', text)
+            assert m, f
+            assert m.group(1).endswith("favicon.png")
+            assert _resolve(f, m.group(1)).is_file(), (f, m.group(1))
+            d = re.search(r'<meta name="description" content="([^"]+)"', text)
+            assert d and d.group(1).strip(), f
+            want = page.get("description", CONTENT["meta_description"])[lang]
+            assert d.group(1) == want.replace("&", "&amp;"), (f, lang)
+            assert re.search(r'<meta property="og:title" content="[^"]+"', text), f
+            assert re.search(r'<meta property="og:description" content="[^"]+"', text), f
+            o = re.search(r'<meta property="og:image" content="([^"]+)"', text)
+            assert o and o.group(1).startswith("https://"), f
+            assert o.group(1).endswith("og.jpg"), f
+            rel = o.group(1).split("realhealthkombucha.com/", 1)[1]
+            assert (built / rel).is_file(), (f, rel)

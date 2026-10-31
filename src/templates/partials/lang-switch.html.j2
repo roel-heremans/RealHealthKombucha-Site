@@ -1,0 +1,7 @@
+<p class="lang-switcher" role="group" aria-label="{{ content.ui.language | t | e }}">
+{%- if lang == "en" -%}
+<span class="lang-current" aria-current="true">EN</span><span class="lang-sep" aria-hidden="true">|</span><a class="lang-switch" href="{{ switch_url }}" hreflang="pt" lang="pt" title="{{ content.ui.switch_title | t | e }}">PT</a>
+{%- else -%}
+<a class="lang-switch" href="{{ switch_url }}" hreflang="en" lang="en" title="{{ content.ui.switch_title | t | e }}">EN</a><span class="lang-sep" aria-hidden="true">|</span><span class="lang-current" aria-current="true">PT</span>
+{%- endif -%}
+</p>

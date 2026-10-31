@@ -74,12 +74,46 @@ CONTENT = {
         "instagram": "https://www.instagram.com/realhealthkombucha/",
         "email": "realhealthkombucha@gmail.com",
         "phone": "+351 913 000 048",
+        "maps": "https://maps.google.com/?q=Caminho+do+Jang%C3%A3o+154,+9360-523+Ponta+do+Sol",
     },
+    "address": "Caminho do Jangão 154, 9360-523 Ponta do Sol, Madeira",
     "review_stats": {"rating": "5.0", "count": 37},
+    # Header navigation (page ids). Home is reached via the logo on desktop and is
+    # listed in the phone menu only.
+    "nav_ids": ["home", "restaurants", "flavours", "story", "gut-health", "contact"],
+    "order_button": {"en": "Order", "pt": "Encomendar"},
+    "review_banner": {
+        "text": {
+            "en": "Leave us a Google review and receive a free kombucha bottle with your next order.",
+            "pt": "Deixe-nos uma avaliação no Google e receba uma garrafa de kombucha grátis na sua próxima encomenda.",
+        },
+        "button": {"en": "Write a review", "pt": "Escrever avaliação"},
+        "qr_alt": {
+            "en": "QR code to write a Google review",
+            "pt": "Código QR para escrever uma avaliação no Google",
+        },
+    },
+    "footer_tagline": {
+        "en": "Raw, vegan, probiotic kombucha, handcrafted in Ponta do Sol, Madeira.",
+        "pt": "Kombucha crua, vegana e probiótica, feita à mão na Ponta do Sol, Madeira.",
+    },
+    # Default <meta name="description"> / og:description; a page may override with "description".
+    "meta_description": {
+        "en": "Raw, vegan, probiotic kombucha brewed in small batches in Ponta do Sol, Madeira. "
+              "Six flavours for restaurants, cafés and home delivery.",
+        "pt": "Kombucha crua, vegana e probiótica, produzida em pequenos lotes na Ponta do Sol, Madeira. "
+              "Seis sabores para restaurantes, cafés e entrega em casa.",
+    },
     # Shared interface labels.
     "ui": {
         "switch_title": {"en": "Ver em português", "pt": "View in English"},
         "menu": {"en": "Menu", "pt": "Menu"},
+        "skip": {"en": "Skip to content", "pt": "Saltar para o conteúdo"},
+        "menu_open": {"en": "Open menu", "pt": "Abrir menu"},
+        "menu_close": {"en": "Close menu", "pt": "Fechar menu"},
+        "review_label": {"en": "Google review", "pt": "Avaliação no Google"},
+        "footer_nav": {"en": "Footer", "pt": "Rodapé"},
+        "language": {"en": "Language", "pt": "Idioma"},
         "redirect_text": {"en": "This page has moved to", "pt": "Esta página mudou para"},
         "rights": {"en": "All rights reserved.", "pt": "Todos os direitos reservados."},
     },

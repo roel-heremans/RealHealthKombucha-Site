@@ -1,20 +1,32 @@
 {% from "partials/icons.html.j2" import icon %}
 <footer class="site-footer">
-  <div class="footer-inner">
-    <ul class="footer-socials">
-      <li><a href="{{ content.links.instagram | e }}" target="_blank" rel="noopener" aria-label="Instagram">{{ icon("instagram") }}</a></li>
-      <li><a href="{{ content.links.whatsapp | e }}" target="_blank" rel="noopener" aria-label="WhatsApp">{{ icon("whatsapp") }}</a></li>
-    </ul>
-    <nav class="footer-nav" aria-label="Footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="footer-logo" href="{{ url('home') }}"><img src="{{ root }}assets/img/logo-light.png" alt="{{ content.site_name | e }}" width="1468" height="956" loading="lazy"></a>
+      <p class="footer-tagline">{{ content.footer_tagline | t | e }}</p>
+    </div>
+    <nav class="footer-nav" aria-label="{{ content.ui.footer_nav | t | e }}">
       <ul>
 {%- for p in content.pages %}
         <li><a href="{{ url(p.id) }}"{% if p.id == page.id %} aria-current="page"{% endif %}>{{ p.nav | t | e }}</a></li>
 {%- endfor %}
       </ul>
     </nav>
-    <p class="footer-contact"><a href="mailto:{{ content.links.email | e }}">{{ content.links.email | e }}</a> · <a href="tel:{{ content.links.phone | replace(' ', '') | e }}">{{ content.links.phone | e }}</a></p>
+    <div class="footer-contact">
+      <ul class="footer-socials">
+        <li><a href="{{ content.links.instagram | e }}" target="_blank" rel="noopener" aria-label="Instagram">{{ icon("instagram") }}</a></li>
+        <li><a href="{{ content.links.whatsapp | e }}" target="_blank" rel="noopener" aria-label="WhatsApp">{{ icon("whatsapp") }}</a></li>
+        <li><a href="mailto:{{ content.links.email | e }}" aria-label="Email">{{ icon("mail") }}</a></li>
+      </ul>
+      <p><a href="mailto:{{ content.links.email | e }}">{{ content.links.email | e }}</a></p>
+      <p><a href="tel:{{ content.links.phone | replace(' ', '') | e }}">{{ content.links.phone | e }}</a></p>
+      <p><a href="{{ content.links.maps | e }}" target="_blank" rel="noopener">{{ content.address | e }}</a></p>
+    </div>
   </div>
-  <div class="footer-bottom">
-    <p>© {{ year }} {{ content.site_name | e }}. {{ content.ui.rights | t | e }}</p>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© {{ year }} {{ content.site_name | e }}</p>
+      {% include "partials/lang-switch.html.j2" %}
+    </div>
   </div>
 </footer>

@@ -4,24 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% if content.preview %}<meta name="robots" content="noindex">
-{% endif %}{% set page_title = page.title | t %}<title>{% if page.id == "home" %}{{ page_title | e }}{% else %}{{ page_title | e }} - {{ content.site_name | e }}{% endif %}</title>
+{% endif %}{% set page_title = page.title | t %}{% set full_title = page_title if page.id == "home" else page_title ~ " - " ~ content.site_name %}{% set description = (page.description or content.meta_description) | t %}<title>{{ full_title | e }}</title>
+<meta name="description" content="{{ description | e }}">
 <link rel="icon" type="image/png" href="{{ root }}assets/img/favicon.png">
 {%- for l in LANGS %}
 <link rel="alternate" hreflang="{{ l }}" href="{{ content.site_url }}{{ page_path(page, l) }}">
 {%- endfor %}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{ content.site_name | e }}">
-<meta property="og:title" content="{{ page_title | e }}">
+<meta property="og:locale" content="{{ 'pt_PT' if lang == 'pt' else 'en_GB' }}">
+<meta property="og:title" content="{{ full_title | e }}">
+<meta property="og:description" content="{{ description | e }}">
 <meta property="og:url" content="{{ content.site_url }}{{ path }}">
+<meta property="og:image" content="{{ content.site_url }}assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="{{ root }}assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ root }}assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ root }}assets/css/styles.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
 <body class="page-{{ page.id }}">
+<a class="skip-link" href="#main">{{ content.ui.skip | t | e }}</a>
+{% include "partials/review-banner.html.j2" %}
 {% include "partials/header.html.j2" %}
-<main>
+<main id="main">
 {% block content %}
-<section class="page-skeleton">
-  <h1>{{ page.title | t | e }}</h1>
+<section class="section section--cream page-skeleton">
+  <div class="container">
+    <h1 class="display">{{ page.title | t | e }}</h1>
+  </div>
 </section>
 {% endblock %}
 </main>
