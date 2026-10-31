@@ -816,6 +816,79 @@ main { display: block; }
   .order-review__qr { display: none; }   /* scanning a QR on the phone it is shown on makes no sense */
 }
 
+/* ── OUR STORY ── */
+.story-hero .hero__media img { object-position: center 35%; }
+.story-hero .display em { display: inline-block; }
+.story-portraits { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.story-portrait:nth-child(2) { margin-top: 64px; }
+.story-portrait img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
+.story-portrait figcaption {
+  margin-top: 12px; font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--forest);
+}
+.story-meet .prose p { font-size: 17px; }
+.water-grid, .benefit-grid { border: 1px solid var(--stone); }
+.water-item, .benefit { padding: 44px 36px 40px; }
+.water-item__num, .benefit__num {
+  display: block; font-family: var(--serif); font-size: 22px; font-style: italic;
+  color: var(--gold); margin-bottom: 24px;
+}
+.water-item .h-card, .benefit .h-card { font-size: 26px; }
+.story-steps { border: 1px solid var(--hairline-dark); }
+.story-process .eyebrow { color: var(--gold); }
+.story-step { padding: 44px 32px 40px; }
+.story-step__num {
+  display: flex; align-items: center; justify-content: center; width: 48px; height: 48px;
+  margin-bottom: 28px; border: 1px solid var(--gold); border-radius: 50%;
+  font-family: var(--serif); font-size: 22px; color: var(--gold); font-variant-numeric: lining-nums;
+}
+.story-step .h-card { font-size: 26px; }
+.badges--dark { margin-top: 56px; }
+.badges--dark li { color: var(--on-dark); }
+.place-list { margin-top: 36px; }
+.place-list li { padding: 20px 0; border-top: 1px solid rgba(26, 26, 24, .12); }
+.place-list__title {
+  font-family: var(--serif); font-size: 24px; font-weight: 400; line-height: 1.25; color: var(--text); margin-bottom: 4px;
+}
+.story-place .btn-row { margin-top: 36px; }
+.story-place__media img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center 88%; }
+
+/* ── GUT HEALTH ── */
+.gut-hero .hero__media img { object-position: center 60%; }
+.gut-benefits .footnote { text-align: center; }
+.gut-cta__text { margin: 24px auto 0; max-width: 560px; }
+.gut-cta .display { font-size: clamp(40px, 4.4vw, 60px); }
+
+/* ── CONTACT ── */
+.contact-hero .hero__media img { object-position: center 45%; }
+.contact-detail__address span { white-space: nowrap; }
+.contact-grid { border: 1px solid var(--stone); }
+.contact-item { display: flex; flex-direction: column; padding: 44px 36px 40px; }
+.contact-item__icon { display: block; width: 32px; height: 32px; margin-bottom: 24px; color: var(--gold); }
+.contact-item__icon svg { width: 100%; height: 100%; fill: currentColor; }
+.contact-item .h-card { font-size: 26px; }
+.contact-item__value { margin-top: 8px; font-size: 14px; overflow-wrap: anywhere; }
+.contact-item__value a { color: var(--forest); }
+.contact-item .btn-row { margin-top: auto; padding-top: 28px; }
+.contact-details { margin-top: 24px; border: 1px solid var(--stone); }
+.contact-detail { padding: 36px; background: var(--off-white); }
+.contact-detail .eyebrow { margin-bottom: 12px; }
+.contact-detail__value, .contact-detail__address {
+  font-family: var(--serif); font-size: 30px; font-weight: 300; font-style: normal;
+  line-height: 1.3; color: var(--text); font-variant-numeric: lining-nums;
+}
+.contact-detail__value a { text-decoration: none; }
+.contact-detail__value a:hover { color: var(--forest); }
+.contact-detail__link { margin-top: 14px; font-size: 14px; }
+
+@media (max-width: 768px) {
+  .story-portraits { gap: 12px; }
+  .story-portrait:nth-child(2) { margin-top: 40px; }
+  .water-item, .benefit, .story-step, .contact-item { padding: 32px 24px; }
+  .contact-detail { padding: 28px 24px; }
+  .contact-detail__value, .contact-detail__address { font-size: 24px; }
+  .badges--dark { margin-top: 40px; }
+}
+
 /* ── REVEAL (opt-in: data-reveal) ── */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }

@@ -735,6 +735,232 @@ CONTENT = {
             "heading": {"en": "Enjoyed it?", "pt": "Gostou?"},
         },
     },
+    # Our story page (spec section 4; pitch slides 2-4). Step 4 says natural flavours are
+    # added: never "juice"/"sumo" and never the flavouring brand. "UMH Pure Gold" as in slide 3.
+    "story": {
+        "hero": {
+            "eyebrow": {"en": "Our story", "pt": "A nossa história"},
+            "heading": {"en": "Meet", "pt": "Conheça o"},
+            "heading_accent": {"en": "Roel & Nina", "pt": "Roel e a Nina"},
+            "lead": {
+                "en": "We are a couple living in Ponta do Sol, Madeira, who believe that what you "
+                      "drink every day should make you feel good.",
+                "pt": "Somos um casal que vive na Ponta do Sol, na Madeira, e acreditamos que aquilo "
+                      "que bebemos todos os dias nos deve fazer sentir bem.",
+            },
+            "image": "assets/img/photos/roel-nina-balcony-bottles.jpg",
+            "alt": {
+                "en": "Roel and Nina smiling on a sunny balcony, each holding a bottle of kombucha",
+                "pt": "O Roel e a Nina a sorrir numa varanda soalheira, cada um com uma garrafa de kombucha",
+            },
+        },
+        "meet": {
+            "eyebrow": {"en": "Two of us", "pt": "Nós os dois"},
+            "heading": {"en": "From our kitchen", "pt": "Da nossa cozinha"},
+            "heading_accent": {"en": "to your table", "pt": "para a sua mesa"},
+            "paragraphs": [
+                {"en": "What started as a home experiment in our kitchen grew into a small-batch "
+                       "kombucha brewery.",
+                 "pt": "O que começou como uma experiência caseira na nossa cozinha transformou-se "
+                       "numa pequena produção artesanal de kombucha."},
+                {"en": "Every bottle is still brewed, flavoured and bottled by the two of us, and "
+                       "delivered personally.",
+                 "pt": "Cada garrafa continua a ser produzida, aromatizada e engarrafada por nós os "
+                       "dois, e entregue pessoalmente."},
+            ],
+            "portraits": [
+                {"image": "assets/img/photos/nina-glass-stone-wall.jpg", "name": "Nina",
+                 "alt": {"en": "Nina smiling with a glass of kombucha in front of a stone wall",
+                         "pt": "A Nina a sorrir com um copo de kombucha junto a um muro de pedra"}},
+                {"image": "assets/img/photos/roel-drinking-fig-tree.jpg", "name": "Roel",
+                 "alt": {"en": "Roel drinking a glass of kombucha under a fig tree",
+                         "pt": "O Roel a beber um copo de kombucha debaixo de uma figueira"}},
+            ],
+        },
+        # Slide 3, three parts.
+        "water": {
+            "eyebrow": {"en": "Where it began", "pt": "Onde tudo começou"},
+            "heading": {"en": "It all started", "pt": "Tudo começou"},
+            "heading_accent": {"en": "with our water", "pt": "com a nossa água"},
+            "items": [
+                {"title": {"en": "We changed our drinking water", "pt": "Mudámos a nossa água"},
+                 "text": {"en": "We installed a drinking-water filter at home, with a UMH Pure Gold "
+                                "fitted after the last filter stage: a gold-plated device with a "
+                                "rock crystal inside. No power, no magnets.",
+                          "pt": "Instalámos um filtro de água em casa, com um UMH Pure Gold "
+                                "colocado depois da última etapa de filtragem: um dispositivo "
+                                "banhado a ouro com um cristal de rocha no interior. Sem "
+                                "eletricidade, sem ímanes."}},
+                {"title": {"en": "We tasted the difference", "pt": "Sentimos a diferença"},
+                 "text": {"en": "Softer, cleaner and fresher. Our tea, coffee and everything we "
+                                "made with it tasted better.",
+                          "pt": "Mais suave, mais limpa e mais fresca. O nosso chá, o café e tudo "
+                                "o que fazíamos com ela ficou com melhor sabor."}},
+                {"title": {"en": "Then came kombucha", "pt": "Depois veio a kombucha"},
+                 "text": {"en": "Kombucha is more than 95% water, so great water makes great "
+                                "kombucha. Friends kept asking for bottles, and Real Health "
+                                "Kombucha was born.",
+                          "pt": "A kombucha tem mais de 95% de água, por isso uma boa água faz uma "
+                                "boa kombucha. Os amigos não paravam de nos pedir garrafas, e "
+                                "assim nasceu a Real Health Kombucha."}},
+            ],
+        },
+        # Slide 4, the four steps.
+        "process": {
+            "eyebrow": {"en": "How we make it", "pt": "Como a fazemos"},
+            "heading": {"en": "From pure water", "pt": "Da água pura"},
+            "heading_accent": {"en": "to living drink", "pt": "à bebida viva"},
+            "steps": [
+                {"title": {"en": "Pure water", "pt": "Água pura"},
+                 "text": {"en": "Filtered drinking water, passed through our UMH Pure Gold device.",
+                          "pt": "Água potável filtrada, que passa pelo nosso dispositivo UMH Pure Gold."}},
+                {"title": {"en": "Green tea brew", "pt": "Infusão de chá verde"},
+                 "text": {"en": "Green tea (Camellia sinensis) steeped and sweetened with raw cane sugar.",
+                          "pt": "Chá verde (Camellia sinensis) em infusão, adoçado com açúcar de cana "
+                                "em bruto."}},
+                {"title": {"en": "Fermentation", "pt": "Fermentação"},
+                 "text": {"en": "The SCOBY culture ferments the tea in glass jars and eats most of the sugar.",
+                          "pt": "A cultura SCOBY fermenta o chá em frascos de vidro e consome a maior "
+                                "parte do açúcar."}},
+                {"title": {"en": "Flavour & bottle", "pt": "Aroma e engarrafamento"},
+                 "text": {"en": "Natural flavours are added, then a second fermentation in the bottle "
+                                "makes it naturally sparkling.",
+                          "pt": "Juntamos aromas naturais e uma segunda fermentação na garrafa "
+                                "torna-a naturalmente efervescente."}},
+            ],
+        },
+        # Slide 2, the four facts.
+        "place": {
+            "eyebrow": {"en": "Ponta do Sol, Madeira", "pt": "Ponta do Sol, Madeira"},
+            "heading": {"en": "Made on the island,", "pt": "Feita na ilha,"},
+            "heading_accent": {"en": "by hand", "pt": "à mão"},
+            "items": [
+                {"title": {"en": "Brewed locally", "pt": "Produzida localmente"},
+                 "text": {"en": "Brewed on the island, in Ponta do Sol.",
+                          "pt": "Produzida na ilha, na Ponta do Sol."}},
+                {"title": {"en": "Small batches, by hand", "pt": "Pequenos lotes, à mão"},
+                 "text": {"en": "Brewed and bottled by Roel & Nina.",
+                          "pt": "Produzida e engarrafada pelo Roel e pela Nina."}},
+                {"title": {"en": "Delivered personally", "pt": "Entregue pessoalmente"},
+                 "text": {"en": "We bring it, and collect your empties.",
+                          "pt": "Somos nós que a levamos, e recolhemos as garrafas vazias."}},
+            ],
+            "image": "assets/img/photos/bottle-terrace-sea-view.jpg",
+            "alt": {
+                "en": "A bottle of golden kombucha on a terrace table under a blue sky, with the sea behind",
+                "pt": "Uma garrafa de kombucha dourada numa mesa de terraço sob um céu azul, com o mar ao fundo",
+            },
+            "flavours": {"en": "Discover our flavours", "pt": "Conheça os nossos sabores"},
+            "order": {"en": "Order", "pt": "Encomendar"},
+        },
+    },
+    # Gut health page (spec section 5; slide 5). Wording only as in the spec; footnote = ui.health_note.
+    "gut_health": {
+        "hero": {
+            "eyebrow": {"en": "Gut health", "pt": "Saúde intestinal"},
+            "heading": {"en": "Fermented tea,", "pt": "Chá fermentado,"},
+            "heading_accent": {"en": "full of life", "pt": "cheio de vida"},
+            "lead": {
+                "en": "Kombucha is fermented tea: raw, unpasteurised and full of live cultures.",
+                "pt": "A kombucha é chá fermentado: crua, não pasteurizada e cheia de culturas vivas.",
+            },
+            "image": "assets/img/photos/three-bottles-terrace.jpg",
+            "alt": {
+                "en": "Three swing-top bottles of golden kombucha on a sunny terrace table",
+                "pt": "Três garrafas de kombucha dourada com tampa mecânica numa mesa de terraço ao sol",
+            },
+        },
+        "benefits": {
+            "eyebrow": {"en": "Why it feels good", "pt": "Porque faz bem"},
+            "heading": {"en": "Six reasons", "pt": "Seis razões"},
+            "heading_accent": {"en": "to drink it", "pt": "para a beber"},
+            "items": [
+                {"title": {"en": "Live cultures", "pt": "Culturas vivas"},
+                 "text": {"en": "Raw and unpasteurised, full of the living bacteria and yeasts from "
+                                "fermentation.",
+                          "pt": "Crua e não pasteurizada, cheia das bactérias e leveduras vivas da "
+                                "fermentação."}},
+                {"title": {"en": "Antioxidants", "pt": "Antioxidantes"},
+                 "text": {"en": "Green tea polyphenols, which research links to protection against "
+                                "cell damage.",
+                          "pt": "Polifenóis do chá verde, que a investigação associa à proteção "
+                                "contra os danos celulares."}},
+                {"title": {"en": "Gut friendly", "pt": "Amiga do intestino"},
+                 "text": {"en": "Studies associate fermented drinks with a more diverse gut flora.",
+                          "pt": "Os estudos associam as bebidas fermentadas a uma flora intestinal "
+                                "mais diversificada."}},
+                {"title": {"en": "Less sugar", "pt": "Menos açúcar"},
+                 "text": {"en": "Most of the sugar is consumed during fermentation. A lighter "
+                                "alternative to soft drinks.",
+                          "pt": "A maior parte do açúcar é consumida durante a fermentação. Uma "
+                                "alternativa mais leve aos refrigerantes."}},
+                {"title": {"en": "Alcohol-free choice", "pt": "Opção sem álcool"},
+                 "text": {"en": "Naturally below 0.5% vol, an adult drink for when you skip "
+                                "alcohol.",
+                          "pt": "Naturalmente abaixo de 0,5% vol, uma bebida adulta para quando "
+                                "não quer álcool."}},
+                {"title": {"en": "Clean & vegan", "pt": "Simples e vegana"},
+                 "text": {"en": "Only water, green tea, cane sugar, kombucha culture and natural "
+                                "flavours.",
+                          "pt": "Apenas água, chá verde, açúcar de cana, cultura de kombucha e "
+                                "aromas naturais."}},
+            ],
+        },
+        "cta": {
+            "eyebrow": {"en": "Taste it", "pt": "Prove"},
+            "heading": {"en": "Find your", "pt": "Encontre o seu"},
+            "heading_accent": {"en": "favourite", "pt": "favorito"},
+            "text": {"en": "Six flavours, brewed in small batches and delivered by us personally.",
+                     "pt": "Seis sabores, produzidos em pequenos lotes e entregues pessoalmente por nós."},
+            "flavours": {"en": "See the flavours", "pt": "Ver os sabores"},
+            "order": {"en": "Order", "pt": "Encomendar"},
+        },
+    },
+    # Contact page (spec section 7). No form and no opening hours.
+    "contact_page": {
+        "hero": {
+            "eyebrow": {"en": "Contact", "pt": "Contacto"},
+            "heading": {"en": "Say", "pt": "Diga"},
+            "heading_accent": {"en": "hello", "pt": "olá"},
+            "lead": {
+                "en": "Questions, an order, or a tasting for your restaurant? Message us the way "
+                      "you like best. We usually reply the same day.",
+                "pt": "Dúvidas, uma encomenda ou uma prova para o seu restaurante? Fale connosco "
+                      "como preferir. Normalmente respondemos no próprio dia.",
+            },
+            "image": "assets/img/photos/crate-delivery-terrace.jpg",
+            "alt": {
+                "en": "A wooden crate of kombucha bottles on a sunny terrace, with greenery behind",
+                "pt": "Uma caixa de madeira com garrafas de kombucha num terraço soalheiro, com vegetação ao fundo",
+            },
+        },
+        "ways": {
+            "eyebrow": {"en": "Get in touch", "pt": "Fale connosco"},
+            "heading": {"en": "Message us,", "pt": "Escreva-nos,"},
+            "heading_accent": {"en": "call or visit", "pt": "ligue ou visite-nos"},
+            "whatsapp": {
+                "title": {"en": "WhatsApp", "pt": "WhatsApp"},
+                "text": {"en": "The quickest way to reach us, and to hear about new batches.",
+                         "pt": "A forma mais rápida de nos contactar e de saber dos novos lotes."},
+                "button": {"en": "Open WhatsApp", "pt": "Abrir o WhatsApp"},
+            },
+            "instagram": {
+                "title": {"en": "Instagram", "pt": "Instagram"},
+                "text": {"en": "Follow us for news, new flavours and life in Ponta do Sol.",
+                         "pt": "Siga-nos para novidades, novos sabores e a vida na Ponta do Sol."},
+                "button": {"en": "Follow us", "pt": "Seguir-nos"},
+            },
+            "email": {
+                "title": {"en": "Email", "pt": "Email"},
+                "text": {"en": "For anything longer, write to us.",
+                         "pt": "Para algo mais longo, escreva-nos."},
+                "button": {"en": "Send an email", "pt": "Enviar email"},
+            },
+            "phone": {"en": "Phone", "pt": "Telefone"},
+            "address": {"en": "Address", "pt": "Morada"},
+            "maps": {"en": "Open in Google Maps", "pt": "Abrir no Google Maps"},
+        },
+    },
     # Shared interface labels.
     "ui": {
         "health_note": {

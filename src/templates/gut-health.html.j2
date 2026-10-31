@@ -1,1 +1,46 @@
 {% extends "base.html.j2" %}
+{% block content %}
+{%- set g = content.gut_health -%}
+
+<section class="hero hero--short gut-hero">
+  <div class="hero__text">
+    <p class="eyebrow">{{ g.hero.eyebrow | t | e }}</p>
+    <h1 class="display display--hero">{{ g.hero.heading | t | e }} <em>{{ g.hero.heading_accent | t | e }}</em></h1>
+    <p class="lead">{{ g.hero.lead | t | e }}</p>
+  </div>
+  <div class="hero__media">
+    <img src="{{ root }}{{ g.hero.image }}" alt="{{ g.hero.alt | t | e }}" width="1000" height="1333" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section section--cream gut-benefits">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ g.benefits.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ g.benefits.heading | t | e }} <em>{{ g.benefits.heading_accent | t | e }}</em></h2>
+    </div>
+    <ul class="grid grid--3 benefit-grid">
+{%- for it in g.benefits["items"] %}
+      <li class="benefit" data-reveal>
+        <span class="benefit__num">{{ "%02d" | format(loop.index) }}</span>
+        <h3 class="h-card">{{ it.title | t | e }}</h3>
+        <p class="body">{{ it.text | t | e }}</p>
+      </li>
+{%- endfor %}
+    </ul>
+    <p class="footnote">{{ content.ui.health_note | t | e }}</p>
+  </div>
+</section>
+
+<section class="section section--stone gut-cta">
+  <div class="container container--narrow center">
+    <p class="eyebrow">{{ g.cta.eyebrow | t | e }}</p>
+    <h2 class="display">{{ g.cta.heading | t | e }} <em>{{ g.cta.heading_accent | t | e }}</em></h2>
+    <p class="lead gut-cta__text">{{ g.cta.text | t | e }}</p>
+    <div class="btn-row center">
+      <a class="btn btn--forest" href="{{ url('flavours') }}">{{ g.cta.flavours | t | e }}</a>
+      <a class="btn btn--outline-dark" href="{{ url('order') }}">{{ g.cta.order | t | e }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

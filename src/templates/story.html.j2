@@ -1,1 +1,107 @@
 {% extends "base.html.j2" %}
+{% block content %}
+{%- set s = content.story -%}
+
+<section class="hero story-hero">
+  <div class="hero__text">
+    <p class="eyebrow">{{ s.hero.eyebrow | t | e }}</p>
+    <h1 class="display display--hero">{{ s.hero.heading | t | e }} <em>{{ s.hero.heading_accent | t | e }}</em></h1>
+    <p class="lead">{{ s.hero.lead | t | e }}</p>
+  </div>
+  <div class="hero__media">
+    <img src="{{ root }}{{ s.hero.image }}" alt="{{ s.hero.alt | t | e }}" width="1000" height="1501" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section section--cream story-meet">
+  <div class="container">
+    <div class="split">
+      <div class="story-portraits">
+{%- for p in s.meet.portraits %}
+        <figure class="story-portrait" data-reveal>
+          <img src="{{ root }}{{ p.image }}" alt="{{ p.alt | t | e }}" width="1000" height="1501" loading="lazy">
+          <figcaption>{{ p.name | e }}</figcaption>
+        </figure>
+{%- endfor %}
+      </div>
+      <div>
+        <p class="eyebrow">{{ s.meet.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ s.meet.heading | t | e }} <em>{{ s.meet.heading_accent | t | e }}</em></h2>
+        <hr class="rule">
+        <div class="prose">
+{%- for para in s.meet.paragraphs %}
+          <p>{{ para | t | e }}</p>
+{%- endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white story-water">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ s.water.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ s.water.heading | t | e }} <em>{{ s.water.heading_accent | t | e }}</em></h2>
+    </div>
+    <ol class="grid grid--3 water-grid">
+{%- for it in s.water["items"] %}
+      <li class="water-item" data-reveal>
+        <span class="water-item__num">{{ "%02d" | format(loop.index) }}</span>
+        <h3 class="h-card">{{ it.title | t | e }}</h3>
+        <p class="body">{{ it.text | t | e }}</p>
+      </li>
+{%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section section--forest story-process">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ s.process.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ s.process.heading | t | e }} <em>{{ s.process.heading_accent | t | e }}</em></h2>
+    </div>
+    <ol class="grid grid--4 story-steps">
+{%- for st in s.process.steps %}
+      <li class="story-step" data-reveal>
+        <span class="story-step__num">{{ loop.index }}</span>
+        <h3 class="h-card">{{ st.title | t | e }}</h3>
+        <p class="body">{{ st.text | t | e }}</p>
+      </li>
+{%- endfor %}
+    </ol>
+    <ul class="badges badges--dark">
+{%- for b in content.flavours_page.badges %}
+      <li>{{ b | t | e }}</li>
+{%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--stone story-place">
+  <div class="container">
+    <div class="split">
+      <div>
+        <p class="eyebrow">{{ s.place.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ s.place.heading | t | e }} <em>{{ s.place.heading_accent | t | e }}</em></h2>
+        <ul class="place-list">
+{%- for it in s.place["items"] %}
+          <li>
+            <h3 class="place-list__title">{{ it.title | t | e }}</h3>
+            <p class="body">{{ it.text | t | e }}</p>
+          </li>
+{%- endfor %}
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn--forest" href="{{ url('flavours') }}">{{ s.place.flavours | t | e }}</a>
+          <a class="btn btn--outline-dark" href="{{ url('order') }}">{{ s.place.order | t | e }}</a>
+        </div>
+      </div>
+      <div class="story-place__media">
+        <img src="{{ root }}{{ s.place.image }}" alt="{{ s.place.alt | t | e }}" width="1000" height="1333" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
