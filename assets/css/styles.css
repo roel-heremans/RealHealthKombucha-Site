@@ -1,4 +1,4 @@
-/* Real Health Kombucha — design system (Sattva style, direction A "Forest").
+/* Real Health Kombucha — design system (Sattva style; colour "M": terracotta-to-orange gradient).
    Type scale, spacing, nav and buttons mirror sattva-reset.com (SattvaReset/output/styles.css).
    Breakpoints: ≤ 1260px / ≤ 1080px compact desktop nav, ≤ 959px phone/tablet menu, ≤ 640px phone. */
 
@@ -23,8 +23,17 @@
 
 /* ── TOKENS ── */
 :root {
-  --forest: #1E3526;
-  --forest-deep: #172A1E;   /* review banner, slightly darker than the header */
+  /* Main dark brand colour. The name "forest" is historical (the first design was
+     green); it is now dark terracotta, used as text colour on light backgrounds and
+     as the fallback under the gradients below. */
+  --forest: #5E2A12;
+  --forest-deep: #4A210E;
+  /* Dark terracotta at the logo (left), warming to orange on the right. The gold
+     logo rays stay on the dark end. Full-width text sections stop at #A4461A so
+     white text stays readable all the way across. */
+  --grad-banner: linear-gradient(100deg, #3E1A0A 0%, #5E2A12 100%);
+  --grad-header: linear-gradient(100deg, #4E220E 0%, #6B2E0F 55%, #8A3A0C 100%);
+  --grad-section: linear-gradient(115deg, #4E220E 0%, #6B2E0F 45%, #A4461A 100%);
   --gold: #C9AA49;
   --off-white: #F8F6F3;
   --stone: #E8E4DE;
@@ -80,7 +89,7 @@ main { display: block; }
 .section--white { background: var(--white); }
 .section--cream { background: var(--off-white); }
 .section--stone { background: var(--stone); }
-.section--forest { background: var(--forest); color: var(--white); }
+.section--forest { background: var(--forest) var(--grad-section); color: var(--white); }
 .section--forest p, .section--forest li { color: var(--on-dark); }
 /* Eyebrows are often <p>; keep them gold over the rule above. */
 .section--forest .eyebrow { color: var(--gold); }
@@ -101,8 +110,10 @@ main { display: block; }
 .grid--3 { grid-template-columns: repeat(3, 1fr); }
 .grid--4 { grid-template-columns: repeat(4, 1fr); }
 .grid > * { background: var(--white); }
-.section--forest .grid { background: var(--hairline-dark); }
-.section--forest .grid > * { background: var(--forest); }
+/* On the gradient the cells stay see-through; the 1px lines come from outlines
+   that meet in the 1px gap. */
+.section--forest .grid { background: transparent; }
+.section--forest .grid > * { background: transparent; outline: 1px solid var(--hairline-dark); }
 /* Open grid with gaps instead of hairlines. */
 .cards { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 
@@ -180,7 +191,7 @@ main { display: block; }
 .text-link:hover { color: var(--gold); }
 
 /* ── REVIEW BANNER ── */
-.review-banner { background: var(--forest-deep); color: var(--on-dark); border-bottom: 1px solid var(--hairline-dark); }
+.review-banner { background: var(--forest-deep) var(--grad-banner); color: var(--on-dark); border-bottom: 1px solid var(--hairline-dark); }
 .review-banner__inner {
   max-width: var(--container); margin: 0 auto; padding: 10px var(--gutter);
   display: flex; align-items: center; justify-content: center; gap: 20px;
@@ -200,7 +211,7 @@ main { display: block; }
 .review-banner__btn:hover { background: var(--gold); color: var(--text); }
 
 /* ── HEADER ── */
-.site-header { background: var(--forest); color: var(--white); position: relative; z-index: 100; }
+.site-header { background: var(--forest) var(--grad-header); color: var(--white); position: relative; z-index: 100; }
 .header-inner {
   display: flex; align-items: center; gap: 32px;
   padding-top: 18px; padding-bottom: 18px;
@@ -242,7 +253,7 @@ main { display: block; }
 .nav-open .menu-toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 /* ── HERO: forest, text left, photo right (approved mockup) ── */
-.hero { background: var(--forest); color: var(--white); display: grid; grid-template-columns: 1fr 1fr; }
+.hero { background: var(--forest) var(--grad-section); color: var(--white); display: grid; grid-template-columns: 1fr 1fr; }
 .hero__text {
   padding: 96px 64px 96px max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
   display: flex; flex-direction: column; justify-content: center;
@@ -256,11 +267,11 @@ main { display: block; }
 /* Full-width sunny photo band; optional caption overlay. */
 .photo-band { position: relative; height: clamp(320px, 42vw, 560px); overflow: hidden; background: var(--forest); }
 /* Never wider than the photo's own pixels (1190px), so it is not upscaled on wide
-   screens; the forest background shows either side. */
+   screens; the dark brand background shows either side. */
 .photo-band img { display: block; width: 100%; max-width: 1190px; height: 100%; margin: 0 auto; object-fit: cover; }
 .photo-band__caption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 48px var(--gutter);
-  background: linear-gradient(to top, rgba(14, 28, 18, .65), rgba(14, 28, 18, 0));
+  background: linear-gradient(to top, rgba(47, 21, 9, .65), rgba(47, 21, 9, 0));
   color: var(--white); font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: clamp(22px, 2.4vw, 32px); text-align: center;
 }
@@ -268,7 +279,7 @@ main { display: block; }
 /* ── CARDS ── */
 .card { background: var(--white); padding: 48px 40px; }
 .card--stone { background: var(--off-white); border-left: 2px solid var(--gold); }
-.card--forest { background: var(--forest); color: var(--white); }
+.card--forest { background: var(--forest) var(--grad-section); color: var(--white); }
 .card--forest .h-card { color: var(--white); }
 .card--forest p, .card--forest li { color: var(--on-dark); }
 .card__eyebrow {
@@ -342,7 +353,7 @@ main { display: block; }
 .section--forest .phone-frame figcaption { color: var(--on-dark); }
 
 /* ── FOOTER ── */
-.site-footer { background: var(--forest); color: var(--on-dark); padding: 80px 0 0; }
+.site-footer { background: var(--forest) var(--grad-header); color: var(--on-dark); padding: 80px 0 0; }
 .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 64px; padding-bottom: 56px; }
 .footer-logo { display: inline-block; }
 .footer-logo img { width: 130px; }
@@ -450,10 +461,10 @@ main { display: block; }
 .flavour-tile { display: block; text-decoration: none; text-align: center; }
 .flavour-tile img {
   width: 100%; aspect-ratio: 520 / 866; object-fit: cover; background: var(--white);
-  box-shadow: 0 10px 26px rgba(30, 53, 38, .10), 0 1px 3px rgba(30, 53, 38, .08);
+  box-shadow: 0 10px 26px rgba(94, 42, 18, .10), 0 1px 3px rgba(94, 42, 18, .08);
   transition: transform .35s ease, box-shadow .35s ease;
 }
-.flavour-tile:hover img { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(30, 53, 38, .16); }
+.flavour-tile:hover img { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(94, 42, 18, .16); }
 .flavour-tile__name {
   display: block; margin-top: 18px; font-size: 11px; font-weight: 500;
   letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: color .2s;
@@ -594,11 +605,11 @@ main { display: block; }
 .rest-month__example { margin-top: 24px; }
 .month {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-  background: var(--hairline-dark); border: 1px solid var(--hairline-dark); max-width: 1080px; margin: 0 auto;
+  background: transparent; border: 1px solid var(--hairline-dark); max-width: 1080px; margin: 0 auto;
 }
 .month__item {
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;
-  padding: 48px 28px 44px; background: var(--forest);
+  padding: 48px 28px 44px; outline: 1px solid var(--hairline-dark);
 }
 .month__label { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--on-dark-muted); }
 .month__num {
@@ -606,7 +617,7 @@ main { display: block; }
   color: var(--white); white-space: nowrap; font-variant-numeric: lining-nums;
 }
 .section--forest .month__calc, .month__calc { font-size: 14px; font-weight: 300; line-height: 1.5; color: var(--on-dark); }
-.month__item--profit { background: #24402E; }
+.month__item--profit { background: rgba(0, 0, 0, .16); }
 .month__item--profit .month__label { color: var(--gold); }
 .month__item--profit .month__num { color: var(--gold); }
 .rest-month__note { max-width: 720px; margin: 36px auto 0; }
@@ -745,7 +756,7 @@ main { display: block; }
 .flavour-card:target { box-shadow: inset 0 0 0 1px var(--gold); }
 .flavour-card__media img {
   width: 100%; aspect-ratio: 520 / 866; object-fit: cover;
-  box-shadow: 0 10px 26px rgba(30, 53, 38, .10), 0 1px 3px rgba(30, 53, 38, .08);
+  box-shadow: 0 10px 26px rgba(94, 42, 18, .10), 0 1px 3px rgba(94, 42, 18, .08);
 }
 .flavour-card__body { align-self: center; }
 .flavour-card__head { display: flex; flex-direction: column; }
