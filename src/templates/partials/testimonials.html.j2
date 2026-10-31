@@ -1,0 +1,18 @@
+{#- "What Our Customers Say" (Home, About, Gut Health 101). -#}
+<section class="testimonials">
+  <div class="container">
+    <h2 class="h2 center" data-reveal>{{ content.testimonials_title | e }}</h2>
+    <ul class="testimonial-list">
+{%- for t in content.testimonials %}
+      <li class="testimonial" data-reveal>
+        <h3 class="h3 testimonial-title">{{ t.title | e }}</h3>
+        <p class="testimonial-quote">{{ t.quote | e }}</p>
+        <div class="testimonial-person">
+          <img src="{{ root }}assets/img/{{ t.image }}" alt="" width="70" height="70" loading="lazy">
+          <span>{{ t.name | e }}</span>
+        </div>
+      </li>
+{%- endfor %}
+    </ul>
+  </div>
+</section>
