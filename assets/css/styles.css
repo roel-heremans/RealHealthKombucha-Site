@@ -612,7 +612,7 @@ main { display: block; }
 .rest-month__note { max-width: 720px; margin: 36px auto 0; }
 
 .rest-band { height: clamp(300px, 36vw, 500px); }
-.rest-band img { max-width: 1000px; object-position: center 50%; }  /* 1000px source */
+.rest-band img { max-width: 1122px; object-position: center 45%; }  /* 1122px source */
 
 /* Ordering app: five points + three steps. */
 .app-points li { padding: 22px 0 22px 28px; border-bottom: 1px solid var(--stone); position: relative; }

@@ -560,10 +560,10 @@ CONTENT = {
             },
         },
         "band": {
-            "image": "assets/img/photos/bottle-terrace-sea-view.jpg",
+            "image": "assets/img/photos/bottles-on-ice.jpg",
             "alt": {
-                "en": "A 1 L bottle of kombucha glowing in the sun on a terrace table above the sea",
-                "pt": "Uma garrafa de 1 L de kombucha a brilhar ao sol numa mesa de terraço sobre o mar",
+                "en": "Bottles of Real Health kombucha scattered over sparkling ice",
+                "pt": "Garrafas de kombucha Real Health espalhadas sobre gelo cintilante",
             },
         },
         "partners": {

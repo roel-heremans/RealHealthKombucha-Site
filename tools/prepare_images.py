@@ -56,6 +56,8 @@ PHOTOS = [
     # Terrace bottle shots.
     ("Bottel01.jpeg", "bottle-in-hand-garden.jpg", 1000, None, 80),
     ("Bottel02.jpeg", "bottle-terrace-sea-view.jpg", 1000, None, 80),
+    # Restaurants band under "a typical month": the 2026-06-08 Instagram post (bottles on ice).
+    ("WhatsApp Image 2026-04-22 at 20.19.36 (1).jpeg", "bottles-on-ice.jpg", 1122, None, 80),
     ("WhatsApp Image 2026-02-03 at 20.46.13 (3).jpeg", "three-bottles-terrace.jpg", 1000, None, 80),
     ("Leave_bottels02.jpeg", "bottles-bougainvillea.jpg", 1000, None, 80),
     # Crate / delivery.
