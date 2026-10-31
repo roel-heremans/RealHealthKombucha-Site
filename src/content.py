@@ -81,6 +81,15 @@ CONTENT = {
         },
     ],
     "testimonials_title": "What Our Customers Say",
+    # ------------------------------------------------------------------ contact
+    "contact_title": "Contact Us",
+    "contact_subtitle": "We are looking forward hearing from you.",
+    "contact_phone": "+351 913 000 048",
+    "contact_hours": "Mon-Fri: 11am - 8pm Sat, Sun: 9am - 10pm",
+    "contact_address": "Caminho do Jangão 154, 9360-523  Ponta do Sol",
+    # Used only when preview is False (phase 2 PHP handler).
+    "contact_form_endpoint": "contact.php",
+    "preview_notice": "Preview \u2014 message not sent",
     # ------------------------------------------------------------------ home
     "home": {
         "hero_title": "Delicious and Nutritious",

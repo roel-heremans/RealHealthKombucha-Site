@@ -72,6 +72,15 @@
     });
   });
 
+  // Contact form on the preview site: don't submit, show the preview notice instead.
+  document.querySelectorAll("form[data-preview]").forEach(function (form) {
+    var status = form.querySelector(".form-status");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (status) status.textContent = status.getAttribute("data-notice") || "";
+    });
+  });
+
   // Opt-in fade-up on scroll: add data-reveal to an element.
   var items = document.querySelectorAll("[data-reveal]");
   if (!("IntersectionObserver" in window)) {
