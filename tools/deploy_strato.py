@@ -86,8 +86,8 @@ def deploy(out_dir: Path) -> None:
     client = paramiko.SSHClient()
     client.load_host_keys(str(KNOWN_HOSTS))
     client.set_missing_host_key_policy(paramiko.RejectPolicy())
-    client.connect(env["STRATO_HOST"], port=int(env.get("STRATO_PORT") or "22"),
-                   username=env["STRATO_USER"], password=env["STRATO_PASSWORD"],
+    client.connect(env["STRATO_HOST"].strip(), port=int(env.get("STRATO_PORT") or "22"),
+                   username=env["STRATO_USER"].strip(), password=env["STRATO_PASSWORD"].rstrip("\r\n"),
                    look_for_keys=False, allow_agent=False)
     sftp = client.open_sftp()
     try:
