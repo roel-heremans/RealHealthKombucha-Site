@@ -861,7 +861,10 @@ main { display: block; }
   font-family: var(--serif); font-size: 24px; font-weight: 400; line-height: 1.25; color: var(--text); margin-bottom: 4px;
 }
 .story-place .btn-row { margin-top: 36px; }
-.story-place__media img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center 88%; }
+/* Two portrait photos side by side. */
+.story-place__media { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.story-place__media img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center 30%; }
+.story-place__media img + img { margin-top: 48px; }
 
 /* ── GUT HEALTH ── */
 .gut-hero .hero__media img { object-position: center 60%; }

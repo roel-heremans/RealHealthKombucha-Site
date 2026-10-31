@@ -55,11 +55,13 @@ PHOTOS = [
     ("WhatsApp Image 2026-02-21 at 20.38.16.jpeg", "roel-glass-garden.jpg", 1000, None, 80),
     # Terrace bottle shots.
     ("Bottel01.jpeg", "bottle-in-hand-garden.jpg", 1000, None, 80),
-    ("Bottel02.jpeg", "bottle-terrace-sea-view.jpg", 1000, None, 80),
     # Restaurants band under "a typical month": the 2026-06-08 Instagram post (bottles on ice).
     ("WhatsApp Image 2026-04-22 at 20.19.36 (1).jpeg", "bottles-on-ice.jpg", 1122, None, 80),
     ("WhatsApp Image 2026-02-03 at 20.46.13 (3).jpeg", "three-bottles-terrace.jpg", 1000, None, 80),
     ("Leave_bottels02.jpeg", "bottles-bougainvillea.jpg", 1000, None, 80),
+    # Our Story "Made on the island" pair (iPhone HEIC originals, 2026-10-31).
+    ("Ice bucket bottles citrus IMG_6791.HEIC", "ice-bucket-bottles-citrus.jpg", 900, None, 80),
+    ("Roel Nina market tent tshirts IMG_6796.HEIC", "roel-nina-market-tent.jpg", 900, None, 80),
     # Crate / delivery.
     ("Kist01.jpeg", "crate-delivery-terrace.jpg", 1000, None, 80),
     ("WhatsApp Image 2026-02-03 at 20.43.22 (2).jpeg", "crate-top-view.jpg", 1000, None, 80),
