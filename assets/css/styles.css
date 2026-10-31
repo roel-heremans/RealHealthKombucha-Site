@@ -2,7 +2,9 @@
    Type scale, spacing, nav and buttons mirror sattva-reset.com (SattvaReset/output/styles.css).
    Breakpoints: ≤ 1260px / ≤ 1080px compact desktop nav, ≤ 959px phone/tablet menu, ≤ 640px phone. */
 
-/* ── FONTS (self-hosted variable fonts, SIL OFL) ── */
+/* ── FONTS (self-hosted variable fonts, SIL Open Font License 1.1 — see ../fonts/OFL.txt) ──
+   Cormorant Garamond: Copyright 2015 The Cormorant Project Authors (github.com/CatharsisFonts/Cormorant)
+   Inter: Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter) */
 @font-face {
   font-family: "Cormorant Garamond";
   font-style: normal; font-weight: 300 500; font-display: swap;
