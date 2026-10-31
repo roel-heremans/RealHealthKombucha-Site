@@ -1,0 +1,17 @@
+{#- Google quotes. Include inside a `with` block:
+      quote_items  list of CONTENT.quotes entries (default: all six)
+      quote_link   true to add the "read all reviews" link (default: true)
+    Quotes stay in their original English; on other languages a note follows the author. -#}
+{%- set items = quote_items if quote_items is defined else content.quotes -%}
+<div class="quotes{% if items | length == 4 or items | length == 2 %} quotes--2{% endif %}">
+{%- for q in items %}
+  <blockquote class="quote" lang="en">
+    <p class="quote__stars" aria-label="{{ content.ui.stars | t | replace('{n}', q.stars | string) | e }}"><span aria-hidden="true">{{ "★" * q.stars }}</span></p>
+    <p class="quote__text">&ldquo;{{ q.text | e }}&rdquo;</p>
+    <footer class="quote__author">{{ q.author | e }}{% if lang != "en" %} <span class="quote__note" lang="{{ lang }}">{{ content.ui.original_language | t | e }}</span>{% endif %}</footer>
+  </blockquote>
+{%- endfor %}
+</div>
+{%- if quote_link is not defined or quote_link %}
+<p class="quotes__more"><a class="text-link" href="{{ content.links.reviews_all | e }}" target="_blank" rel="noopener">{{ content.ui.all_reviews | t | e }} &rarr;</a></p>
+{%- endif %}

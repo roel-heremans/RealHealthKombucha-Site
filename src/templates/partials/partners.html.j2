@@ -1,0 +1,10 @@
+{#- "Already on the menu at" eyebrow + the partner names as text (CONTENT.partners).
+    Include inside any section; it recolours itself on .section--forest. -#}
+<div class="partners__inner">
+  <p class="eyebrow">{{ content.ui.partners_heading | t | e }}</p>
+  <ul class="partners__list">
+{%- for name in content.partners %}
+    <li>{{ name | e }}</li>
+{%- endfor %}
+  </ul>
+</div>

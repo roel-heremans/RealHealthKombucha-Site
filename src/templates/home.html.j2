@@ -1,1 +1,116 @@
 {% extends "base.html.j2" %}
+{% block content %}
+{%- set h = content.home -%}
+{%- set n_partners = content.partners | length | string -%}
+{%- set flavours_url = url('flavours') -%}
+
+<section class="hero home-hero">
+  <div class="hero__text">
+    <p class="eyebrow">{{ h.hero.eyebrow | t | e }}</p>
+    <h1 class="display display--hero">{{ h.hero.heading | t | e }} <em>{{ h.hero.heading_accent | t | e }}</em></h1>
+    <p class="lead">{{ h.hero.lead | t | replace('{partners}', n_partners) | e }}</p>
+    <div class="btn-row">
+      <a class="btn btn--gold" href="{{ url('restaurants') }}">{{ h.hero.primary | t | e }}</a>
+      <a class="btn btn--outline-light" href="{{ url('order') }}">{{ h.hero.secondary | t | e }}</a>
+    </div>
+  </div>
+  <div class="hero__media">
+    <img src="{{ root }}{{ h.hero.image }}" alt="{{ h.hero.alt | t | e }}" width="1535" height="1024" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section--stone home-proof">
+  <div class="container">
+    <ul class="proof">
+      <li><span class="proof__num">{{ content.review_stats.rating | e }} <span class="proof__star" aria-hidden="true">★</span></span><span class="proof__label">{{ h.proof.reviews | t | replace('{count}', content.review_stats.count | string) | e }}</span></li>
+      <li><span class="proof__num">{{ n_partners }}</span><span class="proof__label">{{ h.proof.partners | t | e }}</span></li>
+      <li><span class="proof__num">{{ h.proof.hand | t | e }}</span><span class="proof__label">{{ h.proof.hand_label | t | e }}</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--cream home-paths">
+  <div class="container">
+    <div class="paths">
+      <article class="card card--forest path-card" data-reveal>
+        <p class="card__eyebrow">{{ h.paths.restaurants_eyebrow | t | e }}</p>
+        <h2 class="h-card">{{ h.paths.restaurants_title | t | e }}</h2>
+        <p class="path-card__price"><span class="path-card__upto">{{ h.paths.up_to | t | e }}</span> <span class="card__price num">{{ content.prices.max_profit_per_bottle | eur }}</span></p>
+        <p class="card__note">{{ h.paths.restaurants_price_note | t | e }}</p>
+        <ul class="path-card__highlights">
+{%- for hl in h.paths.highlights %}
+          <li><span class="path-card__hl-num">{{ hl.num | t | e }}</span><span class="path-card__hl-label">{{ hl.label | t | replace('{price}', content.prices.glass_menu_price | eur) | e }}</span></li>
+{%- endfor %}
+        </ul>
+        <p class="body path-card__text">{{ h.paths.restaurants_text | t | e }}</p>
+        <div class="btn-row"><a class="btn btn--gold" href="{{ url('restaurants') }}">{{ h.paths.restaurants_button | t | e }}</a></div>
+      </article>
+      <article class="card path-card" data-reveal>
+        <p class="card__eyebrow">{{ h.paths.home_eyebrow | t | e }}</p>
+        <h2 class="h-card">{{ h.paths.home_title | t | e }}</h2>
+        <dl class="price-list">
+          <div><dt>{{ h.paths.bottle_1l | t | e }}</dt><dd class="num">{{ content.prices.bottle_1l | eur }}</dd></div>
+          <div><dt>{{ h.paths.bottle_270 | t | e }}<span class="price-list__note">{{ h.paths.deposit_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
+        </dl>
+        <p class="body path-card__text">{{ h.paths.home_text | t | e }}</p>
+        <div class="btn-row"><a class="btn btn--forest" href="{{ url('order') }}">{{ h.paths.home_button | t | e }}</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white home-flavours">
+  <div class="container">
+    <div class="section-head section-head--row">
+      <div>
+        <p class="eyebrow">{{ h.flavours.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ h.flavours.heading | t | e }} <em>{{ h.flavours.heading_accent | t | e }}</em></h2>
+      </div>
+      <a class="text-link" href="{{ flavours_url }}">{{ h.flavours.link | t | e }} &rarr;</a>
+    </div>
+    <ul class="flavour-row">
+{%- for f in content.flavours %}
+      <li><a class="flavour-tile" href="{{ flavours_url }}#{{ f.id }}"><img src="{{ root }}{{ f.image }}" alt="{{ f.alt | t | e }}" width="520" height="866" loading="lazy"><span class="flavour-tile__name">{{ f.name | t | e }}</span></a></li>
+{%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<div class="photo-band">
+  <img src="{{ root }}{{ h.band.image }}" alt="{{ h.band.alt | t | e }}" width="1190" height="660" loading="lazy">
+</div>
+
+<section class="section section--cream home-quotes">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">{{ h.quotes.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ h.quotes.heading | t | e }}</h2>
+    </div>
+{%- set picked = [] %}{% for i in h.quotes.pick %}{% set _ = picked.append(content.quotes[i]) %}{% endfor %}
+{%- with quote_items = picked, quote_link = true %}
+{% include "partials/quotes.html.j2" %}
+{%- endwith %}
+  </div>
+</section>
+
+<section class="section section--sm section--stone partners">
+  <div class="container">
+{% include "partials/partners.html.j2" %}
+  </div>
+</section>
+
+<section class="hero hero--short home-cta">
+  <div class="hero__media">
+    <img src="{{ root }}{{ h.cta.image }}" alt="{{ h.cta.alt | t | e }}" width="1000" height="1501" loading="lazy">
+  </div>
+  <div class="hero__text">
+    <p class="eyebrow">{{ h.cta.eyebrow | t | e }}</p>
+    <h2 class="display">{{ h.cta.heading | t | e }}</h2>
+    <p class="lead">{{ h.cta.lead | t | e }}</p>
+    <div class="btn-row">
+      <a class="btn btn--gold" href="{{ url('restaurants') }}">{{ h.cta.button | t | e }}</a>
+      <a class="btn btn--outline-light" href="{{ content.links.whatsapp | e }}" target="_blank" rel="noopener">{{ h.cta.whatsapp | t | e }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
