@@ -883,10 +883,12 @@ CONTENT = {
                 "en": "Kombucha is fermented tea: raw, unpasteurised and full of live cultures.",
                 "pt": "A kombucha é chá fermentado: crua, não pasteurizada e cheia de culturas vivas.",
             },
-            "image": "assets/img/photos/three-bottles-terrace.jpg",
+            "image": "assets/img/photos/gut-health-fermentation-jar.jpg",
             "alt": {
-                "en": "Three swing-top bottles of golden kombucha on a sunny terrace table",
-                "pt": "Três garrafas de kombucha dourada com tampa mecânica numa mesa de terraço ao sol",
+                "en": "A glass jar of brewing kombucha with its live culture on top, next to a glass of "
+                      "sparkling kombucha, ginger, green tea, lemon and mint",
+                "pt": "Um frasco de vidro com kombucha a fermentar e a sua cultura viva por cima, ao lado "
+                      "de um copo de kombucha efervescente, gengibre, chá verde, limão e hortelã",
             },
         },
         "benefits": {

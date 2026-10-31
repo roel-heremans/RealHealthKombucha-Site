@@ -865,7 +865,7 @@ main { display: block; }
 .story-place__media img { width: 100%; max-width: 460px; margin: 0 auto; aspect-ratio: 3 / 4; object-fit: cover; }
 
 /* ── GUT HEALTH ── */
-.gut-hero .hero__media img { object-position: center 60%; }
+.gut-hero .hero__media img { object-position: 30% center; }  /* keeps the jar in view */
 .gut-benefits .footnote { text-align: center; }
 .gut-cta__text { margin: 24px auto 0; max-width: 560px; }
 .gut-cta .display { font-size: clamp(40px, 4.4vw, 60px); }

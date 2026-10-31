@@ -57,8 +57,9 @@ PHOTOS = [
     ("Bottel01.jpeg", "bottle-in-hand-garden.jpg", 1000, None, 80),
     # Restaurants band under "a typical month": the 2026-06-08 Instagram post (bottles on ice).
     ("WhatsApp Image 2026-04-22 at 20.19.36 (1).jpeg", "bottles-on-ice.jpg", 1122, None, 80),
-    ("WhatsApp Image 2026-02-03 at 20.46.13 (3).jpeg", "three-bottles-terrace.jpg", 1000, None, 80),
     ("Leave_bottels02.jpeg", "bottles-bougainvillea.jpg", 1000, None, 80),
+    # Gut health hero: generated from scratch (Higgsfield gpt_image_2_5, 2026-10-31), no people or labels.
+    ("Gut health fermentation jar (Higgsfield 2026-10-31).png", "gut-health-fermentation-jar.jpg", 1168, None, 82),
     # Our Story "Made on the island" (iPhone HEIC original, 2026-10-31).
     ("Ice bucket bottles citrus IMG_6791.HEIC", "ice-bucket-bottles-citrus.jpg", 900, None, 80),
     # Crate / delivery.
