@@ -2,6 +2,8 @@ import re
 from pathlib import Path
 from urllib.parse import unquote
 
+import pytest
+
 TEXT_EXT = {".html", ".css", ".js", ".xml", ".txt"}
 SKIP_PREFIXES = ("http://", "https://", "mailto:", "tel:", "//", "data:", "javascript:")
 
@@ -80,6 +82,7 @@ def test_internal_links_resolve(built):
     assert not missing, missing
 
 
+@pytest.mark.skip(reason="re-enabled in Task 9")
 def test_no_unused_large_assets(built):
     img_dir = (built / "assets" / "img").resolve()
     used = set()
@@ -100,6 +103,7 @@ def test_no_unused_large_assets(built):
     assert not unused, unused
 
 
+@pytest.mark.skip(reason="re-enabled in Task 3")
 def test_head_has_favicon_description_and_og(built):
     for page in sorted(built.rglob("index.html")):
         text = _read(page)

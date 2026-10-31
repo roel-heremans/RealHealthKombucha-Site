@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={{ target_url }}">
+<link rel="canonical" href="{{ canonical }}">
+<link rel="icon" type="image/png" href="{{ root }}assets/img/favicon.png">
+<title>{{ content.site_name | e }}</title>
+</head>
+<body>
+<p>{{ content.ui.redirect_text | t | e }} <a href="{{ target_url }}">{{ canonical }}</a>.</p>
+</body>
+</html>

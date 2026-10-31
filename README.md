@@ -17,6 +17,8 @@ Edit copy and prices in `src/content.py`, templates in `src/templates/`.
 ## Changing content
 Ask for, or make, a change in `src/content.py` (copy, prices, links, contact details) or the templates in `src/templates/`. Then rebuild and run the tests.
 
+The site is bilingual: English at `/…`, European Portuguese at `/pt/…`. Every visible text in `src/content.py` is a `{"en": "...", "pt": "..."}` pair; always fill in both (a test fails if one is missing or empty). Pages are listed in `CONTENT["pages"]` (id, template, EN/PT slug, title, nav label); old URLs such as `/shop/` are kept working through `CONTENT["redirects"]`.
+
 ## Preview locally
     ./build-output.sh && python -m http.server -d output 8000    # http://localhost:8000/
 
