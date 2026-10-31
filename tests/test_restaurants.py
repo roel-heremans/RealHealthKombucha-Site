@@ -171,14 +171,13 @@ def test_app_section_points_and_steps(built, lang):
     for point in APP_POINTS[lang]:
         assert point in text, point
     assert len(re.findall(r'class="step"', sec)) == 3
-    assert "phone-frame" not in sec          # no screens yet -> no empty frames
     assert SIGNUP in H.unescape(sec)
 
 
 def test_app_screens_render_when_present(tmp_path):
     content = copy.deepcopy(CONTENT)
     content["restaurants"]["app_screens"] = [
-        {"image": "assets/img/photos/crate-top-view.jpg",
+        {"image": {"en": "assets/img/photos/crate-top-view.jpg", "pt": "assets/img/photos/crate-top-view.jpg"},
          "caption": {"en": "New order, pre-filled", "pt": "Nova encomenda, pré-preenchida"}},
     ]
     build(tmp_path / "o", content)
@@ -187,6 +186,30 @@ def test_app_screens_render_when_present(tmp_path):
         sec = _section(html, "rest-app")
         assert sec.count('class="phone-frame"') == 1
         assert caption in _text(sec)
+
+
+@LANGS
+def test_app_screens_shown(built, lang):
+    """Real orders-app screens (Task 8): one phone frame per screen, the image for the page
+    language (the app itself in EN or PT), caption in the page language, files exist and are small."""
+    f, html = _page(built, lang)
+    sec = _section(html, "rest-app")
+    screens = CONTENT["restaurants"]["app_screens"]
+    assert len(screens) >= 3
+    frames = re.findall(r'<figure class="phone-frame">(.*?)</figure>', sec, re.S)
+    assert len(frames) == len(screens)
+    other = "pt" if lang == "en" else "en"
+    for s, fr in zip(screens, frames):
+        img = s["image"][lang]
+        assert img.startswith("assets/img/app/") and img.endswith(".png")
+        assert img != s["image"][other]
+        src = H.unescape(re.search(r'<img [^>]*src="([^"]+)"', fr).group(1))
+        assert src.endswith(img), src
+        target = (f.parent / src).resolve()
+        assert target.is_file(), src
+        assert target.stat().st_size < 250_000, src
+        assert s["caption"][lang] in _text(fr)
+        assert H.unescape(re.search(r'alt="([^"]*)"', fr).group(1)) == s["caption"][lang]
 
 
 @LANGS

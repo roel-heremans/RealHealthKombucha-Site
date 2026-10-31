@@ -1,0 +1,71 @@
+{
+  "_note": "Made-up sample data for the orders-app screenshots. No real customers. Prices: 1 L EUR 8.00; 270 ml EUR 3.50 + EUR 1 deposit.",
+  "user": { "uid": "demo-cafe-uid", "email": "hello@demo-cafe.example" },
+  "collections": {
+    "settings": {
+      "app": {
+        "reciboHeader": "OUT - Kombucha Produto",
+        "sizes": [
+          { "id": "1L", "label": "1 L", "price": 8, "deposit": 0 },
+          { "id": "270ml", "label": "270 ml", "price": 3.5, "deposit": 1 }
+        ]
+      }
+    },
+    "flavours": {
+      "f-ginger": { "name": "Ginger" },
+      "f-wild-orange": { "name": "Wild Orange" },
+      "f-lime": { "name": "Lime" },
+      "f-green-mandarine": { "name": "Green Mandarine" },
+      "f-metabolic-boost": { "name": "Metabolic Boost" },
+      "f-lemon-turmeric": { "name": "Lemon & Turmeric" }
+    },
+    "customers": {
+      "c-demo-cafe": { "name": "Demo Café", "type": "restaurant", "uid": "demo-cafe-uid", "email": "hello@demo-cafe.example" }
+    },
+    "signups": {},
+    "orders": {
+      "o-4": {
+        "customerId": "c-demo-cafe", "customerUid": "demo-cafe-uid", "status": "requested",
+        "createdAt": { "seconds": 1793350800 }, "preferredDate": "2026-11-03", "note": "",
+        "items": [
+          { "sizeId": "1L", "flavourId": "f-ginger", "quantity": 4 },
+          { "sizeId": "1L", "flavourId": "f-wild-orange", "quantity": 4 },
+          { "sizeId": "270ml", "flavourId": "f-metabolic-boost", "quantity": 12 },
+          { "sizeId": "270ml", "flavourId": "f-lime", "quantity": 12 }
+        ]
+      },
+      "o-3": {
+        "customerId": "c-demo-cafe", "customerUid": "demo-cafe-uid", "status": "delivered",
+        "createdAt": { "seconds": 1792141200 }, "preferredDate": "2026-10-20", "note": "",
+        "items": [
+          { "sizeId": "1L", "flavourId": "f-ginger", "quantity": 4 },
+          { "sizeId": "1L", "flavourId": "f-green-mandarine", "quantity": 2 },
+          { "sizeId": "270ml", "flavourId": "f-metabolic-boost", "quantity": 12 }
+        ]
+      },
+      "o-2": {
+        "customerId": "c-demo-cafe", "customerUid": "demo-cafe-uid", "status": "delivered",
+        "createdAt": { "seconds": 1790931600 }, "preferredDate": "2026-10-06", "note": "",
+        "items": [
+          { "sizeId": "1L", "flavourId": "f-wild-orange", "quantity": 4 },
+          { "sizeId": "1L", "flavourId": "f-lemon-turmeric", "quantity": 2 },
+          { "sizeId": "270ml", "flavourId": "f-lime", "quantity": 12 }
+        ]
+      },
+      "o-1": {
+        "customerId": "c-demo-cafe", "customerUid": "demo-cafe-uid", "status": "delivered",
+        "createdAt": { "seconds": 1789722000 }, "preferredDate": "", "note": "",
+        "items": [
+          { "sizeId": "1L", "flavourId": "f-ginger", "quantity": 6 },
+          { "sizeId": "270ml", "flavourId": "f-wild-orange", "quantity": 12 },
+          { "sizeId": "270ml", "flavourId": "f-green-mandarine", "quantity": 12 }
+        ]
+      }
+    },
+    "recibos": {
+      "r-2026-09": { "customerId": "c-demo-cafe", "customerUid": "demo-cafe-uid", "monthKey": "2026-09", "fileName": "recibo-demo-cafe-2026-09.pdf", "size": 41230 },
+      "r-2026-08": { "customerId": "c-demo-cafe", "customerUid": "demo-cafe-uid", "monthKey": "2026-08", "fileName": "recibo-demo-cafe-2026-08.pdf", "size": 40870 },
+      "r-2026-07": { "customerId": "c-demo-cafe", "customerUid": "demo-cafe-uid", "monthKey": "2026-07", "fileName": "recibo-demo-cafe-2026-07.pdf", "size": 41012 }
+    }
+  }
+}

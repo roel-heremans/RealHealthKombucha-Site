@@ -509,9 +509,19 @@ CONTENT = {
                           "pt": "Funciona em qualquer telemóvel: adicione-a ao ecrã principal."},
             "button": {"en": "Create your account", "pt": "Criar a sua conta"},
         },
-        # Real app screenshots (Task 8): [{"image": "assets/img/app/<name>.png",
-        # "caption": {"en": .., "pt": ..}}]. Empty = the app section shows points + steps only.
-        "app_screens": [],
+        # Real orders-app screenshots (tools/app_screens/make_screens.py: the app's own code with
+        # sample data, no real customers), the app shown in the page language.
+        "app_screens": [
+            {"image": {"en": "assets/img/app/signup-en.png", "pt": "assets/img/app/signup-pt.png"},
+             "caption": {"en": "Create your account",
+                         "pt": "Crie a sua conta"}},
+            {"image": {"en": "assets/img/app/new-order-en.png", "pt": "assets/img/app/new-order-pt.png"},
+             "caption": {"en": "New order, pre-filled with your last one",
+                         "pt": "Última encomenda já preenchida"}},
+            {"image": {"en": "assets/img/app/history-en.png", "pt": "assets/img/app/history-pt.png"},
+             "caption": {"en": "Your orders and recibos verdes",
+                         "pt": "As suas encomendas e recibos verdes"}},
+        ],
         # Slide 13.
         "delivery": {
             "eyebrow": {"en": "Delivery & service", "pt": "Entrega e serviço"},
