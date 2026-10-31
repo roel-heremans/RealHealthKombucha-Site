@@ -647,7 +647,7 @@ main { display: block; }
 /* Partners + quotes. */
 .rest-partners__quotes { margin-top: 96px; padding-top: 88px; border-top: 1px solid rgba(26, 26, 24, .12); }
 .rest-partners__quotes .section-head { margin-bottom: 56px; }
-.rest-cta .hero__media img { object-position: center 78%; }
+.rest-cta .hero__media img { object-position: center 40%; }  /* keeps both faces in view */
 .rest-cta__email { margin-top: 28px; font-size: 14px; font-weight: 300; color: var(--on-dark-muted); }
 .rest-cta__email .text-link { color: var(--white); }
 .rest-cta__email .text-link:hover { color: var(--gold); }
@@ -668,6 +668,7 @@ main { display: block; }
 @media (max-width: 959px) {
   .rest-hero .hero__media { aspect-ratio: 1 / 1; }
   .rest-hero .hero__media img { object-position: center 42%; }
+  .hero--short.rest-cta .hero__media { aspect-ratio: 3 / 4; }  /* whole photo, so no cut-off faces */
 }
 @media (max-width: 860px) {
   .month { grid-template-columns: 1fr; max-width: 520px; }
