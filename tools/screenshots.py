@@ -64,8 +64,15 @@ def chrome(*args, timeout=180):
                           timeout=timeout)
 
 
+# Screenshots only: show fade-in ([data-reveal]) content at once. In a page-tall
+# iframe the IntersectionObserver sometimes fires after Chrome has captured.
+SHOW_REVEALED = ("<style>[data-reveal]{opacity:1!important;transform:none!important;"
+                 "transition:none!important}</style>")
+
+
 def host_file(page_html, url, width, height, measure):
-    page_html = page_html.replace("<head>", f'<head><base href="{url}">', 1)
+    extra = "" if measure else SHOW_REVEALED
+    page_html = page_html.replace("<head>", f'<head><base href="{url}">{extra}', 1)
     host = ('<!doctype html><html><body style="margin:0;background:#fff">'
             f'<iframe id=f style="display:block;width:{width}px;height:{height}px;border:0" '
             f'srcdoc="{H.escape(page_html, quote=True)}"></iframe>'
@@ -119,7 +126,7 @@ def main(base):
                 if m["sw"] > width:
                     problems.append(f"{name} @390: horizontal scroll ({m['sw']} > {width})")
             target = shots / f"{name}-{kind}.png"
-            screenshot(page_html, url, width, min(m["h"] + 40, 16000), target)
+            screenshot(page_html, url, width, min(m["h"], 16000), target)
             figs.append(f"<figure><figcaption>{kind} {width}px</figcaption>"
                         f"<a href='shots/{target.name}'><img src='shots/{target.name}' loading=lazy></a></figure>")
         rows.append(f"<h2>{name}</h2><p><a href='{url}'>{url}</a></p><div class=r>{''.join(figs)}</div>")

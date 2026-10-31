@@ -278,6 +278,7 @@ main { display: block; }
   color: var(--text); margin-bottom: 6px; font-variant-numeric: lining-nums;
 }
 .card--forest .card__price { color: var(--white); }
+.card--forest .card__eyebrow { color: var(--gold); }
 .card__note { font-size: 13px; font-weight: 300; color: var(--muted); }
 .card--forest .card__note { color: var(--on-dark-muted); }
 .card .btn-row { margin-top: 32px; }
