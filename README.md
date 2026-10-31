@@ -22,7 +22,7 @@ Ask for, or make, a change in `src/content.py` (copy, prices, links, contact det
 
 ## Deploy (phase 1: GitHub Pages test site)
 Pushing to `main` runs `.github/workflows/deploy.yml`: install, `pytest -q` (failing tests block the deploy), build, publish `output/` to
-https://roel-heremans.github.io/RealHealthKombucha-Site/ . While `CONTENT["preview"]` is True every page is noindex, `robots.txt` disallows all, and the contact form does not send.
+https://roel-heremans.github.io/RealHealthKombucha-Site/ . While `CONTENT["preview"]` is True every page carries a `noindex` meta tag (this is what keeps the test site out of search engines) and the contact form does not send. The generated `robots.txt` disallows all, but on a project Pages site it is served under `/RealHealthKombucha-Site/robots.txt`, which crawlers do not read, so it gives no protection here; it only matters once the site is on its own domain.
 
 ## Visual review
     python tools/screenshots.py https://roel-heremans.github.io/RealHealthKombucha-Site/

@@ -4,8 +4,15 @@ CONTENT = {
     "preview": True,
     "site_name": "Real Health Kombucha",
     "site_url": "https://www.realhealthkombucha.com/",
+    # Meta description and Open Graph defaults (verbatim from the live site head).
+    "meta_description": (
+        "Our kombucha is non-artificial, high quality, natural, and authentic, ensuring it is "
+        "beneficial to the body. These values guide every step of our brewing process, from "
+        "selecting ingredients to the final product."
+    ),
+    "og_image_default": "assets/img/favicon.png",
     "pages": [
-        {"slug": "", "template": "home.html.j2", "title": "HOME - Real Health Kombucha Madeira", "nav_label": "Home"},
+        {"slug": "", "template": "home.html.j2", "title": "HOME - Real Health Kombucha Madeira", "nav_label": "Home", "og_image": "assets/img/og-home.jpg"},
         {"slug": "about", "template": "about.html.j2", "title": "About - Real Health Kombucha Madeira", "nav_label": "About"},
         {"slug": "gut-health-101", "template": "gut-health-101.html.j2", "title": "Gut Health 101 - Real Health Kombucha Madeira", "nav_label": "Gut Health 101"},
         {"slug": "reseller", "template": "reseller.html.j2", "title": "Reseller Program - Real Health Kombucha Madeira", "nav_label": "Reseller"},

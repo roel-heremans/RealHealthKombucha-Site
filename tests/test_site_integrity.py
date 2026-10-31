@@ -88,9 +88,28 @@ def test_no_unused_large_assets(built):
             t = _resolve(p, ref)
             if t is not None:
                 used.add(t)
+        # Absolute og:image URLs (site_url + path) also count as a use.
+        if p.suffix == ".html":
+            for m in re.finditer(r'content="https://www\.realhealthkombucha\.com/(assets/[^"]+)"', _read(p)):
+                used.add((built / m.group(1)).resolve())
     unused = [
         str(f.relative_to(built))
         for f in sorted(img_dir.rglob("*"))
         if f.is_file() and f.resolve() not in used
     ]
     assert not unused, unused
+
+
+def test_head_has_favicon_description_and_og(built):
+    for page in sorted(built.rglob("index.html")):
+        text = _read(page)
+        m = re.search(r'<link rel="icon"[^>]*href="([^"]+)"', text)
+        assert m, page
+        assert _resolve(page, m.group(1)).is_file(), (page, m.group(1))
+        d = re.search(r'<meta name="description" content="([^"]+)"', text)
+        assert d and d.group(1).strip(), page
+        assert re.search(r'<meta property="og:title" content="[^"]+"', text), page
+        o = re.search(r'<meta property="og:image" content="([^"]+)"', text)
+        assert o and o.group(1).startswith("https://"), page
+        rel = o.group(1).split("realhealthkombucha.com/", 1)[1]
+        assert (built / rel).is_file(), (page, rel)

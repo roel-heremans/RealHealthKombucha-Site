@@ -676,7 +676,7 @@ a.banner-here:hover { text-decoration: underline; }
   .value-card img { aspect-ratio: 330 / 349; border-radius: 8px; }
   .value-card .h3 { margin-top: 40px; }
   .place { padding: 0; }
-  .place-card { width: calc(100% - 2 * 24px); min-height: 480px; padding: 40px 24px; }
+  .place-card { width: calc(100% - 2 * 24px); min-height: 700px; padding: 40px 24px; }
   .place-card p { font-size: 18px; line-height: 26px; }
 
   .page-gut-health-101 .page-hero { padding-bottom: 72px; }
@@ -778,7 +778,7 @@ a.banner-here:hover { text-decoration: underline; }
   .contact-title { font-size: 52px; }
   .contact-sub { margin-top: 22px; }
   .contact-form-wrap { padding: 60px 50px 0; }
-  .contact-info { padding: 40px 0; }
+  .contact-info { padding: 40px 24px; }
   .contact-info-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; transform: none; }
   .contact-info .lead, .contact-phone { margin-top: 12px; }
 }

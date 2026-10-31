@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% if content.preview %}<meta name="robots" content="noindex">
 {% endif %}<title>{{ page.title }}</title>
+<link rel="icon" type="image/png" href="{{ root }}assets/img/favicon.png">
+<meta name="description" content="{{ content.meta_description | e }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ content.site_name | e }}">
+<meta property="og:title" content="{{ page.title | e }}">
+<meta property="og:description" content="{{ content.meta_description | e }}">
+<meta property="og:image" content="{{ content.site_url }}{{ page.og_image or content.og_image_default }}">
+<meta property="og:url" content="{{ content.site_url }}{{ page.slug ~ '/' if page.slug else '' }}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400&family=DM+Sans:wght@400;500;700&family=Figtree:wght@400;600&family=Inter:wght@400;500;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap">
