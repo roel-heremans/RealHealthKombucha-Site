@@ -611,8 +611,9 @@ main { display: block; }
 .month__item--profit .month__num { color: var(--gold); }
 .rest-month__note { max-width: 720px; margin: 36px auto 0; }
 
-.rest-band { height: clamp(300px, 36vw, 500px); }
-.rest-band img { max-width: 1122px; object-position: center 45%; }  /* 1122px source */
+/* Taller than other bands so the centre bottle shows from cap to label. */
+.rest-band { height: clamp(320px, 50vw, 680px); }
+.rest-band img { max-width: 1122px; object-position: center 40%; }  /* 1122px source */
 
 /* Ordering app: five points + three steps. */
 .app-points li { padding: 22px 0 22px 28px; border-bottom: 1px solid var(--stone); position: relative; }
