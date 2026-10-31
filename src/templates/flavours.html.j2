@@ -70,8 +70,8 @@
           <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_270_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
         </dl>
         <div class="btn-row">
-          <a class="btn btn--forest" href="{{ url('order') }}">{{ fp.sizes.order | t | e }}</a>
-          <a class="btn btn--outline-dark" href="{{ url('restaurants') }}">{{ fp.sizes.restaurants | t | e }}</a>
+          <a class="btn btn--gold" href="{{ url('order') }}">{{ fp.sizes.order | t | e }}</a>
+          <a class="btn btn--gold" href="{{ url('restaurants') }}">{{ fp.sizes.restaurants | t | e }}</a>
         </div>
       </div>
     </div>

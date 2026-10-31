@@ -171,15 +171,9 @@ main { display: block; }
   cursor: pointer; background: none; transition: background .22s, color .22s, border-color .22s;
 }
 .btn--gold { background: var(--gold); border-color: var(--gold); color: var(--text); }
-.btn--gold:hover { background: transparent; color: var(--gold); }
-.section--cream .btn--gold:hover, .section--white .btn--gold:hover,
-.section--stone .btn--gold:hover { color: var(--text); border-color: var(--text); }
-.btn--outline-light { border-color: rgba(255, 255, 255, .5); color: var(--white); }
-.btn--outline-light:hover { background: var(--gold); border-color: var(--gold); color: var(--text); }
-.btn--forest { background: var(--forest); border-color: var(--forest); color: var(--white); }
-.btn--forest:hover { background: transparent; color: var(--forest); }
-.btn--outline-dark { border-color: var(--text); color: var(--text); }
-.btn--outline-dark:hover { background: var(--gold); border-color: var(--gold); color: var(--text); }
+/* Every button is gold. Hover: outline in dark text on light backgrounds, in gold on the green ones. */
+.btn--gold:hover { background: transparent; color: var(--text); border-color: var(--text); }
+:is(.site-header, .hero, .section--forest, .card--forest, .site-footer) .btn--gold:hover { color: var(--gold); border-color: var(--gold); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 44px; }
 .btn-row.center { justify-content: center; }
 .text-link {
@@ -225,8 +219,9 @@ main { display: block; }
 .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--gold); }
 .site-nav .nav-home { display: none; }  /* the logo is the home link on desktop */
 .header-order { padding: 10px 22px; white-space: nowrap; }
-.header-order[aria-current="page"] { border-color: var(--gold); color: var(--gold); }
-.header-order[aria-current="page"]:hover { color: var(--text); }
+/* On the Order page itself the header button is shown as a gold outline ("you are here"). */
+.header-order[aria-current="page"] { background: transparent; border-color: var(--gold); color: var(--gold); }
+.header-order[aria-current="page"]:hover { background: var(--gold); color: var(--text); }
 
 .lang-switcher {
   display: flex; align-items: center; gap: 8px; flex-shrink: 0;

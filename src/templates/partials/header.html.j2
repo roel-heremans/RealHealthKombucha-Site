@@ -11,7 +11,7 @@
 {%- endfor %}
         </ul>
       </nav>
-      <a class="header-order btn btn--outline-light" href="{{ url('order') }}"{% if page.id == "order" %} aria-current="page"{% endif %}>{{ content.order_button | t | e }}</a>
+      <a class="header-order btn btn--gold" href="{{ url('order') }}"{% if page.id == "order" %} aria-current="page"{% endif %}>{{ content.order_button | t | e }}</a>
     </div>
     {% include "partials/lang-switch.html.j2" %}
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="{{ content.ui.menu_open | t | e }}" data-label-open="{{ content.ui.menu_open | t | e }}" data-label-close="{{ content.ui.menu_close | t | e }}"><span></span><span></span><span></span></button>

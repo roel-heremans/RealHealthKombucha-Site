@@ -11,7 +11,7 @@
     <p class="lead">{{ h.hero.lead | t | replace('{partners}', n_partners) | e }}</p>
     <div class="btn-row">
       <a class="btn btn--gold" href="{{ url('restaurants') }}">{{ h.hero.primary | t | e }}</a>
-      <a class="btn btn--outline-light" href="{{ url('order') }}">{{ h.hero.secondary | t | e }}</a>
+      <a class="btn btn--gold" href="{{ url('order') }}">{{ h.hero.secondary | t | e }}</a>
     </div>
   </div>
   <div class="hero__media">
@@ -53,7 +53,7 @@
           <div><dt>{{ h.paths.bottle_270 | t | e }}<span class="price-list__note">{{ h.paths.deposit_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
         </dl>
         <p class="body path-card__text">{{ h.paths.home_text | t | e }}</p>
-        <div class="btn-row"><a class="btn btn--forest" href="{{ url('order') }}">{{ h.paths.home_button | t | e }}</a></div>
+        <div class="btn-row"><a class="btn btn--gold" href="{{ url('order') }}">{{ h.paths.home_button | t | e }}</a></div>
       </article>
     </div>
   </div>
@@ -109,7 +109,7 @@
     <p class="lead">{{ h.cta.lead | t | e }}</p>
     <div class="btn-row">
       <a class="btn btn--gold" href="{{ url('restaurants') }}">{{ h.cta.button | t | e }}</a>
-      <a class="btn btn--outline-light" href="{{ content.links.whatsapp_chat | e }}" target="_blank" rel="noopener">{{ h.cta.whatsapp | t | e }}</a>
+      <a class="btn btn--gold" href="{{ content.links.whatsapp_chat | e }}" target="_blank" rel="noopener">{{ h.cta.whatsapp | t | e }}</a>
     </div>
   </div>
 </section>
