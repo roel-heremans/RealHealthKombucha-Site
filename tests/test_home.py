@@ -129,6 +129,7 @@ def test_two_paths(built, lang):
     # Slide 10 highlights on the restaurant card.
     assert "72%" in _text(rest) and eur(5.7, lang) in _text(rest)
     assert ("2.5×" if lang == "en" else "2,5×") in _text(rest)
+    assert ("up to" if lang == "en" else "até") in _text(rest)
     r_href = re.search(r'<a[^>]*href="([^"]+)"', rest).group(1)
     h_href = re.search(r'<a[^>]*href="([^"]+)"', home).group(1)
     assert _target(f, r_href) == _page_file(built, "restaurants", lang)
@@ -191,8 +192,9 @@ def test_closing_cta(built, lang):
     if lang == "en":
         assert "Put Real Health Kombucha on your menu" in _text(cta)
     assert HOME["cta"]["heading"][lang] in _text(cta)
-    href = re.search(r'<a[^>]*class="btn[^"]*"[^>]*href="([^"]+)"', cta).group(1)
-    assert _target(f, href) == _page_file(built, "restaurants", lang)
+    hrefs = re.findall(r'<a[^>]*class="btn[^"]*"[^>]*href="([^"]+)"', cta)
+    assert _target(f, hrefs[0]) == _page_file(built, "restaurants", lang)
+    assert hrefs[1] == CONTENT["links"]["whatsapp_chat"] == "https://wa.me/351913000048"
 
 
 def test_pt_home_has_no_english_section_copy(built):

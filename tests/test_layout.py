@@ -118,7 +118,7 @@ def test_footer_contents(built, lang):
         f = _file(built, page_id, lang)
         footer = _section(f.read_text(), "footer", "site-footer")
         assert f'href="{LINKS["instagram"]}"' in footer
-        assert f'href="{LINKS["whatsapp"]}"' in footer
+        assert f'href="{LINKS["whatsapp_chat"]}"' in footer
         assert f'href="mailto:{LINKS["email"]}"' in footer
         assert f"© {year} Real Health Kombucha" in footer
         assert CONTENT["footer_tagline"][lang] in footer

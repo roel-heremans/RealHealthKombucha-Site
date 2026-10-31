@@ -1,6 +1,7 @@
 """Build every image the site uses into assets/img/ from Roel's source folders.
 
-Usage:  python tools/prepare_images.py
+Usage:  python tools/prepare_images.py [photo-target.jpg ...]
+        (no arguments: build everything; with names: rebuild only those photos)
 
 Sources (read-only, never written):
   ~/Documents/PersonalRepos/Kombucha/assets/01_images      photos
@@ -39,7 +40,10 @@ PHOTOS = [
     # AI product scenes (Roel's own campaign images). The 04_21_06 scene has an
     # "Original" bottle on the far right; the crop keeps only the six flavours.
     ("ChatGPT Image Jun 30, 2026, 04_21_06 PM.png", "six-flavours-coast-lineup.jpg", 1190, "1190x660+0+272", 82),
-    ("ChatGPT Image Jun 30, 2026, 04_27_12 PM.png", "roel-nina-tasting-box-coast.jpg", 1535, None, 82),
+    # Home hero: the bottom crop drops the baked-in caption strip (the tagline is
+    # already printed on the box). The poster logo at the top sits level with
+    # both faces, so it cannot be cropped off without cutting heads.
+    ("ChatGPT Image Jun 30, 2026, 04_27_12 PM.png", "roel-nina-tasting-box-coast.jpg", 1535, "1535x928+0+0", 82),
     ("ChatGPT Image Jun 30, 2026, 04_43_48 PM.png", "roel-nina-six-pack-coast.jpg", 1086, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_54_14 PM.png", "six-flavours-sunset-coast.jpg", 1086, None, 82),
     # Roel & Nina portraits (2026-02-21 series, no hot-tub shots).
@@ -203,7 +207,16 @@ def build_qr() -> Path:
     return out
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    """Build everything, or only the photos whose target names are passed."""
+    only = set(argv or [])
+    if only:
+        rows = [row for row in PHOTOS if row[1] in only]
+        if len(rows) != len(only):
+            raise SystemExit(f"unknown photo target(s): {sorted(only - {r[1] for r in rows})}")
+        for p in (build_photo(*row) for row in rows):
+            print(f"{p.relative_to(ROOT)}  {p.stat().st_size // 1024} KB")
+        return 0
     produced = build_logos()
     produced.append(build_qr())
     produced += [build_label(*row) for row in LABELS]
@@ -215,4 +228,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))

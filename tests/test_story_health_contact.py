@@ -22,12 +22,16 @@ HEALTH_NOTE = {
     "pt": "Com base em investigação publicada sobre kombucha e alimentos fermentados. "
           "Não é uma alegação médica.",
 }
+WHATSAPP_CHAT = "https://wa.me/351913000048"
+WHATSAPP_GROUP = "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R"
+MAPS = "https://www.google.com/maps/search/?api=1&query=32.693336%2C-17.083575"   # the house
 CONTACT_HREFS = [
-    "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R",
+    WHATSAPP_CHAT,
+    WHATSAPP_GROUP,
     "https://www.instagram.com/realhealthkombucha/",
     "mailto:realhealthkombucha@gmail.com",
     "tel:+351913000048",
-    "https://maps.google.com/?q=Caminho+do+Jang%C3%A3o+154,+9360-523+Ponta+do+Sol",
+    MAPS,
 ]
 
 
@@ -169,6 +173,28 @@ def test_contact_external_links_open_new_tab(built, lang):
         if href.startswith("http"):
             tags = re.findall(rf'<a[^>]*href="{re.escape(H.escape(href))}"[^>]*>', main)
             assert tags and all('target="_blank"' in a and 'rel="noopener"' in a for a in tags), href
+
+
+@LANGS
+def test_contact_whatsapp_chat_primary_group_for_news(built, lang):
+    main = _main(_page(built, "contact", lang))
+    gold = re.search(r'<a class="btn btn--gold"[^>]*href="([^"]+)"', main)
+    assert gold and H.unescape(gold.group(1)) == WHATSAPP_CHAT
+    group = re.search(rf'<a[^>]*href="{re.escape(WHATSAPP_GROUP)}"[^>]*>(.*?)</a>', main, re.S)
+    assert group and _text(group.group(1)).startswith(
+        "WhatsApp group: news & new batches" if lang == "en" else "Grupo WhatsApp: novidades e novos lotes")
+
+
+def test_contact_maps_link_is_house_coordinates(built):
+    assert CONTENT["links"]["maps"] == MAPS
+    for lang in ("en", "pt"):
+        assert f'href="{H.escape(MAPS)}"' in _page(built, "contact", lang)
+
+
+def test_pt_contact_heading_does_not_break_at_hyphen(built):
+    h2 = re.search(r'<section class="section section--white contact-ways">.*?<h2[^>]*>(.*?)</h2>',
+                   _page(built, "contact", "pt"), re.S).group(1)
+    assert "visite\u2011nos" in h2 and "visite-nos" not in h2
 
 
 # ── All three ──

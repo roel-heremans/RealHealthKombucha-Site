@@ -70,11 +70,14 @@ CONTENT = {
     "links": {
         "review": "https://search.google.com/local/writereview?placeid=ChIJtYnk8XlZYAwRhT9_o66JcHE",
         "signup": "https://roel-heremans.github.io/kombucha-orders-app/?signup",
+        # Direct chat with Roel's number: every "order" / "talk to us" / "message us" button.
+        "whatsapp_chat": "https://wa.me/351913000048",
+        # Group invite: news & new batches only (Contact page and footer).
         "whatsapp": "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R",
         "instagram": "https://www.instagram.com/realhealthkombucha/",
         "email": "realhealthkombucha@gmail.com",
         "phone": "+351 913 000 048",
-        "maps": "https://maps.google.com/?q=Caminho+do+Jang%C3%A3o+154,+9360-523+Ponta+do+Sol",
+        "maps": "https://www.google.com/maps/search/?api=1&query=32.693336%2C-17.083575",  # the house
         # All Google reviews (business listing on Google Maps).
         "reviews_all": "https://www.google.com/maps/search/?api=1&query=Real+Health+Kombucha"
                        "&query_place_id=ChIJtYnk8XlZYAwRhT9_o66JcHE",
@@ -239,8 +242,8 @@ CONTENT = {
                  "label": {"en": "margin on a 200 ml glass at {price}",
                            "pt": "de margem num copo de 200 ml a {price}"}},
                 {"num": {"en": "2.5×", "pt": "2,5×"},
-                 "label": {"en": "your money back on every bottle",
-                           "pt": "o seu investimento de volta, em cada garrafa"}},
+                 "label": {"en": "your money back per bottle, at {price} per 200 ml glass",
+                           "pt": "o seu investimento de volta por garrafa, a {price} por copo de 200 ml"}},
             ],
             "restaurants_text": {
                 "en": "Five glasses from every bottle, reordering in one tap, and personal "
@@ -318,13 +321,15 @@ CONTENT = {
                       "Sol, entregue por nós e encomendada em segundos pelo telemóvel.",
             },
             "primary": {"en": "Become a partner", "pt": "Torne-se parceiro"},
+            "up_to": {"en": "up to", "pt": "até"},
             "whatsapp": {"en": "Talk to us on WhatsApp", "pt": "Fale connosco no WhatsApp"},
             # Key figures under the buttons. "{max}" = prices.max_profit_per_bottle,
             # "{partners}" = number of partners.
             "facts": [
-                {"num": "{max}",
+                # "up_to" marks a best-case figure (200 ml glasses at glass_menu_price).
+                {"num": "{max}", "up_to": True,
                  "label": {"en": "profit per 1 L bottle", "pt": "de lucro por garrafa de 1 L"}},
-                {"num": "72%",
+                {"num": "72%", "up_to": True,
                  "label": {"en": "margin by the glass", "pt": "de margem a copo"}},
                 {"num": "{partners}",
                  "label": {"en": "restaurants & cafés already serve it",
@@ -401,8 +406,8 @@ CONTENT = {
                  "label": {"en": "margin at {price} per 200 ml glass",
                            "pt": "de margem a {price} por copo de 200 ml"}},
                 {"num": "{multiple}×",
-                 "label": {"en": "your money back on every bottle",
-                           "pt": "o seu investimento de volta, em cada garrafa"}},
+                 "label": {"en": "your money back per bottle, at {price} per 200 ml glass",
+                           "pt": "o seu investimento de volta por garrafa, a {price} por copo de 200 ml"}},
             ],
             "tip_label": {"en": "Tip", "pt": "Dica"},
             "tip": {
@@ -614,7 +619,7 @@ CONTENT = {
         "badges": [
             {"en": "Raw & unpasteurised", "pt": "Crua e não pasteurizada"},
             {"en": "Live cultures", "pt": "Culturas vivas"},
-            {"en": "Naturally sparkling", "pt": "Naturalmente gaseificada"},
+            {"en": "Naturally sparkling", "pt": "Naturalmente efervescente"},
             {"en": "Vegan", "pt": "Vegana"},
             {"en": "< 0.5% vol", "pt": "< 0,5% vol"},
         ],
@@ -637,6 +642,8 @@ CONTENT = {
             "heading_accent": {"en": "every flavour", "pt": "todos os sabores"},
             "bottle_1l": {"en": "1 L bottle", "pt": "Garrafa de 1 L"},
             "bottle_1l_note": {"en": "For serving by the glass", "pt": "Para servir ao copo"},
+            # Order page wording for the same bottle (home customers, not restaurants).
+            "bottle_1l_note_order": {"en": "Great for sharing", "pt": "Ideal para partilhar"},
             "bottle_270": {"en": "270 ml bottle", "pt": "Garrafa de 270 ml"},
             "bottle_270_note": {"en": "+ {deposit} deposit, refunded when you return the bottle",
                                 "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
@@ -947,12 +954,15 @@ CONTENT = {
         "ways": {
             "eyebrow": {"en": "Get in touch", "pt": "Fale connosco"},
             "heading": {"en": "Message us,", "pt": "Escreva-nos,"},
-            "heading_accent": {"en": "call or visit", "pt": "ligue ou visite-nos"},
+            # U+2011 (non-breaking hyphen): "visite-nos" never breaks at the hyphen.
+            "heading_accent": {"en": "call or visit", "pt": "ligue ou visite\u2011nos"},
             "whatsapp": {
                 "title": {"en": "WhatsApp", "pt": "WhatsApp"},
-                "text": {"en": "The quickest way to reach us, and to hear about new batches.",
-                         "pt": "A forma mais rápida de nos contactar e de saber dos novos lotes."},
+                "text": {"en": "The quickest way to reach us: message us directly.",
+                         "pt": "A forma mais rápida de nos contactar: escreva-nos diretamente."},
                 "button": {"en": "Open WhatsApp", "pt": "Abrir o WhatsApp"},
+                "group": {"en": "WhatsApp group: news & new batches",
+                          "pt": "Grupo WhatsApp: novidades e novos lotes"},
             },
             "instagram": {
                 "title": {"en": "Instagram", "pt": "Instagram"},

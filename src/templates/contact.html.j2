@@ -27,7 +27,8 @@
         <span class="contact-item__icon">{{ icon("whatsapp") }}</span>
         <h3 class="h-card">{{ w.whatsapp.title | t | e }}</h3>
         <p class="body">{{ w.whatsapp.text | t | e }}</p>
-        <div class="btn-row"><a class="btn btn--gold" href="{{ links.whatsapp | e }}" target="_blank" rel="noopener">{{ w.whatsapp.button | t | e }}</a></div>
+        <div class="btn-row"><a class="btn btn--gold" href="{{ links.whatsapp_chat | e }}" target="_blank" rel="noopener">{{ w.whatsapp.button | t | e }}</a></div>
+        <p class="contact-item__group"><a class="text-link" href="{{ links.whatsapp | e }}" target="_blank" rel="noopener">{{ w.whatsapp.group | t | e }}&nbsp;&rarr;</a></p>
       </li>
       <li class="contact-item" data-reveal>
         <span class="contact-item__icon">{{ icon("instagram") }}</span>

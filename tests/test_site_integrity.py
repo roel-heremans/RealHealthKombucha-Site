@@ -135,3 +135,18 @@ def test_integrity_scan_covers_all_pages_and_redirects(built):
     want |= {(built / old / "index.html").resolve() for old in CONTENT["redirects"]}
     assert len(want) == 14 + 4
     assert want <= scanned, want - scanned
+
+
+def test_whatsapp_group_only_on_contact(built):
+    """Order / talk-to-us buttons open a direct chat (wa.me); the group invite is
+    linked only from the Contact pages, labelled as news & new batches."""
+    group = "chat.whatsapp.com"
+    pages_with_group = []
+    for page in sorted(built.rglob("index.html")):
+        html = _read(page)
+        for tag in re.findall(r'<a\b[^>]*class="btn[^"]*"[^>]*>', html):
+            assert group not in tag, (page, tag)
+        if group in html:
+            pages_with_group.append(page.relative_to(built).as_posix())
+    assert sorted(pages_with_group) == ["contact/index.html", "pt/contacto/index.html"], pages_with_group
+    assert any("wa.me/351913000048" in _read(p) for p in built.rglob("order/index.html"))

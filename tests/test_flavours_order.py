@@ -16,7 +16,8 @@ from orders import order_mailto
 PAGES = {p["id"]: p for p in CONTENT["pages"]}
 NBSP = " "
 SIGNUP = "https://roel-heremans.github.io/kombucha-orders-app/?signup"
-WHATSAPP = "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R"
+WHATSAPP = "https://wa.me/351913000048"   # direct chat; the group invite is Contact-only
+WHATSAPP_GROUP = "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R"
 REVIEW = "https://search.google.com/local/writereview?placeid=ChIJtYnk8XlZYAwRhT9_o66JcHE"
 LANGS = pytest.mark.parametrize("lang", ["en", "pt"])
 
@@ -142,6 +143,8 @@ def test_flavours_badges_sizes_and_footnote(built, lang):
     text = _text(_main(html))
     assert ("< 0.5% vol" if lang == "en" else "< 0,5% vol") in text
     assert ("Vegan" if lang == "en" else "Vegana") in text
+    assert ("Naturally sparkling" if lang == "en" else "Naturalmente efervescente") in text
+    assert "gaseificada" not in text
     sizes = _text(_section(html, "flavours-sizes"))
     assert fmt("€8.00", lang) in sizes and fmt("€3.50", lang) in sizes and fmt("€1", lang) in sizes
     assert "1 L" in sizes and "270 ml" in sizes
@@ -180,6 +183,9 @@ def test_order_mailto_round_trips(lang):
 @LANGS
 def test_order_prices(built, lang):
     text = _text(_section(_page(built, "order", lang), "order-prices"))
+    # The 1 L note on the Order page is for home customers; the restaurant wording stays on Flavours.
+    assert ("Great for sharing" if lang == "en" else "Ideal para partilhar") in text
+    assert ("by the glass" if lang == "en" else "ao copo") not in text
     assert fmt("€8.00", lang) in text and fmt("€3.50", lang) in text and fmt("€1", lang) in text
     assert "1 L" in text and "270 ml" in text
 
@@ -191,6 +197,7 @@ def test_order_how_to(built, lang):
     assert SIGNUP in hrefs
     assert WHATSAPP in hrefs
     assert order_mailto(lang) in hrefs
+    assert WHATSAPP_GROUP not in _page(built, "order", lang)   # orders go to the chat, not the group
     mail = next(h for h in hrefs if h.startswith("mailto:"))
     subject = urllib.parse.parse_qs(urllib.parse.urlsplit(mail).query)["subject"][0]
     assert subject == SUBJECT[lang]

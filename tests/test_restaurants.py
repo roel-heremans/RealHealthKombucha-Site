@@ -18,7 +18,8 @@ NBSP = " "
 PARTNERS = ["Sun Spot", "Palm Spot", "Koa Spot", "Vegan World", "Casa Velha do Palheiro",
             "Casa Velha Tea House", "Balancal", "Buddha & Sakura"]
 SIGNUP = "https://roel-heremans.github.io/kombucha-orders-app/?signup"
-WHATSAPP = "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R"
+WHATSAPP = "https://wa.me/351913000048"   # direct chat; the group invite is Contact-only
+WHATSAPP_GROUP = "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R"
 
 # Spec section 2.3 (slide 10), EN formatting, in order.
 GLASS_ROWS = [
@@ -103,6 +104,8 @@ def test_bottle_table_exact(built, lang):
     text = _text(sec)
     assert fmt("€3.50", lang) in text and fmt("€1", lang) in text   # €3.50 + €1 deposit
     assert f"{fmt('€5.00', lang)}–{fmt('€5.70', lang)}" in text      # price it at €5.00–€5.70
+    heading = _text(re.search(r"<h2[^>]*>(.*?)</h2>", sec, re.S).group(1))
+    assert fmt("€5.00", lang) in heading, heading                     # two decimals, like the rest
 
 
 @LANGS
@@ -125,6 +128,7 @@ def test_hero_ctas(built, lang):
     primary = re.search(r'<a class="btn btn--gold"[^>]*href="([^"]+)"', hero)
     assert primary and H.unescape(primary.group(1)) == SIGNUP
     assert f'href="{WHATSAPP}"' in hero
+    assert WHATSAPP_GROUP not in hero
     head = _text(re.search(r"<h1[^>]*>(.*?)</h1>", hero, re.S).group(1))
     assert head == ("Kombucha that pays off on your menu" if lang == "en"
                     else "Kombucha que compensa no seu menu")
@@ -136,6 +140,7 @@ def test_closing_cta_signup_whatsapp_email(built, lang):
     cta = _section(html, "rest-cta")
     assert f'href="{H.escape(SIGNUP)}"' in cta or f'href="{SIGNUP}"' in cta
     assert f'href="{WHATSAPP}"' in cta
+    assert WHATSAPP_GROUP not in cta
     assert 'href="mailto:realhealthkombucha@gmail.com' in cta
 
 
@@ -270,3 +275,20 @@ def test_highlight_figures_tied_to_glass_table():
     assert multiple == 2.5 == r["money_back_multiple"]
     assert home[1]["num"] == {"en": f"{multiple}×", "pt": f"{multiple}×".replace(".", ",")}
     assert row["per_bottle"] == CONTENT["prices"]["max_profit_per_bottle"]
+
+
+@LANGS
+def test_hero_facts_say_up_to(built, lang):
+    """The best-case figures (200 ml glasses at €5.70) are never shown as unconditional."""
+    _, html = _page(built, lang)
+    facts = re.findall(r"<li>(.*?)</li>", _section(html, "rest-hero").split('class="rest-facts"')[1], re.S)
+    facts = [_text(f) for f in facts]
+    up = "up to" if lang == "en" else "até"
+    assert facts[0] == f"{up} {fmt('€20.50', lang)} " + (
+        "profit per 1 L bottle" if lang == "en" else "de lucro por garrafa de 1 L"), facts[0]
+    assert facts[1] == f"{up} 72% " + ("margin by the glass" if lang == "en" else "de margem a copo"), facts[1]
+    assert not facts[2].startswith(up)       # partner count is a plain fact
+    # The money-back multiple is tied to the 200 ml glass price it assumes.
+    text = _text(_section(html, "rest-glass"))
+    assert (f"at {fmt('€5.70', lang)} per 200 ml glass" if lang == "en"
+            else f"a {fmt('€5.70', lang)} por copo de 200 ml") in text

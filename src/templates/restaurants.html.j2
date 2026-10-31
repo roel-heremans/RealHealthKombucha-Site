@@ -7,7 +7,7 @@
 {%- set max_profit = prices.max_profit_per_bottle | eur -%}
 {%- set glass_price = prices.glass_menu_price | eur -%}
 {%- set signup = content.links.signup | e -%}
-{%- set whatsapp = content.links.whatsapp | e -%}
+{%- set whatsapp = content.links.whatsapp_chat | e -%}
 
 <section class="hero rest-hero">
   <div class="hero__text">
@@ -20,7 +20,7 @@
     </div>
     <ul class="rest-facts">
 {%- for f in r.hero.facts %}
-      <li><span class="rest-facts__num">{{ f.num | replace('{max}', max_profit) | replace('{partners}', n_partners) | e }}</span><span class="rest-facts__label">{{ f.label | t | e }}</span></li>
+      <li><span class="rest-facts__num">{% if f.up_to %}<span class="rest-facts__upto">{{ r.hero.up_to | t | e }}</span> {% else %}<span class="rest-facts__upto" aria-hidden="true">&nbsp;</span>{% endif %}{{ f.num | replace('{max}', max_profit) | replace('{partners}', n_partners) | e }}</span><span class="rest-facts__label">{{ f.label | t | e }}</span></li>
 {%- endfor %}
     </ul>
   </div>
@@ -89,7 +89,7 @@
     <div class="split rest-bottles__split">
       <div>
         <p class="eyebrow">{{ r.bottles.eyebrow | t | e }}</p>
-        <h2 class="h-section">{{ r.bottles.heading | t | e }} <em>{{ r.bottles.heading_accent | t | replace('{price}', r.bottle_price_range[0] | eur(0)) | e }}</em></h2>
+        <h2 class="h-section">{{ r.bottles.heading | t | e }} <em>{{ r.bottles.heading_accent | t | replace('{price}', r.bottle_price_range[0] | eur) | e }}</em></h2>
         <div class="rest-bottles__facts">
           <p class="rest-bottles__pay">{{ r.bottles.pay | t | replace('{price}', prices.bottle_270 | eur) | e }}</p>
           <p class="body">{{ r.bottles.deposit | t | replace('{deposit}', prices.deposit | eur(0)) | e }}</p>
