@@ -63,3 +63,10 @@ def test_local_manifest_hashes_build(built):
     assert "assets/img/logo-light.png" in files
     assert all(len(h) == 64 for h in files.values())
     assert MANIFEST not in files
+
+
+def test_htaccess_only_on_live_build(built, built_preview_off):
+    assert not (built / ".htaccess").exists()
+    rules = (built_preview_off / ".htaccess").read_text()
+    assert "RewriteRule ^(.*)$ https://www.realhealthkombucha.com/$1 [R=301,L]" in rules
+    assert "%{HTTPS} !=on" in rules
