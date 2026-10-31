@@ -43,7 +43,7 @@ PHOTOS = [
     # Home hero: remake of the 04_27_12 poster with Roel's real face and without
     # the poster logo (Higgsfield, 2026-10-31). Used uncropped; Roel wanted the
     # slogan at the bottom kept.
-    ("Hero Roel Nina tasting box v5 (Higgsfield 2026-10-31).png", "roel-nina-tasting-box-coast.jpg", 1535, None, 82),
+    ("Hero Roel Nina tasting box v5 (Higgsfield 2026-10-31).png", "roel-nina-tasting-box-coast-v2.jpg", 1535, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_43_48 PM.png", "roel-nina-six-pack-coast.jpg", 1086, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_54_14 PM.png", "six-flavours-sunset-coast.jpg", 1086, None, 82),
     # Roel & Nina portraits (2026-02-21 series, no hot-tub shots).
