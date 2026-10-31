@@ -1,7 +1,6 @@
 {%- set rb = content.review_banner -%}
 <aside class="review-banner" aria-label="{{ content.ui.review_label | t | e }}">
   <div class="review-banner__inner">
-    <img class="review-banner__qr" src="{{ root }}assets/img/review-qr.svg" alt="{{ rb.qr_alt | t | e }}" width="44" height="44">
     <p class="review-banner__text">{{ rb.text | t | e }}</p>
     <a class="review-banner__btn" href="{{ content.links.review | e }}" target="_blank" rel="noopener">{{ rb.button | t | e }}<span aria-hidden="true"> &rarr;</span></a>
   </div>

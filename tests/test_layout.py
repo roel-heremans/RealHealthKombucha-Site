@@ -40,9 +40,8 @@ def test_review_banner_on_every_page(built, lang):
         assert m.group(1) == LINKS["review"].replace("&", "&amp;") or m.group(1) == LINKS["review"]
         a_tag = m.group(0)
         assert 'target="_blank"' in a_tag and 'rel="noopener"' in a_tag
-        qr = re.search(r'<img[^>]*src="([^"]*review-qr\.svg)"', banner)
-        assert qr, (page_id, lang)
-        assert _target(f, qr.group(1)).is_file()
+        # No QR code in the slim banner (it stays on the Order page).
+        assert "review-qr" not in banner, (page_id, lang)
         # Banner comes before the header.
         assert html.index('class="review-banner') < html.index('class="site-header')
 
