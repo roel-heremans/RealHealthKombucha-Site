@@ -214,7 +214,7 @@ CONTENT = {
             },
             "primary": {"en": "For restaurants", "pt": "Para restaurantes"},
             "secondary": {"en": "Order for home", "pt": "Encomendar para casa"},
-            "image": "assets/img/photos/roel-nina-tasting-box-coast-v3.jpg",
+            "image": "assets/img/photos/roel-nina-tasting-box-coast-v4.jpg",
             "alt": {
                 "en": "Roel and Nina raising glasses of kombucha behind a box of six bottles, "
                       "on a sunny terrace above the sea",

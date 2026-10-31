@@ -41,10 +41,11 @@ PHOTOS = [
     # "Original" bottle on the far right; the crop keeps only the six flavours.
     ("ChatGPT Image Jun 30, 2026, 04_21_06 PM.png", "six-flavours-coast-lineup.jpg", 1190, "1190x660+0+272", 82),
     # Home hero: remake of the 04_27_12 poster without the poster logo; Roel's
-    # face comes from his trained Higgsfield Soul ID (version "w4", 2026-10-31).
+    # face comes from his trained Higgsfield Soul ID (version "w4", 2026-10-31),
+    # then fixed: no half-hidden sixth bottle, lime off the box edge, readable labels.
     # Used uncropped; Roel wanted the slogan at the bottom kept. The file name
     # changes with each new version so browsers do not show a cached copy.
-    ("Hero Roel Nina tasting box w4 (Higgsfield Soul 2026-10-31).png", "roel-nina-tasting-box-coast-v3.jpg", 1535, None, 82),
+    ("Hero Roel Nina tasting box w4 fixed (Higgsfield 2026-10-31).png", "roel-nina-tasting-box-coast-v4.jpg", 1535, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_43_48 PM.png", "roel-nina-six-pack-coast.jpg", 1086, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_54_14 PM.png", "six-flavours-sunset-coast.jpg", 1086, None, 82),
     # Roel & Nina portraits (2026-02-21 series, no hot-tub shots).
