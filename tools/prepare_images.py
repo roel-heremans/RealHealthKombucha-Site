@@ -40,10 +40,10 @@ PHOTOS = [
     # AI product scenes (Roel's own campaign images). The 04_21_06 scene has an
     # "Original" bottle on the far right; the crop keeps only the six flavours.
     ("ChatGPT Image Jun 30, 2026, 04_21_06 PM.png", "six-flavours-coast-lineup.jpg", 1190, "1190x660+0+272", 82),
-    # Home hero: the bottom crop drops the baked-in caption strip (the tagline is
-    # already printed on the box). The poster logo at the top sits level with
-    # both faces, so it cannot be cropped off without cutting heads.
-    ("ChatGPT Image Jun 30, 2026, 04_27_12 PM.png", "roel-nina-tasting-box-coast.jpg", 1535, "1535x928+0+0", 82),
+    # Home hero: remake of the 04_27_12 poster with Roel's real face and without
+    # the poster logo (Higgsfield, 2026-10-31). Used uncropped; Roel wanted the
+    # slogan at the bottom kept.
+    ("Hero Roel Nina tasting box v5 (Higgsfield 2026-10-31).png", "roel-nina-tasting-box-coast.jpg", 1535, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_43_48 PM.png", "roel-nina-six-pack-coast.jpg", 1086, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_54_14 PM.png", "six-flavours-sunset-coast.jpg", 1086, None, 82),
     # Roel & Nina portraits (2026-02-21 series, no hot-tub shots).
