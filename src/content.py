@@ -862,12 +862,12 @@ CONTENT = {
                  "text": {"en": "We bring it, and collect your empties.",
                           "pt": "Somos nós que a levamos, e recolhemos as garrafas vazias."}},
             ],
-            "image": "assets/img/photos/ponta-do-sol-kombucha-sea.jpg",
+            "image": "assets/img/photos/ponta-do-sol-kombucha-sea-v2.jpg",
             "alt": {
-                "en": "Glasses and a bottle of golden kombucha on a rock by the sea, with the village of "
-                      "Ponta do Sol and the Estalagem on the cliff behind",
-                "pt": "Copos e uma garrafa de kombucha dourada numa rocha junto ao mar, com a vila da "
-                      "Ponta do Sol e a Estalagem na falésia ao fundo",
+                "en": "A bottle and glasses of golden kombucha on a dark rock by the sea, looking across "
+                      "the bay to the village of Ponta do Sol and the cliff with the Estalagem on top",
+                "pt": "Uma garrafa e copos de kombucha dourada numa rocha escura junto ao mar, com vista "
+                      "sobre a baía para a vila da Ponta do Sol e a falésia com a Estalagem no topo",
             },
             "flavours": {"en": "Discover our flavours", "pt": "Conheça os nossos sabores"},
             "order": {"en": "Order", "pt": "Encomendar"},

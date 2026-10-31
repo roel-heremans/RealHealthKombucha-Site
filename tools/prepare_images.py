@@ -60,9 +60,10 @@ PHOTOS = [
     ("Leave_bottels02.jpeg", "bottles-bougainvillea.jpg", 1000, None, 80),
     # Gut health hero: generated from scratch (Higgsfield gpt_image_2_5, 2026-10-31), no people or labels.
     ("Gut health fermentation jar (Higgsfield 2026-10-31).png", "gut-health-fermentation-jar.jpg", 1168, None, 82),
-    # Our Story "Made on the island": generated view of Ponta do Sol from the sea
-    # (Higgsfield gpt_image_2_5, 2026-10-31), unlabelled bottle.
-    ("Ponta do Sol kombucha by the sea (Higgsfield 2026-10-31).png", "ponta-do-sol-kombucha-sea.jpg", 880, None, 82),
+    # Our Story "Made on the island": generated view across the bay of Ponta do Sol
+    # (Higgsfield gpt_image_2_5, text prompt only, 2026-10-31), unlabelled bottle.
+    # The file name carries -v2 so browsers do not show the cached first version.
+    ("Ponta do Sol bay kombucha on rock (Higgsfield 2026-10-31).png", "ponta-do-sol-kombucha-sea-v2.jpg", 880, None, 82),
     # Crate / delivery.
     ("Kist01.jpeg", "crate-delivery-terrace.jpg", 1000, None, 80),
     ("WhatsApp Image 2026-02-03 at 20.43.22 (2).jpeg", "crate-top-view.jpg", 1000, None, 80),
