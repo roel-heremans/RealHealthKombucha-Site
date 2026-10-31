@@ -862,12 +862,12 @@ CONTENT = {
                  "text": {"en": "We bring it, and collect your empties.",
                           "pt": "Somos nós que a levamos, e recolhemos as garrafas vazias."}},
             ],
-            "image": "assets/img/photos/ice-bucket-bottles-citrus.jpg",
+            "image": "assets/img/photos/ponta-do-sol-kombucha-sea.jpg",
             "alt": {
-                "en": "Kombucha bottles on ice with a red hibiscus flower, surrounded by limes, lemons "
-                      "and oranges",
-                "pt": "Garrafas de kombucha em gelo com uma flor de hibisco vermelha, rodeadas de "
-                      "limas, limões e laranjas",
+                "en": "Glasses and a bottle of golden kombucha on a rock by the sea, with the village of "
+                      "Ponta do Sol and the Estalagem on the cliff behind",
+                "pt": "Copos e uma garrafa de kombucha dourada numa rocha junto ao mar, com a vila da "
+                      "Ponta do Sol e a Estalagem na falésia ao fundo",
             },
             "flavours": {"en": "Discover our flavours", "pt": "Conheça os nossos sabores"},
             "order": {"en": "Order", "pt": "Encomendar"},
