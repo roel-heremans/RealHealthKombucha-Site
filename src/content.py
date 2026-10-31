@@ -934,9 +934,9 @@ CONTENT = {
             "heading_accent": {"en": "hello", "pt": "olá"},
             "lead": {
                 "en": "Questions, an order, or a tasting for your restaurant? Message us the way "
-                      "you like best. Send us a message and we'll get back to you.",
+                      "you like best and we'll get back to you.",
                 "pt": "Dúvidas, uma encomenda ou uma prova para o seu restaurante? Fale connosco "
-                      "como preferir. Envie-nos uma mensagem e respondemos assim que possível.",
+                      "como preferir e respondemos assim que possível.",
             },
             "image": "assets/img/photos/crate-delivery-terrace.jpg",
             "alt": {
