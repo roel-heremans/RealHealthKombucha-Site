@@ -862,16 +862,13 @@ CONTENT = {
                  "text": {"en": "We bring it, and collect your empties.",
                           "pt": "Somos nós que a levamos, e recolhemos as garrafas vazias."}},
             ],
-            "images": [
-                {"image": "assets/img/photos/roel-nina-market-tent.jpg",
-                 "alt": {"en": "Roel and Nina in Real Health Kombucha T-shirts at their market stand",
-                         "pt": "O Roel e a Nina com t-shirts Real Health Kombucha na sua banca de mercado"}},
-                {"image": "assets/img/photos/ice-bucket-bottles-citrus.jpg",
-                 "alt": {"en": "Kombucha bottles on ice with a red hibiscus flower, surrounded by limes, "
-                               "lemons and oranges",
-                         "pt": "Garrafas de kombucha em gelo com uma flor de hibisco vermelha, rodeadas "
-                               "de limas, limões e laranjas"}},
-            ],
+            "image": "assets/img/photos/ice-bucket-bottles-citrus.jpg",
+            "alt": {
+                "en": "Kombucha bottles on ice with a red hibiscus flower, surrounded by limes, lemons "
+                      "and oranges",
+                "pt": "Garrafas de kombucha em gelo com uma flor de hibisco vermelha, rodeadas de "
+                      "limas, limões e laranjas",
+            },
             "flavours": {"en": "Discover our flavours", "pt": "Conheça os nossos sabores"},
             "order": {"en": "Order", "pt": "Encomendar"},
         },
