@@ -5,7 +5,7 @@ import re
 import pytest
 
 from content import CONTENT
-from i18n import eur, page_path
+from i18n import eur, num, page_path
 
 PAGES = {p["id"]: p for p in CONTENT["pages"]}
 HOME = CONTENT["home"]
@@ -37,7 +37,9 @@ def _page_file(built, page_id, lang):
 
 def _text(fragment):
     """Visible text with tags stripped and entities decoded, whitespace collapsed."""
-    return " ".join(H.unescape(re.sub(r"<[^>]+>", " ", fragment)).split())
+    # Collapse ordinary whitespace only, so non-breaking spaces (U+00A0) survive.
+    text = H.unescape(re.sub(r"<[^>]+>", " ", fragment))
+    return re.sub(r"[ \t\r\n]+", " ", text).strip()
 
 
 # ── eur filter (Controller Ruling C) ──
@@ -46,17 +48,28 @@ def test_eur_format_per_language():
     assert eur(20.5, "en") == "€20.50"
     assert eur(8, "en") == "€8.00"
     assert eur(3.5, "en") == "€3.50"
-    assert eur(20.5, "pt") == "20,50 €"
-    assert eur(8, "pt") == "8,00 €"
+    # PT: decimal comma and a non-breaking space (U+00A0) before €, so it never wraps.
+    assert eur(20.5, "pt") == "20,50\u00a0€"
+    assert eur(8, "pt") == "8,00\u00a0€"
     assert eur(148, "en", 0) == "€148"
-    assert eur(148, "pt", 0) == "148 €"
-    assert eur(1, "pt", 0) == "1 €"
+    assert eur(148, "pt", 0) == "148\u00a0€"
+    assert eur(1, "pt", 0) == "1\u00a0€"
+
+
+def test_num_format_per_language():
+    assert num(5.0, "en", 1) == "5.0"
+    assert num(5.0, "pt", 1) == "5,0"
+    assert num(2.5, "pt", 1) == "2,5"
+    assert num(37, "pt") == "37"
 
 
 # ── content shape ──
 
 def test_shared_content_lists():
     assert [f["id"] for f in CONTENT["flavours"]] == FLAVOUR_ORDER
+    # Product names as printed on the labels, the same in both languages.
+    assert [f["name"] for f in CONTENT["flavours"]] == [
+        "Ginger", "Wild Orange", "Lime", "Green Mandarine", "Metabolic Boost", "Lemon & Turmeric"]
     assert CONTENT["partners"] == PARTNERS
     assert len(CONTENT["quotes"]) == 6
     for q in CONTENT["quotes"]:
@@ -93,8 +106,8 @@ def test_hero(built, lang):
 def test_proof_strip(built, lang):
     _, html = _home(built, lang)
     proof = _text(_section(html, "home-proof"))
-    assert CONTENT["review_stats"]["rating"] == "5.0"
-    assert "5.0" in proof
+    assert CONTENT["review_stats"]["rating"] == 5.0
+    assert ("5.0" if lang == "en" else "5,0") in proof
     assert str(CONTENT["review_stats"]["count"]) in proof and "37" in proof
     assert re.search(r"\b8\b", proof)
 
@@ -111,7 +124,8 @@ def test_two_paths(built, lang):
     if lang == "en":
         assert "€20.50" in _text(rest) and "€8.00" in _text(home) and "€3.50" in _text(home)
     else:
-        assert "20,50 €" in _text(rest) and "8,00 €" in _text(home) and "3,50 €" in _text(home)
+        nb = "\u00a0"
+        assert f"20,50{nb}€" in _text(rest) and f"8,00{nb}€" in _text(home) and f"3,50{nb}€" in _text(home)
     # Slide 10 highlights on the restaurant card.
     assert "72%" in _text(rest) and eur(5.7, lang) in _text(rest)
     assert ("2.5×" if lang == "en" else "2,5×") in _text(rest)
@@ -132,7 +146,7 @@ def test_flavour_row(built, lang):
         assert _target(f, src).is_file()
         assert alt.strip()
     for fl in CONTENT["flavours"]:
-        assert fl["name"][lang] in _text(row)
+        assert H.escape(fl["name"], quote=False) in row
 
 
 @pytest.mark.parametrize("lang", ["en", "pt"])

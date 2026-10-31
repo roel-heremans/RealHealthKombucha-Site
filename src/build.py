@@ -14,7 +14,7 @@ if str(SRC_DIR) not in sys.path:
 from jinja2 import Environment, FileSystemLoader, pass_context
 
 from content import CONTENT
-from i18n import LANGS, eur, page_path, rel, t
+from i18n import LANGS, eur, num, page_path, rel, t
 
 ROOT = SRC_DIR.parent
 TEMPLATES_DIR = SRC_DIR / "templates"
@@ -52,6 +52,12 @@ def build(out_dir: Path, content: dict) -> None:
 
     env.filters["t"] = t_filter
     env.filters["eur"] = eur_filter
+
+    @pass_context
+    def num_filter(ctx, value, decimals=None):
+        return num(value, ctx["lang"], decimals)
+
+    env.filters["num"] = num_filter
     env.globals.update(url=url, page_path=page_path, LANGS=LANGS)
     year = datetime.date.today().year
 

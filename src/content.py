@@ -80,7 +80,7 @@ CONTENT = {
                        "&query_place_id=ChIJtYnk8XlZYAwRhT9_o66JcHE",
     },
     "address": "Caminho do Jangão 154, 9360-523 Ponta do Sol, Madeira",
-    "review_stats": {"rating": "5.0", "count": 37},
+    "review_stats": {"rating": 5.0, "count": 37},  # rating shown with the `num(1)` filter
     # Header navigation (page ids). Home is reached via the logo on desktop and is
     # listed in the phone menu only.
     "nav_ids": ["home", "restaurants", "flavours", "story", "gut-health", "contact"],
@@ -134,32 +134,33 @@ CONTENT = {
         {"text": "Best Kombucha not only on Madeira but all of Portugal, maybe even the world.",
          "author": "Annika F.", "stars": 5},
     ],
-    # The six flavours, in display order. Task 6 (Flavours page) adds taste, benefit, etc.
+    # The six flavours, in display order. `name` is the product name printed on the label,
+    # the same in both languages. Task 6 (Flavours page) adds taste, benefit, etc.
     "flavours": [
-        {"id": "ginger", "name": {"en": "Ginger", "pt": "Gengibre"},
+        {"id": "ginger", "name": "Ginger",
          "image": "assets/img/flavours/ginger.png",
          "alt": {"en": "Ginger kombucha label with a drawing of ginger root and a red ginger flower",
-                 "pt": "Rótulo da kombucha de gengibre com um desenho de raiz de gengibre e uma flor vermelha"}},
-        {"id": "wild-orange", "name": {"en": "Wild Orange", "pt": "Laranja Selvagem"},
+                 "pt": "Rótulo da kombucha Ginger com um desenho de raiz de gengibre e uma flor vermelha"}},
+        {"id": "wild-orange", "name": "Wild Orange",
          "image": "assets/img/flavours/wild-orange.png",
          "alt": {"en": "Wild Orange kombucha label with a drawing of ripe oranges on a leafy branch",
-                 "pt": "Rótulo da kombucha de laranja selvagem com um desenho de laranjas maduras num ramo"}},
-        {"id": "lime", "name": {"en": "Lime", "pt": "Lima"},
+                 "pt": "Rótulo da kombucha Wild Orange com um desenho de laranjas maduras num ramo"}},
+        {"id": "lime", "name": "Lime",
          "image": "assets/img/flavours/lime.png",
          "alt": {"en": "Lime kombucha label with a drawing of whole and sliced limes",
-                 "pt": "Rótulo da kombucha de lima com um desenho de limas inteiras e cortadas"}},
-        {"id": "green-mandarine", "name": {"en": "Green Mandarine", "pt": "Tangerina Verde"},
+                 "pt": "Rótulo da kombucha Lime com um desenho de limas inteiras e cortadas"}},
+        {"id": "green-mandarine", "name": "Green Mandarine",
          "image": "assets/img/flavours/green-mandarine.png",
          "alt": {"en": "Green Mandarine kombucha label with a drawing of green mandarins and blossom",
-                 "pt": "Rótulo da kombucha de tangerina verde com um desenho de tangerinas verdes e flores"}},
-        {"id": "metabolic-boost", "name": {"en": "Metabolic Boost", "pt": "Metabolic Boost"},
+                 "pt": "Rótulo da kombucha Green Mandarine com um desenho de tangerinas verdes e flores"}},
+        {"id": "metabolic-boost", "name": "Metabolic Boost",
          "image": "assets/img/flavours/metabolic-boost.png",
          "alt": {"en": "Metabolic Boost kombucha label with a drawing of grapefruit, lemon, mint, ginger and cinnamon",
                  "pt": "Rótulo da kombucha Metabolic Boost com um desenho de toranja, limão, hortelã, gengibre e canela"}},
-        {"id": "lemon-turmeric", "name": {"en": "Lemon & Turmeric", "pt": "Limão e Curcuma"},
+        {"id": "lemon-turmeric", "name": "Lemon & Turmeric",
          "image": "assets/img/flavours/lemon-turmeric.png",
          "alt": {"en": "Lemon & Turmeric kombucha label with a drawing of lemons and turmeric root",
-                 "pt": "Rótulo da kombucha de limão e curcuma com um desenho de limões e raiz de curcuma"}},
+                 "pt": "Rótulo da kombucha Lemon & Turmeric com um desenho de limões e raiz de curcuma"}},
     ],
     # Home page (spec section 1). "{partners}" / "{count}" are filled in by the template.
     "home": {
@@ -187,7 +188,7 @@ CONTENT = {
         },
         "proof": {
             "reviews": {"en": "from {count} Google reviews", "pt": "em {count} avaliações no Google"},
-            "partners": {"en": "restaurants & cafés serve it", "pt": "restaurantes e cafés já a servem"},
+            "partners": {"en": "restaurants & cafés serving it", "pt": "restaurantes e cafés já a servem"},
             "hand": {"en": "By hand", "pt": "À mão"},
             "hand_label": {"en": "brewed & delivered in Ponta do Sol",
                            "pt": "produzida e entregue a partir da Ponta do Sol"},

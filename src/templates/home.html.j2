@@ -22,7 +22,7 @@
 <section class="section--stone home-proof">
   <div class="container">
     <ul class="proof">
-      <li><span class="proof__num">{{ content.review_stats.rating | e }} <span class="proof__star" aria-hidden="true">★</span></span><span class="proof__label">{{ h.proof.reviews | t | replace('{count}', content.review_stats.count | string) | e }}</span></li>
+      <li><span class="proof__num">{{ content.review_stats.rating | num(1) }} <span class="proof__star" aria-hidden="true">★</span></span><span class="proof__label">{{ h.proof.reviews | t | replace('{count}', content.review_stats.count | string) | e }}</span></li>
       <li><span class="proof__num">{{ n_partners }}</span><span class="proof__label">{{ h.proof.partners | t | e }}</span></li>
       <li><span class="proof__num">{{ h.proof.hand | t | e }}</span><span class="proof__label">{{ h.proof.hand_label | t | e }}</span></li>
     </ul>
@@ -70,7 +70,7 @@
     </div>
     <ul class="flavour-row">
 {%- for f in content.flavours %}
-      <li><a class="flavour-tile" href="{{ flavours_url }}#{{ f.id }}"><img src="{{ root }}{{ f.image }}" alt="{{ f.alt | t | e }}" width="520" height="866" loading="lazy"><span class="flavour-tile__name">{{ f.name | t | e }}</span></a></li>
+      <li><a class="flavour-tile" href="{{ flavours_url }}#{{ f.id }}"><img src="{{ root }}{{ f.image }}" alt="{{ f.alt | t | e }}" width="520" height="866" loading="lazy"><span class="flavour-tile__name">{{ f.name | e }}</span></a></li>
 {%- endfor %}
     </ul>
   </div>
