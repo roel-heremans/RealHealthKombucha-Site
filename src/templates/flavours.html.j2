@@ -1,1 +1,80 @@
 {% extends "base.html.j2" %}
+{% block content %}
+{%- set fp = content.flavours_page -%}
+{%- set flavoured_with = fp.flavoured_with | t -%}
+{%- set base_line = (fp.base_label | t) ~ " " ~ (fp.base_ingredients | t) -%}
+
+<section class="hero hero--short flavours-hero">
+  <div class="hero__text">
+    <p class="eyebrow">{{ fp.hero.eyebrow | t | e }}</p>
+    <h1 class="display display--hero">{{ fp.hero.heading | t | e }} <em>{{ fp.hero.heading_accent | t | e }}</em></h1>
+    <p class="lead">{{ fp.hero.lead | t | e }}</p>
+  </div>
+  <div class="hero__media">
+    <img src="{{ root }}{{ fp.hero.image }}" alt="{{ fp.hero.alt | t | e }}" width="1086" height="1448" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section--stone flavours-badges">
+  <div class="container">
+    <ul class="badges">
+{%- for b in fp.badges %}
+      <li>{{ b | t | e }}</li>
+{%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--cream flavours-list">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ fp.list.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ fp.list.heading | t | e }} <em>{{ fp.list.heading_accent | t | e }}</em></h2>
+    </div>
+    <div class="flavour-cards">
+{%- for f in content.flavours %}
+      <article class="flavour-card" id="{{ f.id | e }}" data-reveal>
+        <div class="flavour-card__media">
+          <img src="{{ root }}{{ f.image }}" alt="{{ f.alt | t | e }}" width="520" height="866" loading="lazy">
+        </div>
+        <div class="flavour-card__body">
+          <div class="flavour-card__head">
+{%- if f.most_loved %}
+            <span class="flavour-card__loved">{{ fp.most_loved | t | e }}</span>
+{%- endif %}
+            <h3 class="flavour-card__name">{{ f.name | e }}</h3>
+            <p class="flavour-card__taste">{{ f.taste | t | e }}</p>
+          </div>
+          <p class="flavour-card__benefit">{{ f.benefit | t | e }}</p>
+          <p class="flavour-card__with"><span class="flavour-card__label">{{ flavoured_with | e }}</span> {{ f.flavoured_with | t | e }}</p>
+          <p class="flavour-card__base">{{ base_line | e }}</p>
+        </div>
+      </article>
+{%- endfor %}
+    </div>
+    <p class="footnote">{{ content.ui.health_note | t | e }}</p>
+  </div>
+</section>
+
+<section class="section section--white flavours-sizes">
+  <div class="container">
+    <div class="split">
+      <div class="flavours-sizes__media">
+        <img src="{{ root }}{{ fp.sizes.image }}" alt="{{ fp.sizes.alt | t | e }}" width="1000" height="1333" loading="lazy">
+      </div>
+      <div>
+        <p class="eyebrow">{{ fp.sizes.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ fp.sizes.heading | t | e }} <em>{{ fp.sizes.heading_accent | t | e }}</em></h2>
+        <dl class="price-list sizes-list">
+          <div><dt>{{ fp.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_1l_note | t | e }}</span></dt><dd class="num">{{ content.prices.bottle_1l | eur }}</dd></div>
+          <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_270_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
+        </dl>
+        <div class="btn-row">
+          <a class="btn btn--forest" href="{{ url('order') }}">{{ fp.sizes.order | t | e }}</a>
+          <a class="btn btn--outline-dark" href="{{ url('restaurants') }}">{{ fp.sizes.restaurants | t | e }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

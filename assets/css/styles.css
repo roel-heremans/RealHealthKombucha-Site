@@ -714,6 +714,108 @@ main { display: block; }
   .profit-table--glass tr.is-highlight td:first-child { box-shadow: none; }
 }
 
+/* ── FLAVOURS ── */
+.flavours-hero .hero__media img { object-position: center 72%; }
+.flavours-badges { padding: 28px 0; }
+.badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 44px; }
+.badges li {
+  position: relative; font-size: 12px; font-weight: 400; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--forest);
+}
+.badges li + li::before {
+  content: ""; position: absolute; left: -24px; top: 50%; width: 5px; height: 5px;
+  margin-top: -2.5px; border-radius: 50%; background: var(--gold);
+}
+.flavour-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.flavour-card {
+  display: grid; grid-template-columns: 180px 1fr; gap: 40px; align-items: start;
+  background: var(--white); padding: 40px; scroll-margin-top: 24px;
+}
+.flavour-card:target { box-shadow: inset 0 0 0 1px var(--gold); }
+.flavour-card__media img {
+  width: 100%; aspect-ratio: 520 / 866; object-fit: cover;
+  box-shadow: 0 10px 26px rgba(30, 53, 38, .10), 0 1px 3px rgba(30, 53, 38, .08);
+}
+.flavour-card__body { align-self: center; }
+.flavour-card__head { display: flex; flex-direction: column; }
+.flavour-card__loved {
+  align-self: flex-start; margin-bottom: 14px; padding: 4px 10px;
+  border: 1px solid var(--gold); border-radius: 2px;
+  font-size: 10px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--forest);
+}
+.flavour-card__name {
+  font-family: var(--serif); font-size: 36px; font-weight: 300; line-height: 1.1; color: var(--text);
+}
+.flavour-card__taste {
+  margin-top: 8px; font-family: var(--serif); font-style: italic; font-size: 21px;
+  font-weight: 300; line-height: 1.35; color: var(--gold);
+}
+.flavour-card__benefit { margin-top: 16px; font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--muted); }
+.flavour-card__with {
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--stone);
+  font-size: 14px; font-weight: 400; line-height: 1.6; color: var(--text);
+}
+.flavour-card__label {
+  font-size: 10px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--forest);
+  margin-right: 4px;
+}
+.flavour-card__base { margin-top: 10px; font-size: 12px; font-weight: 300; line-height: 1.6; color: var(--light); }
+.flavours-list .footnote { text-align: center; }
+.flavours-hero .display em { display: inline-block; }
+.flavours-sizes__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 60%; }
+.sizes-list { margin-top: 40px; }
+.sizes-list > div { padding: 24px 0; }
+.sizes-list dd { font-size: 56px; }
+
+/* ── ORDER ── */
+.order-hero .hero__media img { object-position: center 40%; }
+.order-prices .split { align-items: center; }
+.order-prices__text { margin-top: 20px; max-width: 440px; }
+.order-prices__link { margin-top: 24px; font-size: 14px; }
+.order-prices .price-list dd { font-size: 52px; }
+.ways { counter-reset: none; }
+.way { display: flex; flex-direction: column; padding: 48px 40px 44px; }
+.way__num {
+  font-family: var(--serif); font-size: 56px; font-weight: 300; line-height: 1; color: var(--gold);
+  margin-bottom: 24px; font-variant-numeric: lining-nums;
+}
+.way .h-card { font-size: 26px; }
+.way .btn-row { margin-top: auto; padding-top: 32px; }
+.way--app { background: var(--off-white); }
+.order-delivery__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.order-review__qr { width: 112px; height: 112px; margin: 0 auto 32px; }
+.order-review__text { margin: 20px auto 0; max-width: 620px; }
+.order-review .btn-row { margin-top: 36px; }
+
+@media (max-width: 1024px) {
+  .flavour-cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  /* Phone: label + name/taste side by side, the rest full width below. */
+  .flavour-card { grid-template-columns: 92px 1fr; gap: 0 20px; padding: 28px 20px 26px; }
+  .flavour-card__body { display: contents; }
+  .flavour-card__media { grid-column: 1; grid-row: 1; }
+  .flavour-card__head { grid-column: 2; grid-row: 1; align-self: center; }
+  .flavour-card__benefit, .flavour-card__with, .flavour-card__base { grid-column: 1 / -1; }
+  .flavour-card__benefit { margin-top: 22px; }
+  .flavour-card__loved { margin-bottom: 10px; }
+  .flavour-card__name { font-size: 28px; }
+  .flavour-card__taste { font-size: 18px; }
+  .badges { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+  .badges li { padding-left: 14px; font-size: 11px; letter-spacing: .1em; }
+  .badges li::before, .badges li + li::before {
+    content: ""; position: absolute; left: 0; top: 50%; width: 5px; height: 5px;
+    margin-top: -2.5px; border-radius: 50%; background: var(--gold);
+  }
+  .sizes-list dd { font-size: 40px; }
+  .way { padding: 36px 24px; }
+  .order-prices .price-list dd { font-size: 40px; }
+}
+
+@media (max-width: 640px) {
+  .order-review__qr { display: none; }   /* scanning a QR on the phone it is shown on makes no sense */
+}
+
 /* ── REVEAL (opt-in: data-reveal) ── */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }

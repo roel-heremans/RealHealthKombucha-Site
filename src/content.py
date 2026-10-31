@@ -135,32 +135,65 @@ CONTENT = {
          "author": "Annika F.", "stars": 5},
     ],
     # The six flavours, in display order. `name` is the product name printed on the label,
-    # the same in both languages. Task 6 (Flavours page) adds taste, benefit, etc.
+    # the same in both languages. taste / benefit / flavoured_with: spec section 3 table (EN
+    # verbatim). Never "juice"/"sumo"; flavours are described only as "Flavoured with: ...".
+    # most_loved: the three most-loved flavours (spec).
     "flavours": [
         {"id": "ginger", "name": "Ginger",
          "image": "assets/img/flavours/ginger.png",
          "alt": {"en": "Ginger kombucha label with a drawing of ginger root and a red ginger flower",
-                 "pt": "Rótulo da kombucha Ginger com um desenho de raiz de gengibre e uma flor vermelha"}},
+                 "pt": "Rótulo da kombucha Ginger com um desenho de raiz de gengibre e uma flor vermelha"},
+         "taste": {"en": "Warming with a zesty bite", "pt": "Aconchegante, com um toque vivo e picante"},
+         "benefit": {"en": "Warming ginger, traditionally used for digestive comfort",
+                     "pt": "Gengibre aconchegante, tradicionalmente usado para o conforto digestivo"},
+         "flavoured_with": {"en": "ginger", "pt": "gengibre"},
+         "most_loved": True},
         {"id": "wild-orange", "name": "Wild Orange",
          "image": "assets/img/flavours/wild-orange.png",
          "alt": {"en": "Wild Orange kombucha label with a drawing of ripe oranges on a leafy branch",
-                 "pt": "Rótulo da kombucha Wild Orange com um desenho de laranjas maduras num ramo"}},
+                 "pt": "Rótulo da kombucha Wild Orange com um desenho de laranjas maduras num ramo"},
+         "taste": {"en": "Sunny, juicy and smooth", "pt": "Solarenga, suculenta e suave"},
+         "benefit": {"en": "Bright, sweet orange — uplifting and cheerful",
+                     "pt": "Laranja doce e luminosa — anima e alegra"},
+         "flavoured_with": {"en": "wild orange", "pt": "laranja selvagem"},
+         "most_loved": True},
         {"id": "lime", "name": "Lime",
          "image": "assets/img/flavours/lime.png",
          "alt": {"en": "Lime kombucha label with a drawing of whole and sliced limes",
-                 "pt": "Rótulo da kombucha Lime com um desenho de limas inteiras e cortadas"}},
+                 "pt": "Rótulo da kombucha Lime com um desenho de limas inteiras e cortadas"},
+         "taste": {"en": "Crisp and thirst-quenching", "pt": "Fresca e vibrante, mata a sede"},
+         "benefit": {"en": "Crisp and invigorating — the most refreshing of the six",
+                     "pt": "Viva e revigorante — a mais refrescante das seis"},
+         "flavoured_with": {"en": "lime", "pt": "lima"},
+         "most_loved": False},
         {"id": "green-mandarine", "name": "Green Mandarine",
          "image": "assets/img/flavours/green-mandarine.png",
          "alt": {"en": "Green Mandarine kombucha label with a drawing of green mandarins and blossom",
-                 "pt": "Rótulo da kombucha Green Mandarine com um desenho de tangerinas verdes e flores"}},
+                 "pt": "Rótulo da kombucha Green Mandarine com um desenho de tangerinas verdes e flores"},
+         "taste": {"en": "Fresh, aromatic island citrus", "pt": "Citrino fresco e aromático da ilha"},
+         "benefit": {"en": "Fresh, soft citrus — calming, a lovely evening drink",
+                     "pt": "Citrino fresco e suave — calmante, uma ótima bebida para o fim do dia"},
+         "flavoured_with": {"en": "green mandarine", "pt": "tangerina verde"},
+         "most_loved": False},
         {"id": "metabolic-boost", "name": "Metabolic Boost",
          "image": "assets/img/flavours/metabolic-boost.png",
          "alt": {"en": "Metabolic Boost kombucha label with a drawing of grapefruit, lemon, mint, ginger and cinnamon",
-                 "pt": "Rótulo da kombucha Metabolic Boost com um desenho de toranja, limão, hortelã, gengibre e canela"}},
+                 "pt": "Rótulo da kombucha Metabolic Boost com um desenho de toranja, limão, hortelã, gengibre e canela"},
+         "taste": {"en": "Spicy-fresh and zesty", "pt": "Picante, fresca e vibrante"},
+         "benefit": {"en": "An energising, spicy-fresh blend",
+                     "pt": "Uma mistura energizante, picante e fresca"},
+         "flavoured_with": {"en": "grapefruit, lemon, peppermint, ginger, cinnamon",
+                            "pt": "toranja, limão, hortelã-pimenta, gengibre, canela"},
+         "most_loved": True},
         {"id": "lemon-turmeric", "name": "Lemon & Turmeric",
          "image": "assets/img/flavours/lemon-turmeric.png",
          "alt": {"en": "Lemon & Turmeric kombucha label with a drawing of lemons and turmeric root",
-                 "pt": "Rótulo da kombucha Lemon & Turmeric com um desenho de limões e raiz de curcuma"}},
+                 "pt": "Rótulo da kombucha Lemon & Turmeric com um desenho de limões e raiz de curcuma"},
+         "taste": {"en": "Golden, tangy and earthy", "pt": "Dourada, acidulada e terrosa"},
+         "benefit": {"en": "Golden and earthy, with lemon's zing and turmeric's warmth",
+                     "pt": "Dourada e terrosa, com a vivacidade do limão e o calor da curcuma"},
+         "flavoured_with": {"en": "lemon, turmeric", "pt": "limão, curcuma"},
+         "most_loved": False},
     ],
     # Home page (spec section 1). "{partners}" / "{count}" are filled in by the template.
     "home": {
@@ -545,6 +578,161 @@ CONTENT = {
                 "pt": "O Roel e a Nina a sorrir atrás de uma caixa com seis garrafas de kombucha, "
                       "na costa da Madeira",
             },
+        },
+    },
+    # Flavours page (spec section 3). The per-flavour texts live in CONTENT["flavours"].
+    "flavours_page": {
+        "hero": {
+            "eyebrow": {"en": "Our flavours", "pt": "Os nossos sabores"},
+            "heading": {"en": "Six flavours,", "pt": "Seis sabores,"},
+            "heading_accent": {"en": "two sizes", "pt": "dois tamanhos"},
+            "lead": {
+                "en": "Six flavours, two sizes, all brewed with pure water, green tea, raw cane sugar "
+                      "and kombucha culture.",
+                "pt": "Seis sabores, dois tamanhos, todos produzidos com água pura, chá verde, açúcar "
+                      "de cana em bruto e cultura de kombucha.",
+            },
+            "image": "assets/img/photos/six-flavours-sunset-coast.jpg",
+            "alt": {
+                "en": "The six Real Health Kombucha bottles in a row on a table above the sea at sunset, "
+                      "with ginger, oranges, limes and turmeric in front",
+                "pt": "As seis garrafas de Real Health Kombucha em fila numa mesa sobre o mar ao pôr do sol, "
+                      "com gengibre, laranjas, limas e curcuma à frente",
+            },
+        },
+        # Badges (all flavours), spec section 3.
+        "badges": [
+            {"en": "Raw & unpasteurised", "pt": "Crua e não pasteurizada"},
+            {"en": "Live cultures", "pt": "Culturas vivas"},
+            {"en": "Naturally sparkling", "pt": "Naturalmente gaseificada"},
+            {"en": "Vegan", "pt": "Vegana"},
+            {"en": "< 0.5% vol", "pt": "< 0,5% vol"},
+        ],
+        "list": {
+            "eyebrow": {"en": "The range", "pt": "A gama"},
+            "heading": {"en": "Find your", "pt": "Encontre o seu"},
+            "heading_accent": {"en": "favourite", "pt": "favorito"},
+        },
+        "most_loved": {"en": "Most loved", "pt": "Um dos favoritos"},
+        "flavoured_with": {"en": "Flavoured with:", "pt": "Aromatizado com:"},
+        "base_label": {"en": "Base ingredients:", "pt": "Ingredientes base:"},
+        "base_ingredients": {
+            "en": "water, green tea (Camellia sinensis), raw cane sugar, kombucha culture (SCOBY)",
+            "pt": "água, chá verde (Camellia sinensis), açúcar de cana em bruto, cultura de kombucha (SCOBY)",
+        },
+        # Sizes & prices (spec section 3). "{deposit}" = prices.deposit.
+        "sizes": {
+            "eyebrow": {"en": "Sizes & prices", "pt": "Tamanhos e preços"},
+            "heading": {"en": "Two sizes,", "pt": "Dois tamanhos,"},
+            "heading_accent": {"en": "every flavour", "pt": "todos os sabores"},
+            "bottle_1l": {"en": "1 L bottle", "pt": "Garrafa de 1 L"},
+            "bottle_1l_note": {"en": "For serving by the glass", "pt": "Para servir ao copo"},
+            "bottle_270": {"en": "270 ml bottle", "pt": "Garrafa de 270 ml"},
+            "bottle_270_note": {"en": "+ {deposit} deposit, refunded when you return the bottle",
+                                "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
+            "image": "assets/img/photos/bottles-bougainvillea.jpg",
+            "alt": {
+                "en": "Two swing-top bottles of golden kombucha on palm leaves next to pink bougainvillea",
+                "pt": "Duas garrafas de kombucha dourada com tampa mecânica sobre folhas de palmeira, "
+                      "ao lado de buganvílias cor-de-rosa",
+            },
+            "order": {"en": "Order now", "pt": "Encomendar agora"},
+            "restaurants": {"en": "For restaurants", "pt": "Para restaurantes"},
+        },
+    },
+    # Order page (spec section 6).
+    "order": {
+        "hero": {
+            "eyebrow": {"en": "Order", "pt": "Encomendar"},
+            "heading": {"en": "Fresh kombucha,", "pt": "Kombucha fresca,"},
+            "heading_accent": {"en": "delivered by us", "pt": "entregue por nós"},
+            "lead": {
+                "en": "For your home, your office or your café. Choose your flavours and sizes, "
+                      "and Roel or Nina bring them to you.",
+                "pt": "Para a sua casa, o seu escritório ou o seu café. Escolha os sabores e os "
+                      "tamanhos, e o Roel ou a Nina entregam-lhe a encomenda em mão.",
+            },
+            "image": "assets/img/photos/bottle-in-hand-garden.jpg",
+            "alt": {
+                "en": "A hand holding up a bottle of golden kombucha in a sunny garden above the sea",
+                "pt": "Uma mão a segurar uma garrafa de kombucha dourada num jardim soalheiro sobre o mar",
+            },
+        },
+        "prices": {
+            "eyebrow": {"en": "Prices", "pt": "Preços"},
+            "heading": {"en": "Simple", "pt": "Preços"},
+            "heading_accent": {"en": "prices", "pt": "simples"},
+            "text": {
+                "en": "Every flavour costs the same. Mix and match as you like.",
+                "pt": "Todos os sabores têm o mesmo preço. Combine como quiser.",
+            },
+            "flavours_link": {"en": "See the six flavours", "pt": "Ver os seis sabores"},
+        },
+        "how": {
+            "eyebrow": {"en": "How to order", "pt": "Como encomendar"},
+            "heading": {"en": "Three ways", "pt": "Três formas"},
+            "heading_accent": {"en": "to order", "pt": "de encomendar"},
+            "app": {
+                "title": {"en": "Order in our app", "pt": "Encomende na nossa app"},
+                "text": {
+                    "en": "Create an account in our app. We activate new accounts ourselves; "
+                          "after that you can order anytime, straight from your phone.",
+                    "pt": "Crie uma conta na nossa app. Somos nós que ativamos as contas novas; "
+                          "depois disso pode encomendar quando quiser, diretamente no telemóvel.",
+                },
+                "button": {"en": "Create your account", "pt": "Criar conta"},
+            },
+            "whatsapp": {
+                "title": {"en": "Message us on WhatsApp", "pt": "Escreva-nos no WhatsApp"},
+                "text": {
+                    "en": "Tell us which flavours and sizes you would like, and where to deliver.",
+                    "pt": "Diga-nos que sabores e tamanhos quer, e onde devemos entregar.",
+                },
+                "button": {"en": "Open WhatsApp", "pt": "Abrir o WhatsApp"},
+            },
+            "email": {
+                "title": {"en": "Send us an email", "pt": "Envie-nos um email"},
+                "text": {
+                    "en": "The button opens a ready-made email: just fill in your flavours, sizes "
+                          "and delivery address.",
+                    "pt": "O botão abre um email já preparado: basta indicar os sabores, os tamanhos "
+                          "e a morada de entrega.",
+                },
+                "button": {"en": "Email your order", "pt": "Encomendar por email"},
+            },
+        },
+        # Pre-filled email (order_mailto in src/orders.py).
+        "email_subject": {"en": "Kombucha order", "pt": "Encomenda de kombucha"},
+        "email_body": {
+            "en": "Hello Roel and Nina,\n\nI would like to order:\n\n"
+                  "Flavours:\nSizes (1 L / 270 ml) and quantities:\nDelivery address:\n\nThank you!",
+            "pt": "Olá Roel e Nina,\n\nGostaria de encomendar:\n\n"
+                  "Sabores:\nTamanhos (1 L / 270 ml) e quantidades:\nMorada de entrega:\n\nObrigado!",
+        },
+        # "{deposit}" = prices.deposit.
+        "delivery": {
+            "eyebrow": {"en": "Delivery & empties", "pt": "Entrega e garrafas vazias"},
+            "heading": {"en": "We deliver", "pt": "Entregamos"},
+            "heading_accent": {"en": "personally", "pt": "pessoalmente"},
+            "items": [
+                {"title": {"en": "Brought to you by us", "pt": "Entregue por nós, em mão"},
+                 "text": {"en": "We brew in Ponta do Sol and deliver every order ourselves.",
+                          "pt": "Produzimos na Ponta do Sol e entregamos nós próprios cada encomenda."}},
+                {"title": {"en": "Bring back your empties", "pt": "Devolva as garrafas vazias"},
+                 "text": {"en": "Give us your empty 270 ml bottles at the next delivery and we refund "
+                                "the {deposit} deposit per bottle.",
+                          "pt": "Entregue-nos as garrafas vazias de 270 ml na entrega seguinte e "
+                                "reembolsamos o depósito de {deposit} por garrafa."}},
+            ],
+            "image": "assets/img/photos/crate-top-view.jpg",
+            "alt": {
+                "en": "A wooden crate full of kombucha bottles seen from above, ready for delivery",
+                "pt": "Uma caixa de madeira cheia de garrafas de kombucha vista de cima, pronta para entrega",
+            },
+        },
+        "review": {
+            "eyebrow": {"en": "A thank-you", "pt": "Um agradecimento"},
+            "heading": {"en": "Enjoyed it?", "pt": "Gostou?"},
         },
     },
     # Shared interface labels.

@@ -1,1 +1,97 @@
 {% extends "base.html.j2" %}
+{% block content %}
+{%- set o = content.order -%}
+{%- set fp = content.flavours_page -%}
+{%- set deposit = content.prices.deposit | eur(0) -%}
+
+<section class="hero order-hero">
+  <div class="hero__text">
+    <p class="eyebrow">{{ o.hero.eyebrow | t | e }}</p>
+    <h1 class="display display--hero">{{ o.hero.heading | t | e }} <em>{{ o.hero.heading_accent | t | e }}</em></h1>
+    <p class="lead">{{ o.hero.lead | t | e }}</p>
+  </div>
+  <div class="hero__media">
+    <img src="{{ root }}{{ o.hero.image }}" alt="{{ o.hero.alt | t | e }}" width="1000" height="1333" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section section--cream order-prices">
+  <div class="container">
+    <div class="split">
+      <div>
+        <p class="eyebrow">{{ o.prices.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ o.prices.heading | t | e }} <em>{{ o.prices.heading_accent | t | e }}</em></h2>
+        <p class="body order-prices__text">{{ o.prices.text | t | e }}</p>
+        <p class="order-prices__link"><a class="text-link" href="{{ url('flavours') }}">{{ o.prices.flavours_link | t | e }} &rarr;</a></p>
+      </div>
+      <dl class="price-list">
+        <div><dt>{{ fp.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_1l_note | t | e }}</span></dt><dd class="num">{{ content.prices.bottle_1l | eur }}</dd></div>
+        <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_270_note | t | replace('{deposit}', deposit) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white order-how">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ o.how.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ o.how.heading | t | e }} <em>{{ o.how.heading_accent | t | e }}</em></h2>
+    </div>
+    <ol class="grid grid--3 ways">
+      <li class="way way--app" data-reveal>
+        <span class="way__num">01</span>
+        <h3 class="h-card">{{ o.how.app.title | t | e }}</h3>
+        <p class="body">{{ o.how.app.text | t | e }}</p>
+        <div class="btn-row"><a class="btn btn--gold" href="{{ content.links.signup | e }}" target="_blank" rel="noopener">{{ o.how.app.button | t | e }}</a></div>
+      </li>
+      <li class="way" data-reveal>
+        <span class="way__num">02</span>
+        <h3 class="h-card">{{ o.how.whatsapp.title | t | e }}</h3>
+        <p class="body">{{ o.how.whatsapp.text | t | e }}</p>
+        <div class="btn-row"><a class="btn btn--forest" href="{{ content.links.whatsapp | e }}" target="_blank" rel="noopener">{{ o.how.whatsapp.button | t | e }}</a></div>
+      </li>
+      <li class="way" data-reveal>
+        <span class="way__num">03</span>
+        <h3 class="h-card">{{ o.how.email.title | t | e }}</h3>
+        <p class="body">{{ o.how.email.text | t | e }}</p>
+        <div class="btn-row"><a class="btn btn--outline-dark" href="{{ order_mailto(lang) | e }}">{{ o.how.email.button | t | e }}</a></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--stone order-delivery">
+  <div class="container">
+    <div class="split">
+      <div class="order-delivery__media">
+        <img src="{{ root }}{{ o.delivery.image }}" alt="{{ o.delivery.alt | t | e }}" width="1000" height="1333" loading="lazy">
+      </div>
+      <div>
+        <p class="eyebrow">{{ o.delivery.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ o.delivery.heading | t | e }} <em>{{ o.delivery.heading_accent | t | e }}</em></h2>
+        <ul class="delivery-list">
+{%- for it in o.delivery["items"] %}
+          <li>
+            <h3 class="delivery-list__title">{{ it.title | t | e }}</h3>
+            <p class="body">{{ it.text | t | replace('{deposit}', deposit) | e }}</p>
+          </li>
+{%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream order-review">
+  <div class="container container--narrow center">
+    <img class="order-review__qr" src="{{ root }}assets/img/review-qr.svg" alt="{{ content.review_banner.qr_alt | t | e }}" width="120" height="120" loading="lazy">
+    <p class="eyebrow">{{ o.review.eyebrow | t | e }}</p>
+    <h2 class="h-section">{{ o.review.heading | t | e }}</h2>
+    <p class="lead order-review__text">{{ content.review_banner.text | t | e }}</p>
+    <div class="btn-row center">
+      <a class="btn btn--gold" href="{{ content.links.review | e }}" target="_blank" rel="noopener">{{ content.review_banner.button | t | e }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -15,6 +15,7 @@ from jinja2 import Environment, FileSystemLoader, pass_context
 
 from content import CONTENT
 from i18n import LANGS, eur, num, page_path, rel, t
+from orders import order_mailto
 
 ROOT = SRC_DIR.parent
 TEMPLATES_DIR = SRC_DIR / "templates"
@@ -58,7 +59,7 @@ def build(out_dir: Path, content: dict) -> None:
         return num(value, ctx["lang"], decimals)
 
     env.filters["num"] = num_filter
-    env.globals.update(url=url, page_path=page_path, LANGS=LANGS)
+    env.globals.update(url=url, page_path=page_path, LANGS=LANGS, order_mailto=order_mailto)
     year = datetime.date.today().year
 
     for page in content["pages"]:
