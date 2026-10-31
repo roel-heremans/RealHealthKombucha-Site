@@ -56,6 +56,22 @@
     update();
   });
 
+  // Shop "Buy per Bottle" / "Subscription" switcher. Both sections are always on the
+  // page (works without JS); the buttons jump to them and the clicked one is highlighted.
+  document.querySelectorAll("[data-tabs]").forEach(function (group) {
+    var tabs = group.querySelectorAll("a");
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.classList.toggle("btn-primary", on);
+          t.classList.toggle("btn-outline", !on);
+          if (on) t.setAttribute("aria-current", "true"); else t.removeAttribute("aria-current");
+        });
+      });
+    });
+  });
+
   // Opt-in fade-up on scroll: add data-reveal to an element.
   var items = document.querySelectorAll("[data-reveal]");
   if (!("IntersectionObserver" in window)) {

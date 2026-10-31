@@ -28,16 +28,7 @@
   </div>
 </section>
 
-<section class="split split-tint">
-  <div class="container split-inner">
-    <div class="split-media" data-reveal><img src="{{ root }}assets/img/{{ h.taste_image }}" alt="" loading="lazy"></div>
-    <div class="split-text" data-reveal>
-      <h2 class="h2">{{ h.taste_title | e }}</h2>
-      <p class="lead">{{ h.taste_text | e }}</p>
-      <div class="btn-row"><a class="btn btn-primary" href="{{ root }}about/">{{ content.btn_discover_story | e }}</a></div>
-    </div>
-  </div>
-</section>
+{% include "partials/taste.html.j2" %}
 
 <section class="flavours">
   <div class="flavours-head">

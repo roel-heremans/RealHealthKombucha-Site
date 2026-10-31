@@ -1,3 +1,78 @@
 {% extends "base.html.j2" %}
+{% from "partials/page-icons.html.j2" import picon %}
+{% set s = content.shop %}
+{% macro points(items) -%}
+      <ul class="shop-points" data-reveal>
+{%- for item in items %}
+        <li><span class="shop-point-icon">{{ picon("hand-heart") }}</span>{{ item | e }}</li>
+{%- endfor %}
+      </ul>
+{%- endmacro %}
+{% macro order_links(package, kind) -%}
+        <div class="package-actions">
+          <a class="btn btn-primary" href="{{ content.orders_app_signup_url | e }}">{{ content.order_button_label | e }}</a>
+          <a class="package-email" href="{{ mailto_for(package, kind, content.order_email) | e }}">{{ content.order_email_label | e }}</a>
+        </div>
+{%- endmacro %}
 {% block content %}
+<section class="home-hero shop-hero" style="background-image: url('{{ root }}assets/img/{{ s.hero_image }}'); background-position: {{ s.hero_image_focus }}">
+  <div class="home-hero-inner">
+    <h1 class="h1">{{ s.hero_title | e }}</h1>
+    <p class="home-hero-text">{{ s.hero_text | e }}</p>
+    {#- "Tabs": both sections are always shown; these jump to them (site.js marks the active one). #}
+    <div class="btn-row shop-tabs" data-tabs>
+      <a class="btn btn-primary" href="#buyperbottle" aria-current="true">{{ s.tab_bottle | e }}</a>
+      <a class="btn btn-outline" href="#subscription">{{ s.tab_subscription | e }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="packages" id="buyperbottle">
+  <div class="container">
+    <div class="packages-head">
+      <div data-reveal>
+        <h2 class="h2">{{ s.bottle_title | e }}</h2>
+        <p class="body-text">{{ s.bottle_text | e }}</p>
+      </div>
+      {{ points(s.bottle_points) }}
+    </div>
+    <ul class="package-grid">
+{%- for p in content.packages_bottle %}
+      <li class="package" data-reveal>
+        <h3 class="package-title">{{ p.bottles }} Bottles</h3>
+        <p class="package-price">{{ p.price }}€ + {{ p.deposit }}€ deposit</p>
+        {{ order_links(p, "bottle") }}
+      </li>
+{%- endfor %}
+    </ul>
+    <p class="package-note">{{ content.order_note | e }}</p>
+  </div>
+</section>
+
+<section class="packages" id="subscription">
+  <div class="container">
+    <div class="packages-head">
+      <div data-reveal>
+        <h2 class="h2">{{ s.subscription_title | e }}</h2>
+        <p class="body-text">{{ s.subscription_text | e }}</p>
+      </div>
+      {{ points(s.subscription_points) }}
+    </div>
+    <ul class="package-grid">
+{%- for p in content.packages_subscription %}
+      <li class="package" data-reveal>
+        <h3 class="package-title">{{ p.name | e }}</h3>
+        <p class="package-title">{{ p.bottles_per_week }} Bottles a week</p>
+        <p class="package-price">{{ p.price_per_month }}€ per month</p>
+        {{ order_links(p, "subscription") }}
+      </li>
+{%- endfor %}
+    </ul>
+    <p class="package-note">{{ content.order_note | e }}</p>
+  </div>
+</section>
+
+{% include "partials/taste.html.j2" %}
+
+{% include "partials/testimonials.html.j2" %}
 {% endblock %}

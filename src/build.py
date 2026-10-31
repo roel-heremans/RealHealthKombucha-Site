@@ -14,6 +14,7 @@ if str(SRC_DIR) not in sys.path:
 from jinja2 import Environment, FileSystemLoader
 
 from content import CONTENT
+from orders import mailto, mailto_for
 
 ROOT = SRC_DIR.parent
 TEMPLATES_DIR = SRC_DIR / "templates"
@@ -27,6 +28,7 @@ def build(out_dir: Path, content: dict) -> None:
     out_dir.mkdir(parents=True)
 
     env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=False)
+    env.globals.update(mailto=mailto, mailto_for=mailto_for)
     year = datetime.date.today().year
 
     for page in content["pages"]:

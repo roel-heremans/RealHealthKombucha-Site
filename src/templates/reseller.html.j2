@@ -1,3 +1,84 @@
 {% extends "base.html.j2" %}
+{% from "partials/page-icons.html.j2" import picon %}
+{% import "partials/about-sections.html.j2" as sections %}
+{% set r = content.reseller %}
+{% macro partner_cta() -%}
+<div class="btn-row partner-cta">
+        <a class="btn btn-primary" href="{{ content.orders_app_signup_url | e }}">{{ content.partner_button_label | e }}</a>
+        <a class="package-email" href="{{ mailto(content.order_email, content.partner_email_subject, content.partner_email_body) | e }}">{{ content.partner_email_label | e }}</a>
+      </div>
+      <p class="package-note">{{ content.order_note | e }}</p>
+{%- endmacro %}
 {% block content %}
+<section class="page-hero split reseller-hero">
+  <div class="container split-inner">
+    <div class="split-media" data-reveal><img src="{{ root }}assets/img/{{ r.hero_image }}" alt="" width="677" height="902" style="object-position: {{ r.hero_image_focus }}"></div>
+    <div class="split-text" data-reveal>
+      <h1 class="h2">{{ r.hero_title | e }}</h1>
+      <p class="kicker">{{ r.hero_kicker | e }}</p>
+      <p class="lead">{{ r.hero_text | e }}</p>
+      {{ partner_cta() }}
+    </div>
+  </div>
+</section>
+
+<section class="logo-band" aria-label="Our partners">
+  <div class="logo-viewport">
+  <div class="logo-marquee">
+{%- for copy in range(2) %}
+    <ul class="logo-track"{% if copy %} aria-hidden="true"{% endif %}>
+{%- for p in r.partners + r.partners %}
+      <li><img src="{{ root }}assets/img/{{ p.image }}" alt="{{ p.name | e if not copy and loop.index <= r.partners | length else '' }}" width="170" height="170"></li>
+{%- endfor %}
+    </ul>
+{%- endfor %}
+  </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <ul class="feature-grid">
+{%- for f in r.features %}
+      <li class="feature" data-reveal>
+        <span class="feature-icon">{{ picon(f.icon) }}</span>
+        <div>
+          <h3 class="feature-title">{{ f.title | e }}</h3>
+          <p>{{ f.text | e }}</p>
+        </div>
+      </li>
+{%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="split split-tint become">
+  <div class="container split-inner">
+    <div class="split-media" data-reveal><img src="{{ root }}assets/img/{{ r.become_image }}" alt="" loading="lazy"></div>
+    <div class="split-text" data-reveal>
+      <h2 class="h2">{{ r.become_title | e }}</h2>
+      <p class="lead">{{ r.become_text | e }}</p>
+      <ol class="steps">
+{%- for st in r.steps %}
+        <li class="step">
+          <span class="step-icon">{{ picon(st.icon) }}</span>
+          <div>
+            <h3 class="step-title">{{ st.title | e }}</h3>
+            <p>{{ st.text | e }}</p>
+          </div>
+        </li>
+{%- endfor %}
+      </ol>
+      {{ partner_cta() }}
+    </div>
+  </div>
+</section>
+
+{{ sections.mission(r.about_sections, root) }}
+
+{{ sections.values(r.about_sections, root) }}
+
+{{ sections.place(r.about_sections, root) }}
+
+{% include "partials/testimonials.html.j2" %}
 {% endblock %}

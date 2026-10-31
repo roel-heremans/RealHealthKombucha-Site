@@ -1,4 +1,5 @@
 {% extends "base.html.j2" %}
+{% import "partials/about-sections.html.j2" as sections %}
 {% set a = content.about %}
 {% block content %}
 <section class="page-hero split">
@@ -11,20 +12,7 @@
   </div>
 </section>
 
-<section class="mission">
-  <div class="container mission-inner">
-    <div class="mission-text">
-      <h2 class="h2" data-reveal>{{ a.mission_title | e }}</h2>
-      <p class="lead" data-reveal>{{ a.mission_text | e }}</p>
-      <ul class="stats">
-{%- for s in a.stats %}
-        <li class="stat" data-reveal><span class="stat-number">{{ s.number | e }}</span> <span class="stat-label">{{ s.label | e }}</span></li>
-{%- endfor %}
-      </ul>
-    </div>
-    <div class="mission-media" data-reveal><img src="{{ root }}assets/img/{{ a.mission_image }}" alt="" loading="lazy"></div>
-  </div>
-</section>
+{{ sections.mission(a, root) }}
 
 <section class="split story">
   <div class="container split-inner">
@@ -39,28 +27,9 @@
   </div>
 </section>
 
-<section class="values">
-  <div class="container">
-    <h2 class="h2" data-reveal>{{ a["values_title"] | e }}</h2>
-    <p class="lead values-text" data-reveal>{{ a["values_text"] | e }}</p>
-    <ul class="values-grid">
-{%- for v in a["values"] %}
-      <li class="value-card" data-reveal>
-        <img src="{{ root }}assets/img/{{ v.image }}" alt="" loading="lazy"{% if v.focus %} style="object-position: {{ v.focus }}"{% endif %}>
-        <h3 class="h3">{{ v.title | e }}</h3>
-        <p class="lead">{{ v.text | e }}</p>
-      </li>
-{%- endfor %}
-    </ul>
-  </div>
-</section>
+{{ sections.values(a, root) }}
 
-<section class="place">
-  <div class="place-card" style="background-image: url('{{ root }}assets/img/{{ a.place_image }}')" data-reveal>
-    <h2 class="h2">{{ a.place_title | e }}</h2>
-    <p>{{ a.place_text | e }}</p>
-  </div>
-</section>
+{{ sections.place(a, root) }}
 
 {% include "partials/testimonials.html.j2" %}
 {% endblock %}

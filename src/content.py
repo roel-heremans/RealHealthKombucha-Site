@@ -300,4 +300,126 @@ CONTENT = {
     "btn_shop_now": "Shop Now",
     "btn_explore_story": "Explore our Story",
     "btn_discover_story": "Discover our Story",
+
+    # ------------------------------------------------------------------ ordering
+    # Ordering happens in the orders app. Its signup screen serves private customers and
+    # restaurants; a new account is reviewed by us before the first order.
+    "orders_app_signup_url": "https://roel-heremans.github.io/kombucha-orders-app/?signup",
+    # Pre-filled order e-mails (see src/orders.py) go to this address.
+    "order_email": "realhealthkombucha@gmail.com",
+    # Prices in whole euros. A price edit here updates the card and the e-mail total.
+    "packages_bottle": [
+        {"bottles": 2, "price": 20, "deposit": 4},
+        {"bottles": 4, "price": 36, "deposit": 8},
+        {"bottles": 8, "price": 65, "deposit": 16},
+    ],
+    "packages_subscription": [
+        {"name": "Single", "bottles_per_week": 2, "price_per_month": 72},
+        {"name": "Couple", "bottles_per_week": 4, "price_per_month": 128},
+        {"name": "Family", "bottles_per_week": 8, "price_per_month": 240},
+    ],
+    "order_button_label": "Create account to order",
+    "order_email_label": "or order by email",
+    "order_note": "New accounts are reviewed by us before your first order.",
+    "partner_button_label": "Create partner account",
+    "partner_email_label": "or email us",
+    "partner_email_subject": "Partner enquiry: Real Health Kombucha",
+    "partner_email_body": [
+        "Dear Kombucha Team,", "",
+        "We would like to become a partner.", "",
+        "Our business (name, type, location):", "",
+        "Best Regards,",
+    ],
+    # ------------------------------------------------------------------ shop
+    "shop": {
+        "hero_title": "REAL HEALTH SHOP",
+        "hero_text": (
+            "At Real Health Kombucha, we offer a variety of package options to suit your needs. Whether you are a "
+            "new customer looking to try our kombucha or a loyal fan stocking up, we have the perfect package for you."
+        ),
+        "hero_image": "magic-authentic.jpg",
+        "hero_image_focus": "center top",
+        # Hero "tab" buttons jump to the two sections below (both always visible).
+        "tab_bottle": "Buy per Bottle",
+        "tab_subscription": "Subscription",
+        "bottle_title": "Buy per Bottle",
+        "bottle_text": (
+            "Choose from our set of 2, 4, or 8 bottles and enjoy the delicious benefits of our premium kombucha. "
+            "Ideal for those new to kombucha or looking to sample different flavors. This set allows you to "
+            "experience the health benefits of our kombucha without committing to a larger quantity."
+        ),
+        "bottle_points": ["Delivery to Funchal", "Perfect for Tourists", "Choose your Flavours"],
+        "subscription_title": "Subscription",
+        "subscription_text": (
+            "Enjoy regular deliveries of your favorite kombucha and save with our subscription plans."
+        ),
+        "subscription_points": [
+            "Regular deliveries to your doorstep.",
+            "Enjoy discounts on all subscription plans.",
+            "Maintain a consistent supply of your favorite health-boosting kombucha.",
+            "Free Home Delivery (Calheta - PdS - Rib. Brava - Funchal - Canico)",
+        ],
+    },
+    # ------------------------------------------------------------------ reseller
+    "reseller": {
+        "hero_title": "Partner with Real Health Kombucha",
+        "hero_kicker": "FOR RESTAURANTS & HOTELS",
+        "hero_text": (
+            "Our goal is to help you elevate your beverage offerings with a healthy, delicious, and locally crafted "
+            "alternative that your guests will love."
+        ),
+        "hero_image": "about-hero.jpg",
+        "hero_image_focus": "center top",
+        # Scrolling logo band (files in assets/img/).
+        "partners": [
+            {"name": "Ponta do Sol Sun Spot Cafe", "image": "partner-ponta-do-sol.svg"},
+            {"name": "Jin Garden", "image": "partner-jin-garden.png"},
+            {"name": "Mundo Vegan", "image": "partner-mundo-vegan.png"},
+        ],
+        # icon = name in partials/page-icons.html.j2
+        "features": [
+            {"icon": "tablet", "title": "Enhance Your menu", "text": (
+                "Stand out by offering a unique, health-focused beverage that caters to the growing demand for "
+                "nutritious options.")},
+            {"icon": "tulip", "title": "Health Benefits", "text": (
+                "Attract health-conscious customers who seek quality and natural ingredients in their drinks.")},
+            {"icon": "hand-heart", "title": "Promote", "text": (
+                "By serving kombucha, you contribute to your guests' health, enhancing their dining or stay experience.")},
+            {"icon": "globe", "title": "Eco Friendly", "text": (
+                "We are committed to sustainable practices, using eco-friendly packaging and locally sourced ingredients.")},
+            {"icon": "note-pencil", "title": "Tailored to Your Needs", "text": (
+                "We offer flexible packages to suit your establishment’s size and needs, ensuring you have the right "
+                "amount of stock at all times.")},
+            {"icon": "van", "title": "Fast Delivery", "text": (
+                "Our kombucha is brewed right here in Madeira, helping you support local businesses and the community.")},
+        ],
+        "become_title": "Become a Partner",
+        "become_text": (
+            "Getting started with Real Health Kombucha is easy and seamless. Once you’re ready, we’ll create a "
+            "customized supply plan tailored to your establishment’s requirements."
+        ),
+        "become_image": "become-partner.jpg",
+        "steps": [
+            {"icon": "number-1", "title": "Contact Us", "text": (
+                "Reach out to us through our contact form or call us directly to discuss your needs.")},
+            {"icon": "number-2", "title": "Sample Package", "text": (
+                "We offer a sample package so you can experience the quality and taste of our kombucha firsthand.")},
+            {"icon": "number-3", "title": "Tailored Solutions", "text": (
+                "We create a customized supply plan that fits your establishment’s requirements.")},
+        ],
+    },
+}
+
+# The Reseller page repeats About's Mission / stats / Values / "Made in Ponta do Sol"
+# sections. As on the live site it uses another mission photo, capitalises
+# "Non - Artificial" and shows a different "Authentic" photo; all text is shared.
+_about_values = CONTENT["about"]["values"]
+CONTENT["reseller"]["about_sections"] = {
+    **CONTENT["about"],
+    "mission_image": "reseller-mission.jpg",
+    "values": [
+        _about_values[0],
+        {**_about_values[1], "title": "Non - Artificial", "focus": None},
+        {**_about_values[2], "image": "magic-authentic.jpg", "focus": "75.3% 54.6%"},
+    ],
 }

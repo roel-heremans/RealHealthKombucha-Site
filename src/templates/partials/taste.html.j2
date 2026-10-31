@@ -1,0 +1,11 @@
+{#- "Taste the difference" (Home and Shop). -#}
+<section class="split split-tint taste">
+  <div class="container split-inner">
+    <div class="split-media" data-reveal><img src="{{ root }}assets/img/{{ content.home.taste_image }}" alt="" loading="lazy"></div>
+    <div class="split-text" data-reveal>
+      <h2 class="h2">{{ content.home.taste_title | e }}</h2>
+      <p class="lead">{{ content.home.taste_text | e }}</p>
+      <div class="btn-row"><a class="btn btn-primary" href="{{ root }}about/">{{ content.btn_discover_story | e }}</a></div>
+    </div>
+  </div>
+</section>
