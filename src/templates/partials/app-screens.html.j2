@@ -1,0 +1,14 @@
+{#- Real orders-app screenshots in phone frames (CONTENT.restaurants.app_screens).
+    Each item: {image: "assets/img/app/<name>.png" (portrait, ~390x844), caption: {en, pt}}.
+    Renders nothing when the list is empty. -#}
+{%- set screens = content.restaurants.app_screens -%}
+{%- if screens %}
+<div class="phones app-screens">
+{%- for s in screens %}
+  <figure class="phone-frame">
+    <div class="phone-frame__screen"><img src="{{ root }}{{ s.image }}" alt="{{ s.caption | t | e }}" width="390" height="844" loading="lazy"></div>
+    <figcaption>{{ s.caption | t | e }}</figcaption>
+  </figure>
+{%- endfor %}
+</div>
+{%- endif %}

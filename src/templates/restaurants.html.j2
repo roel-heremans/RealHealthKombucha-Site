@@ -1,1 +1,226 @@
 {% extends "base.html.j2" %}
+{% block content %}
+{%- set r = content.restaurants -%}
+{%- set prices = content.prices -%}
+{%- set m = r.month_example -%}
+{%- set n_partners = content.partners | length | string -%}
+{%- set max_profit = prices.max_profit_per_bottle | eur -%}
+{%- set glass_price = prices.glass_menu_price | eur -%}
+{%- set signup = content.links.signup | e -%}
+{%- set whatsapp = content.links.whatsapp | e -%}
+
+<section class="hero rest-hero">
+  <div class="hero__text">
+    <p class="eyebrow">{{ r.hero.eyebrow | t | e }}</p>
+    <h1 class="display display--hero">{{ r.hero.heading | t | e }} <em>{{ r.hero.heading_accent | t | e }}</em></h1>
+    <p class="lead">{{ r.hero.lead | t | e }}</p>
+    <div class="btn-row">
+      <a class="btn btn--gold" href="{{ signup }}" target="_blank" rel="noopener">{{ r.hero.primary | t | e }}</a>
+      <a class="btn btn--outline-light" href="{{ whatsapp }}" target="_blank" rel="noopener">{{ r.hero.whatsapp | t | e }}</a>
+    </div>
+    <ul class="rest-facts">
+{%- for f in r.hero.facts %}
+      <li><span class="rest-facts__num">{{ f.num | replace('{max}', max_profit) | replace('{partners}', n_partners) | e }}</span><span class="rest-facts__label">{{ f.label | t | e }}</span></li>
+{%- endfor %}
+    </ul>
+  </div>
+  <div class="hero__media">
+    <img src="{{ root }}{{ r.hero.image }}" alt="{{ r.hero.alt | t | e }}" width="1000" height="1501" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section section--cream rest-why">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ r.why.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ r.why.heading | t | e }} <em>{{ r.why.heading_accent | t | e }}</em></h2>
+    </div>
+    <ul class="grid grid--4 why-grid">
+{%- for it in r.why["items"] %}
+      <li class="why-item" data-reveal>
+        <span class="why-item__num">{{ "%02d" | format(loop.index) }}</span>
+        <h3 class="h-card">{{ it.title | t | e }}</h3>
+        <p class="why-item__tag">{{ it.tag | t | e }}</p>
+        <p class="body">{{ it.text | t | e }}</p>
+      </li>
+{%- endfor %}
+    </ul>
+    <p class="footnote">{{ content.ui.health_note | t | e }}</p>
+  </div>
+</section>
+
+<section class="section section--white rest-glass" id="by-the-glass">
+  <div class="container">
+    <div class="rest-head">
+      <div class="rest-head__text">
+        <p class="eyebrow">{{ r.glass.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ r.glass.heading | t | e }} <em>{{ r.glass.heading_accent | t | replace('{max}', max_profit) | e }}</em></h2>
+        <p class="body rest-head__intro">{{ r.glass.intro | t | e }}</p>
+      </div>
+      <ul class="rest-highlights">
+{%- for hl in r.glass.highlights %}
+        <li><span class="rest-highlights__num">{{ hl.num | replace('{multiple}', r.money_back_multiple | num) | e }}</span><span class="rest-highlights__label">{{ hl.label | t | replace('{price}', glass_price) | e }}</span></li>
+{%- endfor %}
+      </ul>
+    </div>
+{%- set c = r.glass.cols %}
+{%- with pt_cls = "profit-table--glass",
+         pt_cols = [
+           {"key": "ml", "label": c.glass | t, "kind": "ml"},
+           {"key": "glasses", "label": c.glasses | t, "kind": "int"},
+           {"key": "cost", "label": c.cost | t, "kind": "eur"},
+           {"key": "menu", "label": c.menu | t, "kind": "eur"},
+           {"key": "profit", "label": c.profit | t, "kind": "eur"},
+           {"key": "margin", "label": c.margin | t, "kind": "pct"},
+           {"key": "per_bottle", "label": c.per_bottle | t, "kind": "eur"}],
+         pt_rows = r.glass_rows, pt_highlight = r.glass_highlight,
+         pt_caption = r.glass.note | t | replace('{price}', prices.bottle_1l | eur) %}
+{% include "partials/profit-table.html.j2" %}
+{%- endwith %}
+    <aside class="rest-tip">
+      <p class="rest-tip__label">{{ r.glass.tip_label | t | e }}</p>
+      <p class="rest-tip__text">{{ r.glass.tip | t | e }}</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--stone rest-bottles">
+  <div class="container">
+    <div class="split rest-bottles__split">
+      <div>
+        <p class="eyebrow">{{ r.bottles.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ r.bottles.heading | t | e }} <em>{{ r.bottles.heading_accent | t | replace('{price}', r.bottle_price_range[0] | eur(0)) | e }}</em></h2>
+        <div class="rest-bottles__facts">
+          <p class="rest-bottles__pay">{{ r.bottles.pay | t | replace('{price}', prices.bottle_270 | eur) | e }}</p>
+          <p class="body">{{ r.bottles.deposit | t | replace('{deposit}', prices.deposit | eur(0)) | e }}</p>
+          <p class="rest-bottles__pay">{{ r.bottles.advice_title | t | replace('{range}', (r.bottle_price_range[0] | eur) ~ '–' ~ (r.bottle_price_range[1] | eur)) | e }}</p>
+          <p class="body">{{ r.bottles.advice | t | replace('{low}', r.bottle_rows[0].menu | eur) | replace('{profit}', r.bottle_rows[0].profit | eur) | e }}</p>
+        </div>
+      </div>
+      <div>
+{%- set c = r.bottles.cols %}
+{%- with pt_cls = "profit-table--bottles",
+         pt_cols = [
+           {"key": "menu", "label": c.menu | t, "kind": "eur"},
+           {"key": "profit", "label": c.profit | t, "kind": "eur"},
+           {"key": "margin", "label": c.margin | t, "kind": "pct"}],
+         pt_rows = r.bottle_rows, pt_highlight = r.bottle_highlight,
+         pt_caption = r.bottles.caption | t %}
+{% include "partials/profit-table.html.j2" %}
+{%- endwith %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--forest rest-month">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">{{ r.month.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ r.month.heading | t | e }} <em>{{ r.month.heading_accent | t | e }}</em></h2>
+      <p class="lead rest-month__example">{{ r.month.example | t | replace('{n1l}', m.bottles_1l | string) | replace('{n270}', m.bottles_270 | string) | replace('{price}', m.menu_price | eur) | e }}</p>
+    </div>
+    <ul class="month">
+      <li class="month__item">
+        <span class="month__label">{{ r.month.spend | t | e }}</span>
+        <span class="month__num">{{ m.you_spend | eur(0) }}</span>
+        <span class="month__calc">{{ r.month.spend_calc | replace('{n1l}', m.bottles_1l | string) | replace('{p1l}', prices.bottle_1l | eur) | replace('{n270}', m.bottles_270 | string) | replace('{p270}', prices.bottle_270 | eur) | e }}</span>
+      </li>
+      <li class="month__item">
+        <span class="month__label">{{ r.month.guests | t | e }}</span>
+        <span class="month__num">{{ m.guests_spend | eur(0) }}</span>
+        <span class="month__calc">{{ r.month.guests_calc | t | replace('{glasses}', m.glasses | string) | replace('{n270}', m.bottles_270 | string) | replace('{price}', m.menu_price | eur) | e }}</span>
+      </li>
+      <li class="month__item month__item--profit">
+        <span class="month__label">{{ r.month.profit | t | e }}</span>
+        <span class="month__num">{{ m.extra_profit | eur(0) }}</span>
+        <span class="month__calc">{{ r.month.profit_calc | t | e }}</span>
+      </li>
+    </ul>
+    <p class="footnote center rest-month__note">{{ r.month.deposit_note | t | replace('{n270}', m.bottles_270 | string) | replace('{deposit}', prices.deposit | eur(0)) | replace('{total}', m.deposit_total | eur(0)) | e }}</p>
+  </div>
+</section>
+
+<div class="photo-band rest-band">
+  <img src="{{ root }}{{ r.band.image }}" alt="{{ r.band.alt | t | e }}" width="1000" height="1333" loading="lazy">
+</div>
+
+<section class="section section--cream rest-app" id="app">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ r.app.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ r.app.heading | t | e }} <em>{{ r.app.heading_accent | t | e }}</em></h2>
+    </div>
+    <div class="split split--top rest-app__split">
+      <ul class="app-points">
+{%- for p in r.app.points %}
+        <li><h3 class="app-points__title">{{ p.title | t | e }}</h3><p class="body">{{ p.text | t | e }}</p></li>
+{%- endfor %}
+      </ul>
+      <div class="card steps-card">
+        <p class="card__eyebrow">{{ r.app.steps_title | t | e }}</p>
+        <ol class="steps">
+{%- for s in r.app.steps %}
+          <li class="step"><span class="step__num">{{ loop.index }}</span><div><h3 class="step__title">{{ s.title | t | e }}</h3><p class="body">{{ s.text | t | e }}</p></div></li>
+{%- endfor %}
+        </ol>
+        <p class="steps-card__note">{{ r.app.any_phone | t | e }}</p>
+        <div class="btn-row"><a class="btn btn--forest" href="{{ signup }}" target="_blank" rel="noopener">{{ r.app.button | t | e }}</a></div>
+      </div>
+    </div>
+{% include "partials/app-screens.html.j2" %}
+  </div>
+</section>
+
+<section class="section section--white rest-delivery">
+  <div class="container">
+    <div class="split rest-delivery__split">
+      <div class="rest-delivery__media">
+        <img src="{{ root }}{{ r.delivery.image }}" alt="{{ r.delivery.alt | t | e }}" width="1000" height="1333" loading="lazy">
+      </div>
+      <div>
+        <p class="eyebrow">{{ r.delivery.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ r.delivery.heading | t | e }} <em>{{ r.delivery.heading_accent | t | e }}</em></h2>
+        <p class="lead rest-delivery__lead">{{ r.delivery.lead | t | e }}</p>
+        <ul class="delivery-list">
+{%- for it in r.delivery["items"] %}
+          <li><h3 class="delivery-list__title">{{ it.title | t | e }}</h3><p class="body">{{ it.text | t | e }}</p></li>
+{%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--stone rest-partners">
+  <div class="container">
+{% include "partials/partners.html.j2" %}
+    <div class="rest-partners__quotes">
+      <div class="section-head center">
+        <p class="eyebrow">{{ r.partners.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ r.partners.heading | t | e }}</h2>
+      </div>
+{%- set picked = [] %}{% for i in r.partners.pick %}{% set _ = picked.append(content.quotes[i]) %}{% endfor %}
+{%- with quote_items = picked, quote_link = true %}
+{% include "partials/quotes.html.j2" %}
+{%- endwith %}
+    </div>
+  </div>
+</section>
+
+<section class="hero hero--short home-cta rest-cta">
+  <div class="hero__media">
+    <img src="{{ root }}{{ r.cta.image }}" alt="{{ r.cta.alt | t | e }}" width="1086" height="1448" loading="lazy">
+  </div>
+  <div class="hero__text">
+    <p class="eyebrow">{{ r.cta.eyebrow | t | e }}</p>
+    <h2 class="display">{{ r.cta.heading | t | e }}</h2>
+    <p class="lead">{{ r.cta.lead | t | e }}</p>
+    <div class="btn-row">
+      <a class="btn btn--gold" href="{{ signup }}" target="_blank" rel="noopener">{{ r.cta.button | t | e }}</a>
+      <a class="btn btn--outline-light" href="{{ whatsapp }}" target="_blank" rel="noopener">{{ r.cta.whatsapp | t | e }}</a>
+    </div>
+    <p class="rest-cta__email">{{ r.cta.email | t | e }} <a class="text-link" href="mailto:{{ content.links.email | e }}?subject={{ r.cta.email_subject | t | urlencode }}">{{ content.links.email | e }}</a></p>
+  </div>
+</section>
+{% endblock %}

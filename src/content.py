@@ -268,8 +268,292 @@ CONTENT = {
             "whatsapp": {"en": "Talk to us on WhatsApp", "pt": "Fale connosco no WhatsApp"},
         },
     },
+    # For restaurants page (spec section 2; pitch slides 5, 9-13). Money values are numbers
+    # in euros, formatted per language by the `eur` filter; margins are whole percents.
+    # Placeholders in copy ("{price}", "{max}", ...) are filled in by the template.
+    "restaurants": {
+        "hero": {
+            "eyebrow": {"en": "For restaurants & cafés", "pt": "Para restaurantes e cafés"},
+            "heading": {"en": "Kombucha that pays off", "pt": "Kombucha que compensa"},
+            "heading_accent": {"en": "on your menu", "pt": "no seu menu"},
+            "lead": {
+                "en": "A raw, sparkling, alcohol-free drink your guests order again, with a margin "
+                      "that works for you. Brewed in small batches in Ponta do Sol, delivered by us "
+                      "and reordered in seconds from your phone.",
+                "pt": "Uma bebida crua, efervescente e sem álcool que os seus clientes voltam a "
+                      "pedir, com uma margem que compensa. Produzida em pequenos lotes na Ponta do "
+                      "Sol, entregue por nós e encomendada em segundos pelo telemóvel.",
+            },
+            "primary": {"en": "Become a partner", "pt": "Torne-se parceiro"},
+            "whatsapp": {"en": "Talk to us on WhatsApp", "pt": "Fale connosco no WhatsApp"},
+            # Key figures under the buttons. "{max}" = prices.max_profit_per_bottle,
+            # "{partners}" = number of partners.
+            "facts": [
+                {"num": "{max}",
+                 "label": {"en": "profit per 1 L bottle", "pt": "de lucro por garrafa de 1 L"}},
+                {"num": "72%",
+                 "label": {"en": "margin by the glass", "pt": "de margem a copo"}},
+                {"num": "{partners}",
+                 "label": {"en": "restaurants & cafés already serve it",
+                           "pt": "restaurantes e cafés já a servem"}},
+            ],
+            "image": "assets/img/photos/roel-glass-garden.jpg",
+            "alt": {
+                "en": "Roel handing a guest a glass of kombucha in a sunny garden",
+                "pt": "O Roel a servir um copo de kombucha a um cliente num jardim soalheiro",
+            },
+        },
+        # Slide 5, condensed to the four points that matter at the table.
+        "why": {
+            "eyebrow": {"en": "Why your guests will love it", "pt": "Porque os seus clientes vão gostar"},
+            "heading": {"en": "A drink your guests", "pt": "Uma bebida que os seus clientes"},
+            "heading_accent": {"en": "feel good about", "pt": "bebem com gosto"},
+            "items": [
+                {"title": {"en": "Live cultures", "pt": "Culturas vivas"},
+                 "tag": {"en": "Raw · unpasteurised", "pt": "Crua · não pasteurizada"},
+                 "text": {"en": "Full of the living bacteria and yeasts from fermentation.",
+                          "pt": "Cheia das bactérias e leveduras vivas da fermentação."}},
+                {"title": {"en": "Less sugar", "pt": "Menos açúcar"},
+                 "tag": {"en": "Lighter than soft drinks", "pt": "Mais leve que um refrigerante"},
+                 "text": {"en": "Most of the sugar is consumed during fermentation.",
+                          "pt": "A maior parte do açúcar é consumida durante a fermentação."}},
+                {"title": {"en": "Alcohol-free", "pt": "Sem álcool"},
+                 "tag": {"en": "< 0.5% vol", "pt": "< 0,5% vol"},
+                 "text": {"en": "An adult drink for guests who skip alcohol.",
+                          "pt": "Uma bebida adulta para quem não bebe álcool."}},
+                {"title": {"en": "Clean & vegan", "pt": "Simples e vegana"},
+                 "tag": {"en": "Nothing artificial", "pt": "Nada de artificial"},
+                 "text": {"en": "Only water, green tea, cane sugar, kombucha culture and "
+                                "natural flavours.",
+                          "pt": "Apenas água, chá verde, açúcar de cana, cultura de kombucha e "
+                                "aromas naturais."}},
+            ],
+        },
+        # Slide 10. Columns: glass size (ml), glasses per bottle, cost per glass, menu price,
+        # profit per glass, margin (%), profit per bottle. Exactly as in the spec.
+        "glass_rows": [
+            {"ml": 200, "glasses": 5, "cost": 1.60, "menu": 4.00, "profit": 2.40, "margin": 60, "per_bottle": 12.00},
+            {"ml": 200, "glasses": 5, "cost": 1.60, "menu": 5.70, "profit": 4.10, "margin": 72, "per_bottle": 20.50},
+            {"ml": 250, "glasses": 4, "cost": 2.00, "menu": 4.00, "profit": 2.00, "margin": 50, "per_bottle": 8.00},
+            {"ml": 250, "glasses": 4, "cost": 2.00, "menu": 5.70, "profit": 3.70, "margin": 65, "per_bottle": 14.80},
+        ],
+        "glass_highlight": 1,  # index of the highlighted row (200 ml at €5.70)
+        "money_back_multiple": 2.5,  # slide 10: "2.5× your money back on every bottle"
+        "glass": {
+            "eyebrow": {"en": "By the glass", "pt": "A copo"},
+            "heading": {"en": "One 1 L bottle earns you", "pt": "Uma garrafa de 1 L rende-lhe"},
+            "heading_accent": {"en": "up to {max}", "pt": "até {max}"},
+            "intro": {
+                "en": "Served by the glass, every litre goes a long way. This is what one bottle "
+                      "earns you at two glass sizes and two menu prices.",
+                "pt": "Servida a copo, cada litro rende muito. Veja quanto ganha com uma garrafa "
+                      "em dois tamanhos de copo e dois preços de menu.",
+            },
+            "cols": {
+                "glass": {"en": "Glass", "pt": "Copo"},
+                "glasses": {"en": "Glasses per bottle", "pt": "Copos por garrafa"},
+                "cost": {"en": "Cost per glass", "pt": "Custo por copo"},
+                "menu": {"en": "Menu price", "pt": "Preço no menu"},
+                "profit": {"en": "Profit per glass", "pt": "Lucro por copo"},
+                "margin": {"en": "Margin", "pt": "Margem"},
+                "per_bottle": {"en": "Profit per bottle", "pt": "Lucro por garrafa"},
+            },
+            "note": {
+                "en": "You pay {price} per 1 L bottle. Margin = profit ÷ menu price. VAT not included.",
+                "pt": "Paga {price} por garrafa de 1 L. Margem = lucro ÷ preço no menu. IVA não incluído.",
+            },
+            # "{price}" = prices.glass_menu_price; "{multiple}" = money_back_multiple.
+            "highlights": [
+                {"num": "72%",
+                 "label": {"en": "margin at {price} per 200 ml glass",
+                           "pt": "de margem a {price} por copo de 200 ml"}},
+                {"num": "{multiple}×",
+                 "label": {"en": "your money back on every bottle",
+                           "pt": "o seu investimento de volta, em cada garrafa"}},
+            ],
+            "tip_label": {"en": "Tip", "pt": "Dica"},
+            "tip": {
+                "en": "Serve it in 200 ml glasses over ice with a slice of fruit. It looks premium "
+                      "and gets you five glasses from every bottle.",
+                "pt": "Sirva-a em copos de 200 ml, com gelo e uma rodela de fruta. Tem um ar "
+                      "premium e tira cinco copos de cada garrafa.",
+            },
+        },
+        # Slide 11: the 270 ml bottle at three menu prices. Exactly as in the spec.
+        "bottle_rows": [
+            {"menu": 4.00, "profit": 0.50, "margin": 13},
+            {"menu": 5.00, "profit": 1.50, "margin": 30},
+            {"menu": 5.70, "profit": 2.20, "margin": 39},
+        ],
+        "bottle_highlight": 2,
+        "bottle_price_range": [5.00, 5.70],
+        "bottles": {
+            "eyebrow": {"en": "Small bottles", "pt": "Garrafas pequenas"},
+            "heading": {"en": "Small bottles pay off", "pt": "As garrafas pequenas compensam"},
+            "heading_accent": {"en": "from {price} on the menu", "pt": "a partir de {price} no menu"},
+            "pay": {"en": "You pay {price} per 270 ml bottle",
+                    "pt": "Paga {price} por garrafa de 270 ml"},
+            "deposit": {
+                "en": "plus a {deposit} deposit that you get back when you return the empty.",
+                "pt": "mais {deposit} de depósito, que lhe devolvemos quando nos entrega a garrafa vazia.",
+            },
+            "advice_title": {"en": "Price it at {range}", "pt": "Ponha-a no menu a {range}"},
+            "advice": {"en": "At {low} there is only {profit} left per bottle.",
+                       "pt": "A {low} sobram apenas {profit} por garrafa."},
+            "cols": {
+                "menu": {"en": "Menu price", "pt": "Preço no menu"},
+                "profit": {"en": "Profit", "pt": "Lucro"},
+                "margin": {"en": "Margin", "pt": "Margem"},
+            },
+            "caption": {"en": "Per 270 ml bottle. VAT not included.",
+                        "pt": "Por garrafa de 270 ml. IVA não incluído."},
+        },
+        # Slide 12. Totals exactly as in the spec.
+        "month_example": {
+            "bottles_1l": 8, "glasses": 40, "bottles_270": 24, "menu_price": 5.70,
+            "you_spend": 148, "guests_spend": 365, "extra_profit": 217, "deposit_total": 24,
+        },
+        "month": {
+            "eyebrow": {"en": "A typical month", "pt": "Um mês típico"},
+            "heading": {"en": "What a typical month", "pt": "Como pode ser"},
+            "heading_accent": {"en": "could look like", "pt": "um mês típico"},
+            "example": {
+                "en": "Example order: {n1l} × 1 L bottles served in 200 ml glasses at {price}, "
+                      "plus {n270} × 270 ml bottles at {price}.",
+                "pt": "Exemplo de encomenda: {n1l} garrafas de 1 L servidas em copos de 200 ml a "
+                      "{price}, mais {n270} garrafas de 270 ml a {price}.",
+            },
+            "spend": {"en": "You spend", "pt": "O seu custo"},
+            "spend_calc": "{n1l} × {p1l} + {n270} × {p270}",
+            "guests": {"en": "Your guests spend", "pt": "Os seus clientes gastam"},
+            "guests_calc": {"en": "{glasses} glasses + {n270} bottles at {price}",
+                            "pt": "{glasses} copos + {n270} garrafas a {price}"},
+            "profit": {"en": "Your extra profit", "pt": "O seu lucro extra"},
+            "profit_calc": {"en": "every month, from one fridge shelf",
+                            "pt": "todos os meses, com uma só prateleira do frigorífico"},
+            "deposit_note": {
+                "en": "The {n270} × {deposit} deposit ({total}) comes back to you when the empties "
+                      "are returned, so it's not included as a cost. VAT not included.",
+                "pt": "O depósito de {n270} × {deposit} ({total}) é-lhe devolvido quando entrega as "
+                      "garrafas vazias, por isso não é contabilizado como custo. IVA não incluído.",
+            },
+        },
+        # Slide 9.
+        "app": {
+            "eyebrow": {"en": "Ordering in 30 seconds", "pt": "Encomendar em 30 segundos"},
+            "heading": {"en": "Reordering takes 30 seconds", "pt": "Repetir uma encomenda demora"},
+            "heading_accent": {"en": "in our app", "pt": "30 segundos na nossa app"},
+            "points": [
+                {"title": {"en": "One-tap reorder", "pt": "Repetir com um toque"},
+                 "text": {"en": "Your last order is pre-filled; adjust and send.",
+                          "pt": "A sua última encomenda já vem preenchida; ajuste e envie."}},
+                {"title": {"en": "We're notified instantly", "pt": "Somos avisados de imediato"},
+                 "text": {"en": "Every order reaches us by WhatsApp and email.",
+                          "pt": "Cada encomenda chega-nos por WhatsApp e por email."}},
+                {"title": {"en": "English or Portuguese", "pt": "Português ou inglês"},
+                 "text": {"en": "Your staff use whichever language they prefer.",
+                          "pt": "A sua equipa usa a língua que preferir."}},
+                {"title": {"en": "Order history", "pt": "Histórico de encomendas"},
+                 "text": {"en": "See what you ordered and when it was delivered.",
+                          "pt": "Veja o que encomendou e quando foi entregue."}},
+                {"title": {"en": "Recibos verdes", "pt": "Recibos verdes"},
+                 "text": {"en": "Download your monthly invoices straight from the app.",
+                          "pt": "Descarregue as faturas mensais diretamente na app."}},
+            ],
+            "steps_title": {"en": "How to start", "pt": "Como começar"},
+            "steps": [
+                {"title": {"en": "Sign up", "pt": "Registe-se"},
+                 "text": {"en": "Scan our QR code or tap the button below to create your account.",
+                          "pt": "Leia o nosso código QR ou toque no botão abaixo para criar a conta."}},
+                {"title": {"en": "We activate it", "pt": "Nós ativamos a conta"},
+                 "text": {"en": "We check your details and switch your account on.",
+                          "pt": "Confirmamos os seus dados e ativamos a sua conta."}},
+                {"title": {"en": "Order anytime", "pt": "Encomende quando quiser"},
+                 "text": {"en": "Send an order whenever you need one, day or night.",
+                          "pt": "Envie uma encomenda sempre que precisar, a qualquer hora."}},
+            ],
+            "any_phone": {"en": "Works on any phone: add it to your home screen.",
+                          "pt": "Funciona em qualquer telemóvel: adicione-a ao ecrã principal."},
+            "button": {"en": "Create your account", "pt": "Criar a sua conta"},
+        },
+        # Real app screenshots (Task 8): [{"image": "assets/img/app/<name>.png",
+        # "caption": {"en": .., "pt": ..}}]. Empty = the app section shows points + steps only.
+        "app_screens": [],
+        # Slide 13.
+        "delivery": {
+            "eyebrow": {"en": "Delivery & service", "pt": "Entrega e serviço"},
+            "heading": {"en": "We deliver,", "pt": "Nós entregamos,"},
+            "heading_accent": {"en": "you simply serve", "pt": "só tem de servir"},
+            "lead": {
+                "en": "No wholesaler in between. We bring every order ourselves and take care of "
+                      "the rest.",
+                "pt": "Sem intermediários. Levamos cada encomenda pessoalmente e tratamos do resto.",
+            },
+            "items": [
+                {"title": {"en": "Personal delivery across the island",
+                           "pt": "Entrega pessoal em toda a ilha"},
+                 "text": {"en": "Roel or Nina bring your order to your door themselves.",
+                          "pt": "O Roel ou a Nina levam a encomenda até à sua porta."}},
+                {"title": {"en": "We collect your empties", "pt": "Recolhemos as garrafas vazias"},
+                 "text": {"en": "Hand us the empty bottles at the next delivery and we refund the deposit.",
+                          "pt": "Entregue-nos as garrafas vazias na entrega seguinte e devolvemos o depósito."}},
+                {"title": {"en": "Table QR cards", "pt": "Cartões QR para as mesas"},
+                 "text": {"en": "Cards for your tables, so guests can leave a review or return "
+                                "their bottle.",
+                          "pt": "Cartões para as mesas, para os clientes deixarem uma avaliação "
+                                "ou devolverem a garrafa."}},
+            ],
+            "image": "assets/img/photos/crate-delivery-terrace.jpg",
+            "alt": {
+                "en": "A wooden crate full of tagged kombucha bottles, ready for delivery on a "
+                      "sunny terrace",
+                "pt": "Uma caixa de madeira cheia de garrafas de kombucha etiquetadas, pronta "
+                      "para entrega num terraço soalheiro",
+            },
+        },
+        "band": {
+            "image": "assets/img/photos/bottle-terrace-sea-view.jpg",
+            "alt": {
+                "en": "A 1 L bottle of kombucha glowing in the sun on a terrace table above the sea",
+                "pt": "Uma garrafa de 1 L de kombucha a brilhar ao sol numa mesa de terraço sobre o mar",
+            },
+        },
+        "partners": {
+            "eyebrow": {"en": "Google reviews", "pt": "Avaliações no Google"},
+            "heading": {"en": "What guests say", "pt": "O que dizem os clientes"},
+            "pick": [0, 4, 5],  # quotes shown on this page (indexes into CONTENT["quotes"])
+        },
+        "cta": {
+            "eyebrow": {"en": "Become a partner", "pt": "Torne-se parceiro"},
+            "heading": {"en": "Let's put Real Health Kombucha on your menu",
+                        "pt": "Vamos colocar a Real Health Kombucha no seu menu"},
+            "lead": {
+                "en": "Create your account in two minutes and we'll get in touch about your first "
+                      "delivery. Prefer to talk first? Message us on WhatsApp or send us an email.",
+                "pt": "Crie a sua conta em dois minutos e entramos em contacto para combinar a "
+                      "primeira entrega. Prefere falar primeiro? Envie-nos uma mensagem no WhatsApp "
+                      "ou um email.",
+            },
+            "button": {"en": "Become a partner", "pt": "Torne-se parceiro"},
+            "whatsapp": {"en": "WhatsApp", "pt": "WhatsApp"},
+            "email": {"en": "Or email us at", "pt": "Ou envie-nos um email para"},
+            "email_subject": {"en": "Kombucha for our restaurant",
+                              "pt": "Kombucha para o nosso restaurante"},
+            "image": "assets/img/photos/roel-nina-six-pack-coast.jpg",
+            "alt": {
+                "en": "Roel and Nina smiling behind a box of six kombucha bottles on the Madeira coast",
+                "pt": "O Roel e a Nina a sorrir atrás de uma caixa com seis garrafas de kombucha, "
+                      "na costa da Madeira",
+            },
+        },
+    },
     # Shared interface labels.
     "ui": {
+        "health_note": {
+            "en": "Based on published research on kombucha and fermented foods. Not a medical claim.",
+            "pt": "Com base em investigação publicada sobre kombucha e alimentos fermentados. "
+                  "Não é uma alegação médica.",
+        },
         "switch_title": {"en": "Ver em português", "pt": "View in English"},
         "menu": {"en": "Menu", "pt": "Menu"},
         "skip": {"en": "Skip to content", "pt": "Saltar para o conteúdo"},

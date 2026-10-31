@@ -1,0 +1,34 @@
+{#- Figures table (For restaurants). Include inside a `with` block:
+      pt_cls        extra table class, e.g. "profit-table--glass"
+      pt_cols       list of {key, label, kind}; kind: "ml" (200 -> "200 ml"), "int", "eur", "pct" (72 -> "72%")
+      pt_rows       list of dicts holding the raw numbers (keys = column keys)
+      pt_highlight  index of the row to highlight (optional)
+      pt_caption    caption text (optional)
+    Every cell carries data-label="<column>" so rows stack as labelled cards on phones;
+    the first column becomes the card title. -#}
+{%- macro cell(kind, v) -%}
+{%- if kind == "ml" %}{{ v }} ml{% elif kind == "eur" %}{{ v | eur }}{% elif kind == "pct" %}{{ v }}%{% else %}{{ v }}{% endif -%}
+{%- endmacro -%}
+<div class="table-wrap profit-wrap">
+  <table class="data-table profit-table {{ pt_cls }}">
+{%- if pt_caption is defined and pt_caption %}
+    <caption>{{ pt_caption | e }}</caption>
+{%- endif %}
+    <thead>
+      <tr>
+{%- for c in pt_cols %}
+        <th scope="col"{% if not loop.first %} class="n"{% endif %}>{{ c.label | e }}</th>
+{%- endfor %}
+      </tr>
+    </thead>
+    <tbody>
+{%- for r in pt_rows %}
+      <tr{% if pt_highlight is defined and loop.index0 == pt_highlight %} class="is-highlight"{% endif %}>
+{%- for c in pt_cols %}
+        <td data-label="{{ c.label | e }}"{% if not loop.first %} class="n{% if loop.last %} is-strong{% endif %}"{% else %} class="profit-table__lead"{% endif %}>{{ cell(c.kind, r[c.key]) }}</td>
+{%- endfor %}
+      </tr>
+{%- endfor %}
+    </tbody>
+  </table>
+</div>
