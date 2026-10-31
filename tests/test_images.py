@@ -10,7 +10,6 @@ IMG = ROOT / "assets" / "img"
 sys.path.insert(0, str(ROOT / "tools"))
 
 FIXED = [
-    "logo-dark.png",
     "logo-light.png",
     "favicon.png",
     "review-qr.svg",
@@ -97,3 +96,11 @@ def test_output_guard_refuses_paths_outside_assets_img(tmp_path):
     with pytest.raises(ValueError):
         prepare_images.safe_output(Path.home() / "Documents" / "PersonalRepos" / "Kombucha" / "assets" / "x.jpg")
     assert prepare_images.safe_output(IMG / "photos" / "ok.jpg") == (IMG / "photos" / "ok.jpg").resolve()
+
+
+def test_pipeline_targets_match_photos_on_disk():
+    """prepare_images.PHOTOS lists exactly the photos shipped (no dropped images recreated)."""
+    import prepare_images
+
+    targets = sorted(row[1] for row in prepare_images.PHOTOS)
+    assert targets == sorted(p.name for p in (IMG / "photos").glob("*.jpg"))

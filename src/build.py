@@ -59,7 +59,10 @@ def build(out_dir: Path, content: dict) -> None:
         return num(value, ctx["lang"], decimals)
 
     env.filters["num"] = num_filter
-    env.globals.update(url=url, page_path=page_path, LANGS=LANGS, order_mailto=order_mailto)
+    def mailto(lang):
+        return order_mailto(lang, content)
+
+    env.globals.update(url=url, page_path=page_path, LANGS=LANGS, order_mailto=mailto)
     year = datetime.date.today().year
 
     for page in content["pages"]:

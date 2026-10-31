@@ -1,71 +1,155 @@
 #!/usr/bin/env python3
-"""Screenshot every page of a deployed site at 1440 and 390 width and build
-review/index.html (old | new side by side).
+"""Screenshot every page of a deployed site (EN + PT, 1440 and 390 wide), check
+phones for horizontal scroll and the desktop header for overflow, and build a
+simple gallery review/index.html (review/ is gitignored).
 
 Usage: python tools/screenshots.py <base_url>
 
-Method: headless Chrome `--screenshot` for images (same tall windows as the
-originals: 1440x9000, 390x12000). For the horizontal-scroll check, the page is
-fetched, a tiny script is injected that writes scrollWidth/innerWidth into a
-<body> attribute, written to a temp file next to nothing else (base href set to
-the live URL so assets load), embedded in a 390px-wide srcdoc iframe (Chrome headless
-windows cannot be narrower than 500px) and read via `--dump-dom`.
+Method: each page is fetched, a <base href> to its live URL is added (so CSS,
+images and JS load) and it is embedded as a srcdoc iframe of the exact width in
+a host page opened by headless Chrome. Chrome headless windows cannot be
+narrower than 500px, so the iframe is what gives a true 390px viewport.
+  1. Measure pass (--dump-dom): the host reads the page's scrollWidth and full
+     height and, at header widths, whether the nav overflows or wraps.
+  2. Screenshot pass (--screenshot): iframe as tall as the page, cropped to
+     the iframe width with ImageMagick when the window had to be wider.
+Exit code 1 if any check fails.
 """
-import re, subprocess, sys, tempfile, urllib.request
+import html as H
+import json
+import re
+import subprocess
+import sys
+import tempfile
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = [("home", ""), ("about", "about/"), ("gut-health-101", "gut-health-101/"),
-         ("reseller", "reseller/"), ("contact", "contact/"), ("shop", "shop/")]
-SIZES = {"desktop": (1440, 9000), "phone": (390, 12000)}
+sys.path.insert(0, str(ROOT / "src"))
+from content import CONTENT  # noqa: E402
+from i18n import LANGS, page_path  # noqa: E402
+
+SHOT_WIDTHS = {"desktop": 1440, "phone": 390}
+HEADER_WIDTHS = [960, 1100, 1261]
 CHROME = "google-chrome"
-INJECT = ("<script>window.addEventListener('load',function(){setTimeout(function(){"
-          "document.body.setAttribute('data-sw',document.documentElement.scrollWidth"
-          "+','+innerWidth)},500)})</script>")
+OUT = ROOT / "review"
+
+# Runs in the host page once the iframe has loaded; writes JSON into <body data-m>.
+MEASURE_JS = """
+var f=document.getElementById('f');
+f.onload=function(){setTimeout(function(){
+  var d=f.contentDocument, de=d.documentElement, r={sw:de.scrollWidth, w:f.clientWidth,
+    h:Math.max(de.scrollHeight, d.body.scrollHeight)};
+  var hi=d.querySelector('.header-inner'), nav=d.querySelector('.site-nav');
+  if(hi){r.header_overflow=hi.scrollWidth>hi.clientWidth;}
+  if(nav){
+    r.nav_visible=getComputedStyle(nav).display!=='none'&&nav.offsetWidth>0;
+    var tops={}, multi=[];
+    nav.querySelectorAll('li').forEach(function(li){
+      if(li.offsetParent===null) return;
+      tops[li.offsetTop]=1;
+      var a=li.querySelector('a'); if(a&&a.getClientRects().length>1) multi.push(a.textContent.trim());
+    });
+    r.nav_rows=Object.keys(tops).length; r.nav_multiline=multi;
+    var ord=d.querySelector('.header-order'); if(ord) r.order_lines=ord.getClientRects().length;
+  }
+  document.body.setAttribute('data-m', JSON.stringify(r));
+}, 1200)};
+"""
 
 
-def chrome(*args):
+def chrome(*args, timeout=180):
     return subprocess.run([CHROME, "--headless=new", "--no-sandbox", "--disable-gpu",
-                           "--hide-scrollbars", *args], capture_output=True, text=True, timeout=120)
+                           "--hide-scrollbars", *args], capture_output=True, text=True,
+                          timeout=timeout)
+
+
+def host_file(page_html, url, width, height, measure):
+    page_html = page_html.replace("<head>", f'<head><base href="{url}">', 1)
+    host = ('<!doctype html><html><body style="margin:0;background:#fff">'
+            f'<iframe id=f style="display:block;width:{width}px;height:{height}px;border:0" '
+            f'srcdoc="{H.escape(page_html, quote=True)}"></iframe>'
+            + (f"<script>{MEASURE_JS}</script>" if measure else "") + "</body></html>")
+    f = tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8")
+    f.write(host)
+    f.close()
+    return f.name
+
+
+def measure(page_html, url, width, height=900):
+    path = host_file(page_html, url, width, height, measure=True)
+    r = chrome(f"--window-size={max(width, 500) + 20},{height}", "--virtual-time-budget=10000",
+               "--dump-dom", "file://" + path)
+    m = re.search(r"data-m=\"([^\"]+)\"", r.stdout)
+    return json.loads(H.unescape(m.group(1))) if m else None
+
+
+def screenshot(page_html, url, width, height, target):
+    path = host_file(page_html, url, width, height, measure=False)
+    win_w = max(width, 500)
+    chrome(f"--window-size={win_w},{height}", "--virtual-time-budget=10000",
+           f"--screenshot={target}", "file://" + path)
+    if win_w != width and target.exists():
+        subprocess.run(["convert", str(target), "-crop", f"{width}x{height}+0+0", "+repage",
+                        str(target)], check=True)
+
+
+def pages(base):
+    for page in CONTENT["pages"]:
+        for lang in LANGS:
+            yield f"{lang}-{page['id']}", base + page_path(page, lang)
 
 
 def main(base):
     base = base.rstrip("/") + "/"
-    out = ROOT / "review" / "new"
-    out.mkdir(parents=True, exist_ok=True)
-    for slug, path in PAGES:
-        for name, (w, h) in SIZES.items():
-            chrome(f"--window-size={w},{h}", "--virtual-time-budget=5000",
-                   f"--screenshot={out / f'{slug}-{name}.png'}", base + path)
-    print("Horizontal-scroll check at 390px:")
-    bad = False
-    for slug, path in PAGES:
-        import html as H
-        page = urllib.request.urlopen(base + path).read().decode()
-        page = page.replace("<head>", f'<head><base href="{base + path}">', 1)
-        host = ('<body><iframe id=f style="width:390px;height:900px;border:0" srcdoc="' + H.escape(page, quote=True) + '"></iframe>'
-                '<script>document.getElementById("f").onload=function(){setTimeout(function(){var d=document.getElementById("f").contentDocument.documentElement;'
-                'document.body.setAttribute("data-sw",d.scrollWidth+",390")},800)}</script></body>')
-        with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False) as f:
-            f.write(host)
-        r = chrome("--window-size=500,900", "--virtual-time-budget=8000", "--dump-dom", "file://" + f.name)
-        m = re.search(r'data-sw="(\d+),(\d+)"', r.stdout)
-        if not m:
-            print(f"  {slug}: could not measure"); bad = True
-        elif int(m[1]) > int(m[2]):
-            print(f"  {slug}: OVERFLOW scrollWidth={m[1]} > innerWidth={m[2]}"); bad = True
-        else:
-            print(f"  {slug}: ok ({m[1]}<={m[2]})")
-    rows = "".join(
-        f"<h2>{s} / {n}</h2><div class=r><figure><figcaption>old</figcaption><img src='../original/screenshots/{s}-{n}.png'></figure>"
-        f"<figure><figcaption>new</figcaption><img src='new/{s}-{n}.png'></figure></div>"
-        for s, _ in PAGES for n in SIZES)
-    (ROOT / "review" / "index.html").write_text(
-        "<!doctype html><meta charset=utf-8><title>Old vs new</title><style>body{font:14px sans-serif}"
-        ".r{display:flex;gap:12px;align-items:flex-start}figure{margin:0;flex:1;min-width:0}"
-        "img{width:100%;border:1px solid #ccc}</style><h1>Old vs new</h1>" + rows)
-    print("Wrote", ROOT / "review" / "index.html")
-    return 1 if bad else 0
+    shots = OUT / "shots"
+    shots.mkdir(parents=True, exist_ok=True)
+    problems, rows = [], []
+    for name, url in pages(base):
+        page_html = urllib.request.urlopen(url).read().decode("utf-8")
+        figs = []
+        for kind, width in SHOT_WIDTHS.items():
+            m = measure(page_html, url, width)
+            if not m:
+                problems.append(f"{name} @{width}: could not measure")
+                continue
+            if kind == "phone":
+                state = "ok" if m["sw"] <= width else f"OVERFLOW scrollWidth={m['sw']}"
+                print(f"  scroll @390 {name}: {state}")
+                if m["sw"] > width:
+                    problems.append(f"{name} @390: horizontal scroll ({m['sw']} > {width})")
+            target = shots / f"{name}-{kind}.png"
+            screenshot(page_html, url, width, min(m["h"] + 40, 16000), target)
+            figs.append(f"<figure><figcaption>{kind} {width}px</figcaption>"
+                        f"<a href='shots/{target.name}'><img src='shots/{target.name}' loading=lazy></a></figure>")
+        rows.append(f"<h2>{name}</h2><p><a href='{url}'>{url}</a></p><div class=r>{''.join(figs)}</div>")
+
+    print("Header check (nav fits on one row, no overflow):")
+    for lang in LANGS:
+        url = base + page_path(CONTENT["pages"][0], lang)
+        page_html = urllib.request.urlopen(url).read().decode("utf-8")
+        for width in HEADER_WIDTHS:
+            m = measure(page_html, url, width, 400)
+            bad = (not m or m.get("header_overflow") or not m.get("nav_visible")
+                   or m.get("nav_rows") != 1 or m.get("nav_multiline") or m.get("order_lines", 1) != 1
+                   or m["sw"] > width)
+            print(f"  {lang} @{width}: {'PROBLEM' if bad else 'ok'} {m}")
+            if bad:
+                problems.append(f"header {lang} @{width}: {m}")
+
+    (OUT / "index.html").write_text(
+        "<!doctype html><meta charset=utf-8><title>Site review</title><style>"
+        "body{font:14px sans-serif;margin:24px}.r{display:flex;gap:24px;align-items:flex-start}"
+        "figure{margin:0}figure:first-child{flex:3.7}figure:last-child{flex:1}"
+        "img{width:100%;border:1px solid #ccc}</style><h1>Site review</h1><p>"
+        + H.escape(base) + "</p>"
+        + ("<h2>Problems</h2><ul>" + "".join(f"<li>{H.escape(p)}</li>" for p in problems) + "</ul>"
+           if problems else "<p>All checks passed.</p>")
+        + "".join(rows), encoding="utf-8")
+    print("Wrote", OUT / "index.html")
+    for p in problems:
+        print("PROBLEM:", p)
+    return 1 if problems else 0
 
 
 if __name__ == "__main__":

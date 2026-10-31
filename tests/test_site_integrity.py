@@ -82,7 +82,6 @@ def test_internal_links_resolve(built):
     assert not missing, missing
 
 
-@pytest.mark.skip(reason="re-enabled in Task 9")
 def test_no_unused_large_assets(built):
     img_dir = (built / "assets" / "img").resolve()
     used = set()
@@ -125,3 +124,14 @@ def test_head_has_favicon_description_and_og(built):
             assert o.group(1).endswith("og.jpg"), f
             rel = o.group(1).split("realhealthkombucha.com/", 1)[1]
             assert (built / rel).is_file(), (f, rel)
+
+
+def test_integrity_scan_covers_all_pages_and_redirects(built):
+    """The scans above walk every built page: 14 pages (EN + PT) and the redirect pages."""
+    from content import CONTENT
+    from i18n import LANGS, page_path
+    scanned = {p.resolve() for p in _text_files(built, {".html"})}
+    want = {(built / page_path(p, l) / "index.html").resolve() for p in CONTENT["pages"] for l in LANGS}
+    want |= {(built / old / "index.html").resolve() for old in CONTENT["redirects"]}
+    assert len(want) == 14 + 4
+    assert want <= scanned, want - scanned

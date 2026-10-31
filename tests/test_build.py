@@ -106,3 +106,21 @@ def test_old_urls_redirect(built):
         assert target == root / slug / "index.html", (old, target)
         assert 'rel="canonical"' in html
         assert f'href="{m.group(1)}"' in html.split("<body", 1)[1]
+
+
+def test_slugs_present_and_distinct():
+    for page in CONTENT["pages"]:
+        if page["id"] == "home":
+            assert page["slug"] == {"en": "", "pt": ""}, page["slug"]
+            continue
+        en, pt = page["slug"]["en"], page["slug"]["pt"]
+        assert en.strip() and pt.strip(), page["id"]
+        assert en != pt, page["id"]
+
+
+def test_output_paths_unique():
+    from i18n import LANGS, page_path
+    paths = [page_path(p, l) for p in CONTENT["pages"] for l in LANGS]
+    paths += [f"{old}/" for old in CONTENT["redirects"]]
+    assert len(paths) == 14 + len(CONTENT["redirects"])
+    assert len(set(paths)) == len(paths), paths

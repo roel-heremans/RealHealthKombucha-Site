@@ -42,8 +42,6 @@ PHOTOS = [
     ("ChatGPT Image Jun 30, 2026, 04_27_12 PM.png", "roel-nina-tasting-box-coast.jpg", 1535, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_43_48 PM.png", "roel-nina-six-pack-coast.jpg", 1086, None, 82),
     ("ChatGPT Image Jun 30, 2026, 04_54_14 PM.png", "six-flavours-sunset-coast.jpg", 1086, None, 82),
-    # 2026-04-22 series: only the Ginger bottle, cropped clear of the Original one.
-    ("WhatsApp Image 2026-04-22 at 20.19.35.jpeg", "ginger-bottle-honeycomb.jpg", 900, "492x1402+630+0", 82),
     # Roel & Nina portraits (2026-02-21 series, no hot-tub shots).
     ("WhatsApp Image 2026-02-21 at 20.38.14 (1).jpeg", "nina-glass-stone-wall.jpg", 1000, None, 80),
     ("WhatsApp Image 2026-02-21 at 20.38.14 (3).jpeg", "roel-drinking-fig-tree.jpg", 1000, None, 80),
@@ -52,7 +50,6 @@ PHOTOS = [
     # Terrace bottle shots.
     ("Bottel01.jpeg", "bottle-in-hand-garden.jpg", 1000, None, 80),
     ("Bottel02.jpeg", "bottle-terrace-sea-view.jpg", 1000, None, 80),
-    ("Bottles01.jpeg", "two-bottles-terrace.jpg", 1000, None, 80),
     ("WhatsApp Image 2026-02-03 at 20.46.13 (3).jpeg", "three-bottles-terrace.jpg", 1000, None, 80),
     ("Leave_bottels02.jpeg", "bottles-bougainvillea.jpg", 1000, None, 80),
     # Crate / delivery.
@@ -175,11 +172,14 @@ def build_logos() -> list[Path]:
     w, h, x, y = _alpha_bbox(src)
     pad = 8
     crop = f"{w + 2 * pad}x{h + 2 * pad}+{x - pad}+{y - pad}"
+    # The original-colour crop is only an intermediate (the site uses the light
+    # logo on forest backgrounds); it is removed again so no unused file ships.
     dark = _convert([src, "-crop", crop, "+repage", "-strip", *PNG_DETERMINISTIC], OUT / "logo-dark.png")
 
     # Light version: dark-green island + lettering -> off-white; gold stays gold.
     light = _convert([dark, *_two_tone(dark, OFF_WHITE, None), "-strip", *PNG_DETERMINISTIC],
                      OUT / "logo-light.png")
+    dark.unlink()
 
     # Favicon: sun + island only (logo above the lettering), centre part of the
     # sun so the island reads at 64px. Thin rays are recoloured solid gold and
@@ -193,7 +193,7 @@ def build_logos() -> list[Path]:
          "-extent", "64x64", "-strip", *PNG_DETERMINISTIC],
         OUT / "favicon.png", fmt="PNG32:",
     )
-    return [dark, light, fav]
+    return [light, fav]
 
 
 def build_qr() -> Path:

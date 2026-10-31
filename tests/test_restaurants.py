@@ -250,3 +250,23 @@ def test_pt_page_has_no_juice_and_no_english_headings(built):
         assert "juice" not in low and "sumo" not in low and "real fruit" not in low
     for h in re.findall(r"<h2[^>]*>(.*?)</h2>", en, re.S):
         assert _text(h) not in _text(pt), h
+
+
+def test_highlight_figures_tied_to_glass_table():
+    """The hardcoded "72%" / "2.5×" highlights (home + restaurants) match the table they describe."""
+    import math
+
+    r = CONTENT["restaurants"]
+    row = r["glass_rows"][r["glass_highlight"]]
+    assert row["ml"] == 200 and row["menu"] == CONTENT["prices"]["glass_menu_price"]
+    margin = f"{row['margin']}%"
+    assert row["margin"] == round(row["profit"] / row["menu"] * 100)  # 4.10 / 5.70 = 71.9% -> 72%
+    assert r["glass"]["highlights"][0]["num"] == margin
+    assert r["hero"]["facts"][1]["num"] == margin
+    home = CONTENT["home"]["paths"]["highlights"]
+    assert home[0]["num"] == {"en": margin, "pt": margin}
+    # Deck: "2.5× your money back" = profit per bottle / bottle price, rounded down to one decimal.
+    multiple = math.floor(row["per_bottle"] / CONTENT["prices"]["bottle_1l"] * 10) / 10
+    assert multiple == 2.5 == r["money_back_multiple"]
+    assert home[1]["num"] == {"en": f"{multiple}×", "pt": f"{multiple}×".replace(".", ",")}
+    assert row["per_bottle"] == CONTENT["prices"]["max_profit_per_bottle"]

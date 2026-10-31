@@ -82,6 +82,8 @@ main { display: block; }
 .section--stone { background: var(--stone); }
 .section--forest { background: var(--forest); color: var(--white); }
 .section--forest p, .section--forest li { color: var(--on-dark); }
+/* Eyebrows are often <p>; keep them gold over the rule above. */
+.section--forest .eyebrow { color: var(--gold); }
 .section--forest .display, .section--forest .h-section, .section--forest h1,
 .section--forest h2, .section--forest h3 { color: var(--white); }
 .section-head { max-width: 760px; margin-bottom: 72px; }
@@ -834,7 +836,6 @@ main { display: block; }
 }
 .water-item .h-card, .benefit .h-card { font-size: 26px; }
 .story-steps { border: 1px solid var(--hairline-dark); }
-.story-process .eyebrow { color: var(--gold); }
 .story-step { padding: 44px 32px 40px; }
 .story-step__num {
   display: flex; align-items: center; justify-content: center; width: 48px; height: 48px;

@@ -409,7 +409,7 @@ CONTENT = {
                 "en": "Serve it in 200 ml glasses over ice with a slice of fruit. It looks premium "
                       "and gets you five glasses from every bottle.",
                 "pt": "Sirva-a em copos de 200 ml, com gelo e uma rodela de fruta. Tem um ar "
-                      "premium e tira cinco copos de cada garrafa.",
+                      "premium e rende cinco copos de cada garrafa.",
             },
         },
         # Slide 11: the 270 ml bottle at three menu prices. Exactly as in the spec.
@@ -490,8 +490,8 @@ CONTENT = {
                  "text": {"en": "See what you ordered and when it was delivered.",
                           "pt": "Veja o que encomendou e quando foi entregue."}},
                 {"title": {"en": "Recibos verdes", "pt": "Recibos verdes"},
-                 "text": {"en": "Download your monthly invoices straight from the app.",
-                          "pt": "Descarregue as faturas mensais diretamente na app."}},
+                 "text": {"en": "Download your recibos verdes straight from the app.",
+                          "pt": "Descarregue os seus recibos verdes diretamente na app."}},
             ],
             "steps_title": {"en": "How to start", "pt": "Como começar"},
             "steps": [
@@ -507,7 +507,7 @@ CONTENT = {
             ],
             "any_phone": {"en": "Works on any phone: add it to your home screen.",
                           "pt": "Funciona em qualquer telemóvel: adicione-a ao ecrã principal."},
-            "button": {"en": "Create your account", "pt": "Criar a sua conta"},
+            "button": {"en": "Create your account", "pt": "Criar conta"},
         },
         # Real orders-app screenshots (tools/app_screens/make_screens.py: the app's own code with
         # sample data, no real customers), the app shown in the page language.
@@ -571,9 +571,9 @@ CONTENT = {
             "heading": {"en": "Let's put Real Health Kombucha on your menu",
                         "pt": "Vamos colocar a Real Health Kombucha no seu menu"},
             "lead": {
-                "en": "Create your account in two minutes and we'll get in touch about your first "
+                "en": "Create your account and we'll get in touch about your first "
                       "delivery. Prefer to talk first? Message us on WhatsApp or send us an email.",
-                "pt": "Crie a sua conta em dois minutos e entramos em contacto para combinar a "
+                "pt": "Crie a sua conta e entramos em contacto para combinar a "
                       "primeira entrega. Prefere falar primeiro? Envie-nos uma mensagem no WhatsApp "
                       "ou um email.",
             },
@@ -934,9 +934,9 @@ CONTENT = {
             "heading_accent": {"en": "hello", "pt": "olá"},
             "lead": {
                 "en": "Questions, an order, or a tasting for your restaurant? Message us the way "
-                      "you like best. We usually reply the same day.",
+                      "you like best. Send us a message and we'll get back to you.",
                 "pt": "Dúvidas, uma encomenda ou uma prova para o seu restaurante? Fale connosco "
-                      "como preferir. Normalmente respondemos no próprio dia.",
+                      "como preferir. Envie-nos uma mensagem e respondemos assim que possível.",
             },
             "image": "assets/img/photos/crate-delivery-terrace.jpg",
             "alt": {

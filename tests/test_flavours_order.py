@@ -234,3 +234,19 @@ def test_pt_pages_have_no_english_headings(built):
         for h in re.findall(r"<h[12][^>]*>(.*?)</h[12]>", _main(_page(built, page_id, "pt")), re.S):
             h = _text(h)
             assert h in names or h not in en_heads, h
+
+
+@LANGS
+def test_order_mailto_uses_built_content(tmp_path, lang):
+    import copy
+
+    from build import build
+
+    content = copy.deepcopy(CONTENT)
+    content["links"]["email"] = "orders@example.test"
+    out = tmp_path / "out"
+    build(out, content)
+    html = (out / page_path(PAGES["order"], lang) / "index.html").read_text()
+    hrefs = [H.unescape(h) for h in re.findall(r'href="(mailto:[^"]+)"', html)]
+    assert order_mailto(lang, content) in hrefs
+    assert any(h.startswith("mailto:orders@example.test?subject=") for h in hrefs)

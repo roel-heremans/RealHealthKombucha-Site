@@ -187,11 +187,8 @@ def test_images_resolve_with_alt(built, lang, page_id):
         assert re.search(r'alt="[^"]+"', img), img
 
 
-@LANGS
 @pytest.mark.parametrize("page_id", ["story", "gut-health", "contact"])
-def test_pt_page_differs_from_en(built, lang, page_id):
-    if lang == "en":
-        pytest.skip("PT only")
+def test_pt_page_differs_from_en(built, page_id):
     en = _text(_main(_page(built, page_id, "en")))
     pt = _text(_main(_page(built, page_id, "pt")))
     h1_en = re.search(r"<h1[^>]*>(.*?)</h1>", _page(built, page_id, "en"), re.S).group(1)
