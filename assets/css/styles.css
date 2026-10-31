@@ -1,4 +1,4 @@
-/* Real Health Kombucha — design system (Sattva style; colour "M": terracotta-to-orange gradient).
+/* Real Health Kombucha — design system (Sattva style; colour "V": deep green to the orders-app green).
    Type scale, spacing, nav and buttons mirror sattva-reset.com (SattvaReset/output/styles.css).
    Breakpoints: ≤ 1260px / ≤ 1080px compact desktop nav, ≤ 959px phone/tablet menu, ≤ 640px phone. */
 
@@ -23,17 +23,15 @@
 
 /* ── TOKENS ── */
 :root {
-  /* Main dark brand colour. The name "forest" is historical (the first design was
-     green); it is now dark terracotta, used as text colour on light backgrounds and
-     as the fallback under the gradients below. */
-  --forest: #5E2A12;
-  --forest-deep: #4A210E;
-  /* Dark terracotta at the logo (left), warming to orange on the right. The gold
-     logo rays stay on the dark end. Full-width text sections stop at #A4461A so
-     white text stays readable all the way across. */
-  --grad-banner: linear-gradient(100deg, #3E1A0A 0%, #5E2A12 100%);
-  --grad-header: linear-gradient(100deg, #4E220E 0%, #6B2E0F 55%, #8A3A0C 100%);
-  --grad-section: linear-gradient(115deg, #4E220E 0%, #6B2E0F 45%, #A4461A 100%);
+  /* Main dark brand colour (deep green). Used as text colour on light backgrounds
+     and as the fallback under the gradients below. */
+  --forest: #2E5239;
+  --forest-deep: #24432E;
+  /* Deep green at the logo (left), lightening to the orders-app green #4A7C59 on
+     the right. The gold logo rays stay on the dark end, where they read well. */
+  --grad-banner: linear-gradient(100deg, #1E3A27 0%, #2E5239 100%);
+  --grad-header: linear-gradient(100deg, #24432E 0%, #2E5239 45%, #3A6547 75%, #4A7C59 100%);
+  --grad-section: linear-gradient(115deg, #24432E 0%, #2E5239 40%, #3A6547 75%, #4A7C59 100%);
   --gold: #C9AA49;
   --off-white: #F8F6F3;
   --stone: #E8E4DE;
@@ -271,7 +269,7 @@ main { display: block; }
 .photo-band img { display: block; width: 100%; max-width: 1190px; height: 100%; margin: 0 auto; object-fit: cover; }
 .photo-band__caption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 48px var(--gutter);
-  background: linear-gradient(to top, rgba(47, 21, 9, .65), rgba(47, 21, 9, 0));
+  background: linear-gradient(to top, rgba(20, 38, 26, .65), rgba(20, 38, 26, 0));
   color: var(--white); font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: clamp(22px, 2.4vw, 32px); text-align: center;
 }
@@ -461,10 +459,10 @@ main { display: block; }
 .flavour-tile { display: block; text-decoration: none; text-align: center; }
 .flavour-tile img {
   width: 100%; aspect-ratio: 520 / 866; object-fit: cover; background: var(--white);
-  box-shadow: 0 10px 26px rgba(94, 42, 18, .10), 0 1px 3px rgba(94, 42, 18, .08);
+  box-shadow: 0 10px 26px rgba(46, 82, 57, .10), 0 1px 3px rgba(46, 82, 57, .08);
   transition: transform .35s ease, box-shadow .35s ease;
 }
-.flavour-tile:hover img { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(94, 42, 18, .16); }
+.flavour-tile:hover img { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(46, 82, 57, .16); }
 .flavour-tile__name {
   display: block; margin-top: 18px; font-size: 11px; font-weight: 500;
   letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: color .2s;
@@ -756,7 +754,7 @@ main { display: block; }
 .flavour-card:target { box-shadow: inset 0 0 0 1px var(--gold); }
 .flavour-card__media img {
   width: 100%; aspect-ratio: 520 / 866; object-fit: cover;
-  box-shadow: 0 10px 26px rgba(94, 42, 18, .10), 0 1px 3px rgba(94, 42, 18, .08);
+  box-shadow: 0 10px 26px rgba(46, 82, 57, .10), 0 1px 3px rgba(46, 82, 57, .08);
 }
 .flavour-card__body { align-self: center; }
 .flavour-card__head { display: flex; flex-direction: column; }
