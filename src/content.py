@@ -800,8 +800,10 @@ CONTENT = {
                 },
             },
             "pickups": [
-                {"place": {"en": "São Martinho", "pt": "São Martinho"},
-                 "when": {"en": "Wednesdays, 17:00–17:30", "pt": "Quartas-feiras, 17:00–17:30"}},
+                {"place": {"en": "Leroy Merlin, São Martinho", "pt": "Leroy Merlin, São Martinho"},
+                 "when": {"en": "Wednesdays, 17:00–17:30 or around 20:00",
+                          "pt": "Quartas-feiras, 17:00–17:30 ou por volta das 20:00"},
+                 "map": "https://www.google.com/maps/search/?api=1&query=32.6463146%2C-16.9391991"},
                 {"place": {"en": "Ajuda Public Garden", "pt": "Jardim Público da Ajuda"},
                  "when": {"en": "Sundays, 11:00–13:00", "pt": "Domingos, 11:00–13:00"},
                  "map": "https://www.google.com/maps/search/?api=1&query=32.6383957%2C-16.943107"},

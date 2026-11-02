@@ -17,6 +17,7 @@ NBSP = " "
 WHATSAPP = "https://wa.me/351913000048"
 SIGNUP = "https://roel-heremans.github.io/kombucha-orders-app/?signup"
 AJUDA_MAP = "https://www.google.com/maps/search/?api=1&query=32.6383957%2C-16.943107"
+LEROY_MAP = "https://www.google.com/maps/search/?api=1&query=32.6463146%2C-16.9391991"
 LANGS = pytest.mark.parametrize("lang", ["en", "pt"])
 
 
@@ -79,8 +80,9 @@ def test_delivery_and_pickups(built, lang):
     html = _section(_file(built, "for-home", lang).read_text(), "home-delivery")
     text = _text(html)
     assert "Funchal" in text
-    assert "São Martinho" in text
-    assert "17:00–17:30" in text and "11:00–13:00" in text
+    assert "Leroy Merlin, São Martinho" in text
+    assert "17:00–17:30" in text and "11:00–13:00" in text and "20:00" in text
+    assert H.escape(LEROY_MAP) in html
     assert ("Wednesday" if lang == "en" else "Quarta") in text
     assert ("Sunday" if lang == "en" else "Domingo") in text
     assert ("Ajuda Public Garden" if lang == "en" else "Jardim Público da Ajuda") in text
