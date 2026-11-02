@@ -25,6 +25,13 @@ CONTENT = {
             "nav": {"en": "For Restaurants", "pt": "Para Restaurantes"},
         },
         {
+            "id": "for-home",
+            "template": "for-home.html.j2",
+            "slug": {"en": "for-home", "pt": "para-casa"},
+            "title": {"en": "For Home", "pt": "Para Casa"},
+            "nav": {"en": "For Home", "pt": "Para Casa"},
+        },
+        {
             "id": "flavours",
             "template": "flavours.html.j2",
             "slug": {"en": "flavours", "pt": "sabores"},
@@ -86,7 +93,7 @@ CONTENT = {
     "review_stats": {"rating": 5.0, "count": 37},  # rating shown with the `num(1)` filter
     # Header navigation (page ids). Home is reached via the logo on desktop and is
     # listed in the phone menu only.
-    "nav_ids": ["home", "restaurants", "flavours", "story", "gut-health", "contact"],
+    "nav_ids": ["home", "restaurants", "for-home", "flavours", "story", "gut-health", "contact"],
     "order_button": {"en": "Order", "pt": "Encomendar"},
     "review_banner": {
         "text": {
@@ -112,9 +119,13 @@ CONTENT = {
     },
     # Prices in euros as numbers; templates format them per language with the `eur` filter.
     "prices": {
-        "bottle_1l": 8.00,
+        "bottle_1l": 8.00,                # restaurants & cafés (For restaurants page)
         "bottle_270": 3.50,
-        "deposit": 1.00,
+        "deposit": 1.00,                  # per 270 ml bottle
+        # Private customers (For home page; also shown on Home, Flavours and Order), 1 L only.
+        "home_bottle_1l": 9.00,           # single bottle
+        "home_sub_bottle_1l": 8.00,       # per bottle on the monthly subscription
+        "home_deposit_1l": 2.00,          # per 1 L bottle, refunded on return
         "max_profit_per_bottle": 20.50,  # 1 L in five 200 ml glasses at €5.70 (slide 10)
         "glass_menu_price": 5.70,         # suggested menu price per 200 ml glass (slide 10)
     },
@@ -263,7 +274,7 @@ CONTENT = {
                 "en": "Six flavours, brewed in small batches and delivered by us personally.",
                 "pt": "Seis sabores, produzidos em pequenos lotes e entregues pessoalmente por nós.",
             },
-            "home_button": {"en": "How to order", "pt": "Como encomendar"},
+            "home_button": {"en": "Prices & delivery", "pt": "Preços e entrega"},
         },
         "flavours": {
             "eyebrow": {"en": "Our flavours", "pt": "Os nossos sabores"},
@@ -641,12 +652,10 @@ CONTENT = {
             "heading": {"en": "Two sizes,", "pt": "Dois tamanhos,"},
             "heading_accent": {"en": "every flavour", "pt": "todos os sabores"},
             "bottle_1l": {"en": "1 L bottle", "pt": "Garrafa de 1 L"},
-            "bottle_1l_note": {"en": "For serving by the glass", "pt": "Para servir ao copo"},
-            # Order page wording for the same bottle (home customers, not restaurants).
-            "bottle_1l_note_order": {"en": "Great for sharing", "pt": "Ideal para partilhar"},
             "bottle_270": {"en": "270 ml bottle", "pt": "Garrafa de 270 ml"},
-            "bottle_270_note": {"en": "+ {deposit} deposit, refunded when you return the bottle",
-                                "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
+            # Under both sizes: "{deposit}" = prices.home_deposit_1l (1 L) or prices.deposit (270 ml).
+            "deposit_note": {"en": "+ {deposit} deposit, refunded when you return the bottle",
+                             "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
             "image": "assets/img/photos/bottles-bougainvillea.jpg",
             "alt": {
                 "en": "Two swing-top bottles of golden kombucha on palm leaves next to pink bougainvillea",
@@ -655,6 +664,140 @@ CONTENT = {
             },
             "order": {"en": "Order now", "pt": "Encomendar agora"},
             "restaurants": {"en": "For restaurants", "pt": "Para restaurantes"},
+        },
+    },
+    # For home page: private customers, 1 L bottles only. Prices come from `prices`
+    # (home_bottle_1l, home_sub_bottle_1l, home_deposit_1l); "{price}", "{sub}", "{deposit}"
+    # in the copy are filled in by the template. Subscription totals are computed there too.
+    "for_home": {
+        "hero": {
+            "eyebrow": {"en": "For home", "pt": "Para casa"},
+            "heading": {"en": "Fresh kombucha", "pt": "Kombucha fresca"},
+            "heading_accent": {"en": "for your home", "pt": "para a sua casa"},
+            "lead": {
+                "en": "Our 1 L bottles for you and your family: one bottle when you feel like it, "
+                      "or four fresh bottles every week with a subscription.",
+                "pt": "As nossas garrafas de 1 L para si e para a sua família: uma garrafa quando "
+                      "lhe apetecer, ou quatro garrafas frescas todas as semanas com uma assinatura.",
+            },
+            "primary": {"en": "Order on WhatsApp", "pt": "Encomendar no WhatsApp"},
+            "image": "assets/img/photos/bottles-bougainvillea.jpg",
+            "alt": {
+                "en": "Two swing-top bottles of golden kombucha on palm leaves next to pink bougainvillea",
+                "pt": "Duas garrafas de kombucha dourada com tampa mecânica sobre folhas de palmeira, "
+                      "ao lado de buganvílias cor-de-rosa",
+            },
+        },
+        "options": {
+            "eyebrow": {"en": "Prices", "pt": "Preços"},
+            "heading": {"en": "Two ways", "pt": "Duas formas"},
+            "heading_accent": {"en": "to enjoy it", "pt": "de a desfrutar"},
+            "per_bottle": {"en": "per 1 L bottle", "pt": "por garrafa de 1 L"},
+            "single": {
+                "eyebrow": {"en": "Single bottle", "pt": "Garrafa avulsa"},
+                "title": {"en": "Whenever you like", "pt": "Quando lhe apetecer"},
+                "text": {
+                    "en": "Order one or more bottles in any of the six flavours. "
+                          "We agree a pickup with you.",
+                    "pt": "Encomende uma ou mais garrafas, em qualquer um dos seis sabores. "
+                          "Combinamos consigo o local de recolha.",
+                },
+            },
+            "subscription": {
+                "eyebrow": {"en": "Monthly subscription", "pt": "Assinatura mensal"},
+                "title": {"en": "4 bottles every week", "pt": "4 garrafas todas as semanas"},
+                "text": {
+                    "en": "Four fresh 1 L bottles a week, four weeks a month. "
+                          "Delivered in Funchal or to your home.",
+                    "pt": "Quatro garrafas frescas de 1 L por semana, quatro semanas por mês. "
+                          "Entregues no Funchal ou em sua casa.",
+                },
+            },
+            # "{deposit}" = prices.home_deposit_1l.
+            "deposit_note": {"en": "+ {deposit} deposit, refunded when you return the bottle",
+                             "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
+        },
+        # 4 bottles a week x 4 weeks = one month (a 5-week month still counts as 4 deliveries).
+        "subscription": {"bottles_per_week": 4, "weeks_per_month": 4},
+        "month": {
+            "eyebrow": {"en": "The subscription", "pt": "A assinatura"},
+            "heading": {"en": "What a month", "pt": "Quanto custa"},
+            "heading_accent": {"en": "costs", "pt": "um mês"},
+            "lead": {"en": "{per_week} bottles a week, {weeks} weeks a month: {total} bottles.",
+                     "pt": "{per_week} garrafas por semana, {weeks} semanas por mês: {total} garrafas."},
+            "first": {"en": "First month", "pt": "Primeiro mês"},
+            "first_calc": {"en": "{per_week} × {with_deposit} + {rest} × {sub}: the first {per_week} "
+                                 "bottles include the deposit",
+                           "pt": "{per_week} × {with_deposit} + {rest} × {sub}: as primeiras {per_week} "
+                                 "garrafas incluem o depósito"},
+            "regular": {"en": "Every month after", "pt": "Meses seguintes"},
+            "regular_calc": {"en": "{total} × {sub}: you swap your empties each week",
+                             "pt": "{total} × {sub}: troca as garrafas vazias todas as semanas"},
+            "last": {"en": "Last month", "pt": "Último mês"},
+            "last_calc": {"en": "{regular} − {refund}: your deposit back on the last {per_week} bottles",
+                          "pt": "{regular} − {refund}: o seu depósito devolvido nas últimas {per_week} garrafas"},
+            "note": {
+                "en": "You pay the {deposit} deposit only on your first {per_week} bottles. Each week "
+                      "you hand back the empties and get fresh ones; when you stop, we refund it.",
+                "pt": "Só paga o depósito de {deposit} nas primeiras {per_week} garrafas. Todas as "
+                      "semanas devolve as vazias e recebe garrafas frescas; quando parar, devolvemos o depósito.",
+            },
+        },
+        "delivery": {
+            "eyebrow": {"en": "Delivery & pickup", "pt": "Entrega e recolha"},
+            "heading": {"en": "How you get", "pt": "Como recebe"},
+            "heading_accent": {"en": "your bottles", "pt": "as suas garrafas"},
+            "subscribers": {
+                "title": {"en": "Subscribers", "pt": "Assinantes"},
+                "text": {
+                    "en": "We deliver to a meeting point in Funchal or to your home. "
+                          "We agree the details with each of you.",
+                    "pt": "Entregamos num ponto de encontro no Funchal ou em sua casa. "
+                          "Combinamos os detalhes com cada cliente.",
+                },
+            },
+            "single": {
+                "title": {"en": "Single bottles", "pt": "Garrafas avulsas"},
+                "text": {
+                    "en": "We find an arrangement that suits you. Usually that is a pickup at one of these:",
+                    "pt": "Encontramos uma solução que lhe convenha. Normalmente é uma recolha num destes locais:",
+                },
+            },
+            "pickups": [
+                {"place": {"en": "São Martinho", "pt": "São Martinho"},
+                 "when": {"en": "Wednesdays, 17:00–17:30", "pt": "Quartas-feiras, 17:00–17:30"}},
+                {"place": {"en": "Ajuda Public Garden", "pt": "Jardim Público da Ajuda"},
+                 "when": {"en": "Sundays, 11:00–13:00", "pt": "Domingos, 11:00–13:00"},
+                 "map": "https://www.google.com/maps/search/?api=1&query=32.6383957%2C-16.943107"},
+            ],
+            "map_link": {"en": "Map", "pt": "Mapa"},
+            "empties": {
+                "title": {"en": "Bring back your empties", "pt": "Devolva as garrafas vazias"},
+                "text": {
+                    "en": "Hand us your empty bottles and we refund the {deposit} deposit per bottle.",
+                    "pt": "Entregue-nos as garrafas vazias e reembolsamos o depósito de {deposit} por garrafa.",
+                },
+            },
+            "image": "assets/img/photos/crate-delivery-terrace.jpg",
+            "alt": {
+                "en": "A wooden crate full of tagged kombucha bottles, ready for delivery on a "
+                      "sunny terrace",
+                "pt": "Uma caixa de madeira cheia de garrafas de kombucha etiquetadas, pronta "
+                      "para entrega num terraço soalheiro",
+            },
+        },
+        "cta": {
+            "heading": {"en": "Ready to", "pt": "Pronto para"},
+            "heading_accent": {"en": "start?", "pt": "começar?"},
+            "text": {
+                "en": "Send us a message with your flavours, and whether you would like single bottles "
+                      "or the subscription. Or create an account in our app.",
+                "pt": "Envie-nos uma mensagem com os sabores que quer e se prefere garrafas avulsas ou "
+                      "a assinatura. Ou crie uma conta na nossa app.",
+            },
+            "whatsapp": {"en": "Message us on WhatsApp", "pt": "Escreva-nos no WhatsApp"},
+            "signup": {"en": "Create your account", "pt": "Criar conta"},
+            "flavours_link": {"en": "See the six flavours", "pt": "Ver os seis sabores"},
         },
     },
     # Order page (spec section 6).
@@ -684,6 +827,9 @@ CONTENT = {
                 "pt": "Todos os sabores têm o mesmo preço. Combine como quiser.",
             },
             "flavours_link": {"en": "See the six flavours", "pt": "Ver os seis sabores"},
+            # "{price}" = prices.home_sub_bottle_1l.
+            "subscription_link": {"en": "Weekly subscription: {price} per 1 L bottle",
+                                  "pt": "Assinatura semanal: {price} por garrafa de 1 L"},
         },
         "how": {
             "eyebrow": {"en": "How to order", "pt": "Como encomendar"},
@@ -736,10 +882,10 @@ CONTENT = {
                  "text": {"en": "We brew in Ponta do Sol and deliver every order ourselves.",
                           "pt": "Produzimos na Ponta do Sol e entregamos nós próprios cada encomenda."}},
                 {"title": {"en": "Bring back your empties", "pt": "Devolva as garrafas vazias"},
-                 "text": {"en": "Give us your empty 270 ml bottles at the next delivery and we refund "
-                                "the {deposit} deposit per bottle.",
-                          "pt": "Entregue-nos as garrafas vazias de 270 ml na entrega seguinte e "
-                                "reembolsamos o depósito de {deposit} por garrafa."}},
+                 "text": {"en": "Give us your empty bottles at the next delivery and we refund the "
+                                "deposit: {deposit_1l} per 1 L bottle, {deposit} per 270 ml bottle.",
+                          "pt": "Entregue-nos as garrafas vazias na entrega seguinte e reembolsamos o "
+                                "depósito: {deposit_1l} por garrafa de 1 L, {deposit} por garrafa de 270 ml."}},
             ],
             "image": "assets/img/photos/crate-top-view.jpg",
             "alt": {

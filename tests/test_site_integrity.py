@@ -127,13 +127,13 @@ def test_head_has_favicon_description_and_og(built):
 
 
 def test_integrity_scan_covers_all_pages_and_redirects(built):
-    """The scans above walk every built page: 14 pages (EN + PT) and the redirect pages."""
+    """The scans above walk every built page: 16 pages (EN + PT) and the redirect pages."""
     from content import CONTENT
     from i18n import LANGS, page_path
     scanned = {p.resolve() for p in _text_files(built, {".html"})}
     want = {(built / page_path(p, l) / "index.html").resolve() for p in CONTENT["pages"] for l in LANGS}
     want |= {(built / old / "index.html").resolve() for old in CONTENT["redirects"]}
-    assert len(want) == 14 + 4
+    assert len(want) == 16 + 4
     assert want <= scanned, want - scanned
 
 

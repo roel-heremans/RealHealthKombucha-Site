@@ -1,5 +1,5 @@
 """
-Generate output/ (7 pages x EN/PT, redirects for old URLs, robots.txt, sitemap.xml).
+Generate output/ (8 pages x EN/PT, redirects for old URLs, robots.txt, sitemap.xml).
 Edit src/content.py and run: python src/build.py (from project root)
 SITE_ENV=production builds the live site (indexable); anything else builds the noindex test site.
 """

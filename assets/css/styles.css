@@ -206,8 +206,8 @@ main { display: block; }
 }
 .logo { flex-shrink: 0; display: block; margin-right: auto; }
 .logo img { width: 150px; height: auto; }
-.nav-panel { display: flex; align-items: center; gap: 36px; }
-.site-nav ul { display: flex; align-items: center; gap: 32px; }
+.nav-panel { display: flex; align-items: center; gap: 28px; }
+.site-nav ul { display: flex; align-items: center; gap: 24px; }
 .site-nav a {
   font-size: 12px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
   text-decoration: none; color: var(--on-dark); white-space: nowrap; transition: color .2s;
@@ -800,6 +800,21 @@ main { display: block; }
 .order-review__text { margin: 20px auto 0; max-width: 620px; }
 .order-review .btn-row { margin-top: 36px; }
 
+
+/* ── FOR HOME ── */
+.fh-hero .hero__media img { object-position: center 55%; }
+.home-options .path-card .h-card { margin-bottom: 24px; }
+.home-options .path-card__text { margin-top: 24px; }
+.pickups { margin-top: 16px; }
+.delivery-list .pickups li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding: 12px 0 12px 16px; border-top: 0; border-left: 2px solid var(--gold); }
+.delivery-list .pickups li + li { margin-top: 8px; }
+.pickups__place { font-size: 15px; font-weight: 500; color: var(--text); }
+.pickups__when { font-size: 14px; font-weight: 300; color: var(--muted); font-variant-numeric: lining-nums; }
+.pickups__map { font-size: 13px; }
+.home-cta__text { margin: 20px auto 0; max-width: 620px; }
+.home-cta .btn-row { margin-top: 36px; }
+.home-cta__link { margin-top: 28px; font-size: 14px; }
+
 @media (max-width: 1024px) {
   .flavour-cards { grid-template-columns: 1fr; }
 }
@@ -923,8 +938,8 @@ main { display: block; }
 @media (min-width: 960px) and (max-width: 1080px) {
   .header-inner { gap: 18px; }
   .logo img { width: 108px; }
-  .nav-panel { gap: 16px; }
-  .site-nav ul { gap: 14px; }
+  .nav-panel { gap: 12px; }
+  .site-nav ul { gap: 10px; }
   .site-nav a { letter-spacing: .05em; }
   .header-order { padding: 9px 12px; letter-spacing: .1em; }
 }

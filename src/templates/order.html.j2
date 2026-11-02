@@ -22,11 +22,12 @@
         <p class="eyebrow">{{ o.prices.eyebrow | t | e }}</p>
         <h2 class="h-section">{{ o.prices.heading | t | e }} <em>{{ o.prices.heading_accent | t | e }}</em></h2>
         <p class="body order-prices__text">{{ o.prices.text | t | e }}</p>
+        <p class="order-prices__link"><a class="text-link" href="{{ url('for-home') }}">{{ o.prices.subscription_link | t | replace('{price}', content.prices.home_sub_bottle_1l | eur) | e }} &rarr;</a></p>
         <p class="order-prices__link"><a class="text-link" href="{{ url('flavours') }}">{{ o.prices.flavours_link | t | e }} &rarr;</a></p>
       </div>
       <dl class="price-list">
-        <div><dt>{{ fp.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_1l_note_order | t | e }}</span></dt><dd class="num">{{ content.prices.bottle_1l | eur }}</dd></div>
-        <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_270_note | t | replace('{deposit}', deposit) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
+        <div><dt>{{ fp.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ fp.sizes.deposit_note | t | replace('{deposit}', content.prices.home_deposit_1l | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.home_bottle_1l | eur }}</dd></div>
+        <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.deposit_note | t | replace('{deposit}', deposit) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
       </dl>
     </div>
   </div>
@@ -74,7 +75,7 @@
 {%- for it in o.delivery["items"] %}
           <li>
             <h3 class="delivery-list__title">{{ it.title | t | e }}</h3>
-            <p class="body">{{ it.text | t | replace('{deposit}', deposit) | e }}</p>
+            <p class="body">{{ it.text | t | replace('{deposit}', deposit) | replace('{deposit_1l}', content.prices.home_deposit_1l | eur(0)) | e }}</p>
           </li>
 {%- endfor %}
         </ul>

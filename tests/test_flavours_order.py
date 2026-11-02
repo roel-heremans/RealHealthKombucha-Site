@@ -146,7 +146,9 @@ def test_flavours_badges_sizes_and_footnote(built, lang):
     assert ("Naturally sparkling" if lang == "en" else "Naturalmente efervescente") in text
     assert "gaseificada" not in text
     sizes = _text(_section(html, "flavours-sizes"))
-    assert fmt("€8.00", lang) in sizes and fmt("€3.50", lang) in sizes and fmt("€1", lang) in sizes
+    # 1 L at the home price (€9.00 + €2 deposit); restaurants see €8.00 on their own page.
+    assert fmt("€9.00", lang) in sizes and fmt("€2", lang) in sizes
+    assert fmt("€3.50", lang) in sizes and fmt("€1", lang) in sizes
     assert "1 L" in sizes and "270 ml" in sizes
     assert HEALTH_NOTE[lang] in text
 
@@ -183,10 +185,12 @@ def test_order_mailto_round_trips(lang):
 @LANGS
 def test_order_prices(built, lang):
     text = _text(_section(_page(built, "order", lang), "order-prices"))
-    # The 1 L note on the Order page is for home customers; the restaurant wording stays on Flavours.
-    assert ("Great for sharing" if lang == "en" else "Ideal para partilhar") in text
+    # The Order page is for home customers: 1 L at €9.00 + €2 deposit, and a link to the
+    # €8.00 weekly subscription on For home.
     assert ("by the glass" if lang == "en" else "ao copo") not in text
-    assert fmt("€8.00", lang) in text and fmt("€3.50", lang) in text and fmt("€1", lang) in text
+    assert fmt("€9.00", lang) in text and fmt("€2", lang) in text
+    assert fmt("€3.50", lang) in text and fmt("€1", lang) in text
+    assert fmt("€8.00", lang) in text
     assert "1 L" in text and "270 ml" in text
 
 

@@ -1,0 +1,126 @@
+{% extends "base.html.j2" %}
+{% block content %}
+{%- set fh = content.for_home -%}
+{%- set prices = content.prices -%}
+{%- set whatsapp = content.links.whatsapp_chat | e -%}
+{%- set signup = content.links.signup | e -%}
+{#- Subscription month: bottles a week x weeks; the deposit is paid once, on the first week's
+    bottles, and refunded with the last week's. -#}
+{%- set per_week = fh.subscription.bottles_per_week -%}
+{%- set weeks = fh.subscription.weeks_per_month -%}
+{%- set total = per_week * weeks -%}
+{%- set sub = prices.home_sub_bottle_1l -%}
+{%- set dep = prices.home_deposit_1l -%}
+{%- set first = per_week * (sub + dep) + (total - per_week) * sub -%}
+{%- set regular = total * sub -%}
+{%- set refund = per_week * dep -%}
+{%- set deposit = dep | eur(0) -%}
+
+<section class="hero fh-hero">
+  <div class="hero__text">
+    <p class="eyebrow">{{ fh.hero.eyebrow | t | e }}</p>
+    <h1 class="display display--hero">{{ fh.hero.heading | t | e }} <em>{{ fh.hero.heading_accent | t | e }}</em></h1>
+    <p class="lead">{{ fh.hero.lead | t | e }}</p>
+    <div class="btn-row">
+      <a class="btn btn--gold" href="{{ whatsapp }}" target="_blank" rel="noopener">{{ fh.hero.primary | t | e }}</a>
+    </div>
+  </div>
+  <div class="hero__media">
+    <img src="{{ root }}{{ fh.hero.image }}" alt="{{ fh.hero.alt | t | e }}" width="1000" height="1333" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section section--cream home-options">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ fh.options.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ fh.options.heading | t | e }} <em>{{ fh.options.heading_accent | t | e }}</em></h2>
+    </div>
+    <div class="paths">
+{%- for key, price, cls in [("single", prices.home_bottle_1l, ""), ("subscription", sub, " card--forest")] %}
+{%- set o = fh.options[key] %}
+      <article class="card{{ cls }} path-card" data-reveal>
+        <p class="card__eyebrow">{{ o.eyebrow | t | e }}</p>
+        <h3 class="h-card">{{ o.title | t | e }}</h3>
+        <p class="path-card__price"><span class="card__price num">{{ price | eur }}</span></p>
+        <p class="card__note">{{ fh.options.per_bottle | t | e }} {{ fh.options.deposit_note | t | replace('{deposit}', deposit) | e }}</p>
+        <p class="body path-card__text">{{ o.text | t | e }}</p>
+      </article>
+{%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--forest home-month">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">{{ fh.month.eyebrow | t | e }}</p>
+      <h2 class="h-section">{{ fh.month.heading | t | e }} <em>{{ fh.month.heading_accent | t | e }}</em></h2>
+      <p class="lead rest-month__example">{{ fh.month.lead | t | replace('{per_week}', per_week | string) | replace('{weeks}', weeks | string) | replace('{total}', total | string) | e }}</p>
+    </div>
+    <ul class="month">
+      <li class="month__item">
+        <span class="month__label">{{ fh.month.first | t | e }}</span>
+        <span class="month__num">{{ first | eur(0) }}</span>
+        <span class="month__calc">{{ fh.month.first_calc | t | replace('{per_week}', per_week | string) | replace('{with_deposit}', (sub + dep) | eur) | replace('{rest}', (total - per_week) | string) | replace('{sub}', sub | eur) | e }}</span>
+      </li>
+      <li class="month__item month__item--profit">
+        <span class="month__label">{{ fh.month.regular | t | e }}</span>
+        <span class="month__num">{{ regular | eur(0) }}</span>
+        <span class="month__calc">{{ fh.month.regular_calc | t | replace('{total}', total | string) | replace('{sub}', sub | eur) | e }}</span>
+      </li>
+      <li class="month__item">
+        <span class="month__label">{{ fh.month.last | t | e }}</span>
+        <span class="month__num">{{ (regular - refund) | eur(0) }}</span>
+        <span class="month__calc">{{ fh.month.last_calc | t | replace('{regular}', regular | eur(0)) | replace('{refund}', refund | eur) | replace('{per_week}', per_week | string) | e }}</span>
+      </li>
+    </ul>
+    <p class="footnote center rest-month__note">{{ fh.month.note | t | replace('{deposit}', deposit) | replace('{per_week}', per_week | string) | e }}</p>
+  </div>
+</section>
+
+<section class="section section--stone home-delivery">
+  <div class="container">
+    <div class="split">
+      <div class="order-delivery__media">
+        <img src="{{ root }}{{ fh.delivery.image }}" alt="{{ fh.delivery.alt | t | e }}" width="1000" height="1333" loading="lazy">
+      </div>
+      <div>
+        <p class="eyebrow">{{ fh.delivery.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ fh.delivery.heading | t | e }} <em>{{ fh.delivery.heading_accent | t | e }}</em></h2>
+        <ul class="delivery-list">
+          <li>
+            <h3 class="delivery-list__title">{{ fh.delivery.subscribers.title | t | e }}</h3>
+            <p class="body">{{ fh.delivery.subscribers.text | t | e }}</p>
+          </li>
+          <li>
+            <h3 class="delivery-list__title">{{ fh.delivery.single.title | t | e }}</h3>
+            <p class="body">{{ fh.delivery.single.text | t | e }}</p>
+            <ul class="pickups">
+{%- for pu in fh.delivery.pickups %}
+              <li><span class="pickups__place">{{ pu.place | t | e }}</span><span class="pickups__when">{{ pu.when | t | e }}</span>{% if pu.map %} <a class="text-link pickups__map" href="{{ pu.map | e }}" target="_blank" rel="noopener">{{ fh.delivery.map_link | t | e }} &rarr;</a>{% endif %}</li>
+{%- endfor %}
+            </ul>
+          </li>
+          <li>
+            <h3 class="delivery-list__title">{{ fh.delivery.empties.title | t | e }}</h3>
+            <p class="body">{{ fh.delivery.empties.text | t | replace('{deposit}', deposit) | e }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream home-cta">
+  <div class="container container--narrow center">
+    <h2 class="h-section">{{ fh.cta.heading | t | e }} <em>{{ fh.cta.heading_accent | t | e }}</em></h2>
+    <p class="lead home-cta__text">{{ fh.cta.text | t | e }}</p>
+    <div class="btn-row center">
+      <a class="btn btn--gold" href="{{ whatsapp }}" target="_blank" rel="noopener">{{ fh.cta.whatsapp | t | e }}</a>
+      <a class="btn btn--gold" href="{{ signup }}" target="_blank" rel="noopener">{{ fh.cta.signup | t | e }}</a>
+    </div>
+    <p class="home-cta__link"><a class="text-link" href="{{ url('flavours') }}">{{ fh.cta.flavours_link | t | e }} &rarr;</a></p>
+  </div>
+</section>
+{% endblock %}

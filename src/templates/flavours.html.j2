@@ -66,8 +66,8 @@
         <p class="eyebrow">{{ fp.sizes.eyebrow | t | e }}</p>
         <h2 class="h-section">{{ fp.sizes.heading | t | e }} <em>{{ fp.sizes.heading_accent | t | e }}</em></h2>
         <dl class="price-list sizes-list">
-          <div><dt>{{ fp.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_1l_note | t | e }}</span></dt><dd class="num">{{ content.prices.bottle_1l | eur }}</dd></div>
-          <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.bottle_270_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
+          <div><dt>{{ fp.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ fp.sizes.deposit_note | t | replace('{deposit}', content.prices.home_deposit_1l | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.home_bottle_1l | eur }}</dd></div>
+          <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.deposit_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
         </dl>
         <div class="btn-row">
           <a class="btn btn--gold" href="{{ url('order') }}">{{ fp.sizes.order | t | e }}</a>

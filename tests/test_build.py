@@ -3,8 +3,8 @@ from pathlib import Path
 
 from content import CONTENT
 
-EN_PATHS = ["", "for-restaurants/", "flavours/", "our-story/", "gut-health/", "order/", "contact/"]
-PT_PATHS = ["pt/", "pt/para-restaurantes/", "pt/sabores/", "pt/a-nossa-historia/",
+EN_PATHS = ["", "for-restaurants/", "for-home/", "flavours/", "our-story/", "gut-health/", "order/", "contact/"]
+PT_PATHS = ["pt/", "pt/para-restaurantes/", "pt/para-casa/", "pt/sabores/", "pt/a-nossa-historia/",
             "pt/saude-intestinal/", "pt/encomendar/", "pt/contacto/"]
 
 
@@ -12,7 +12,7 @@ def all_pages(root):
     return [root / p / "index.html" for p in EN_PATHS + PT_PATHS]
 
 
-def test_fourteen_pages_written(built):
+def test_sixteen_pages_written(built):
     for p in all_pages(built):
         assert p.exists(), p
     assert not (built / "blog").exists()
@@ -33,8 +33,8 @@ def test_preview_off_indexable(built_preview_off):
 def test_sitemap_hreflang(built):
     xml = (built / "sitemap.xml").read_text()
     entries = re.findall(r"<url>(.*?)</url>", xml, re.S)
-    assert len(re.findall(r"<loc>", xml)) == 14
-    assert len(entries) == 14
+    assert len(re.findall(r"<loc>", xml)) == 16
+    assert len(entries) == 16
     for e in entries:
         assert 'rel="alternate" hreflang="en"' in e, e
         assert 'rel="alternate" hreflang="pt"' in e, e
@@ -122,5 +122,5 @@ def test_output_paths_unique():
     from i18n import LANGS, page_path
     paths = [page_path(p, l) for p in CONTENT["pages"] for l in LANGS]
     paths += [f"{old}/" for old in CONTENT["redirects"]]
-    assert len(paths) == 14 + len(CONTENT["redirects"])
+    assert len(paths) == 16 + len(CONTENT["redirects"])
     assert len(set(paths)) == len(paths), paths

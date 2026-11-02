@@ -120,12 +120,14 @@ def test_two_paths(built, lang):
     assert len(cards) == 2
     rest, home = cards
     assert eur(20.5, lang) in _text(rest)
-    assert eur(8, lang) in _text(home) and eur(3.5, lang) in _text(home)
+    assert eur(9, lang) in _text(home) and eur(3.5, lang) in _text(home)
     if lang == "en":
-        assert "€20.50" in _text(rest) and "€8.00" in _text(home) and "€3.50" in _text(home)
+        assert "€20.50" in _text(rest) and "€9.00" in _text(home) and "€3.50" in _text(home)
+        assert "€2 deposit" in _text(home)
     else:
         nb = "\u00a0"
-        assert f"20,50{nb}€" in _text(rest) and f"8,00{nb}€" in _text(home) and f"3,50{nb}€" in _text(home)
+        assert f"20,50{nb}€" in _text(rest) and f"9,00{nb}€" in _text(home) and f"3,50{nb}€" in _text(home)
+        assert f"2{nb}€ de depósito" in _text(home)
     # Slide 10 highlights on the restaurant card.
     assert "72%" in _text(rest) and eur(5.7, lang) in _text(rest)
     assert ("2.5×" if lang == "en" else "2,5×") in _text(rest)
@@ -133,7 +135,7 @@ def test_two_paths(built, lang):
     r_href = re.search(r'<a[^>]*href="([^"]+)"', rest).group(1)
     h_href = re.search(r'<a[^>]*href="([^"]+)"', home).group(1)
     assert _target(f, r_href) == _page_file(built, "restaurants", lang)
-    assert _target(f, h_href) == _page_file(built, "order", lang)
+    assert _target(f, h_href) == _page_file(built, "for-home", lang)
 
 
 @pytest.mark.parametrize("lang", ["en", "pt"])
