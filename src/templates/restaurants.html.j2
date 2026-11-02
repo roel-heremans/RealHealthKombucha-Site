@@ -29,6 +29,22 @@
   </div>
 </section>
 
+<section class="section section--white order-prices rest-prices" id="prices">
+  <div class="container">
+    <div class="split">
+      <div>
+        <p class="eyebrow">{{ r.prices.eyebrow | t | e }}</p>
+        <h2 class="h-section">{{ r.prices.heading | t | e }} <em>{{ r.prices.heading_accent | t | e }}</em></h2>
+        <p class="body order-prices__text">{{ r.prices.text | t | e }}</p>
+      </div>
+      <dl class="price-list">
+        <div><dt>{{ content.flavours_page.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ content.flavours_page.sizes.deposit_note | t | replace('{deposit}', prices.deposit_1l | eur(0)) | e }}</span></dt><dd class="num">{{ prices.bottle_1l | eur }}</dd></div>
+        <div><dt>{{ content.flavours_page.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ content.flavours_page.sizes.deposit_note | t | replace('{deposit}', prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ prices.bottle_270 | eur }}</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
 <section class="section section--cream rest-why">
   <div class="container">
     <div class="section-head">
@@ -74,7 +90,7 @@
            {"key": "margin", "label": c.margin | t, "kind": "pct"},
            {"key": "per_bottle", "label": c.per_bottle | t, "kind": "eur"}],
          pt_rows = r.glass_rows, pt_highlight = r.glass_highlight,
-         pt_caption = r.glass.note | t | replace('{price}', prices.bottle_1l | eur) %}
+         pt_caption = r.glass.note | t | replace('{price}', prices.bottle_1l | eur) | replace('{deposit}', prices.deposit_1l | eur(0)) %}
 {% include "partials/profit-table.html.j2" %}
 {%- endwith %}
     <aside class="rest-tip">
@@ -137,7 +153,7 @@
         <span class="month__calc">{{ r.month.profit_calc | t | e }}</span>
       </li>
     </ul>
-    <p class="footnote center rest-month__note">{{ r.month.deposit_note | t | replace('{n270}', m.bottles_270 | string) | replace('{deposit}', prices.deposit | eur(0)) | replace('{total}', m.deposit_total | eur(0)) | e }}</p>
+    <p class="footnote center rest-month__note">{{ r.month.deposit_note | t | replace('{n1l}', m.bottles_1l | string) | replace('{deposit_1l}', prices.deposit_1l | eur(0)) | replace('{n270}', m.bottles_270 | string) | replace('{deposit}', prices.deposit | eur(0)) | replace('{total}', m.deposit_total | eur(0)) | e }}</p>
   </div>
 </section>
 

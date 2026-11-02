@@ -785,6 +785,7 @@ main { display: block; }
 .order-prices .split { align-items: center; }
 .order-prices__text { margin-top: 20px; max-width: 440px; }
 .order-prices__link { margin-top: 24px; font-size: 14px; }
+.order-prices__link + .order-prices__link { margin-top: 10px; }
 .order-prices .price-list dd { font-size: 52px; }
 .ways { counter-reset: none; }
 .way { display: flex; flex-direction: column; padding: 48px 40px 44px; }
@@ -801,10 +802,39 @@ main { display: block; }
 .order-review .btn-row { margin-top: 36px; }
 
 
+/* Flavours: price per bottle for each kind of customer. */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.price-table { width: 100%; border-collapse: collapse; border-top: 1px solid var(--stone); }
+.price-table th, .price-table td { padding: 16px 10px; border-bottom: 1px solid var(--stone); text-align: right; vertical-align: middle; }
+.price-table th:first-child { padding-left: 0; text-align: left; }
+.price-table td:last-child, .price-table th:last-child { padding-right: 0; }
+.price-table thead th {
+  font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); vertical-align: bottom; line-height: 1.4;
+}
+.price-table tbody th { font-size: 15px; font-weight: 400; color: var(--text); }
+.price-table td {
+  font-family: var(--serif); font-size: 30px; font-weight: 300; line-height: 1; white-space: nowrap;
+  color: var(--text); font-variant-numeric: lining-nums tabular-nums;
+}
+.price-table td.price-table__none { color: var(--light); }
+.price-table__size { white-space: nowrap; }
+.price-table__note { margin-top: 16px; }
+@media (max-width: 768px) {
+  .price-table th, .price-table td { padding: 14px 4px; }
+  .price-table thead th { font-size: 10px; letter-spacing: .04em; }
+  .price-table tbody th { font-size: 14px; }
+  .price-table td { font-size: 18px; }
+}
+
 /* ── FOR HOME ── */
 .fh-hero .hero__media img { object-position: center 55%; }
 .home-options .path-card .h-card { margin-bottom: 24px; }
 .home-options .path-card__text { margin-top: 24px; }
+.path-card__small { margin-top: 12px; font-weight: 400; }
 .pickups { margin-top: 16px; }
 .delivery-list .pickups li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding: 12px 0 12px 16px; border-top: 0; border-left: 2px solid var(--gold); }
 .delivery-list .pickups li + li { margin-top: 8px; }

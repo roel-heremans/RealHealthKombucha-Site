@@ -119,13 +119,16 @@ CONTENT = {
     },
     # Prices in euros as numbers; templates format them per language with the `eur` filter.
     "prices": {
-        "bottle_1l": 8.00,                # restaurants & cafés (For restaurants page)
+        # Restaurants & cafés (For restaurants page; also the "Restaurants" column on Flavours).
+        "bottle_1l": 8.00,
         "bottle_270": 3.50,
+        # Deposits, the same for everyone, refunded when the empty comes back.
+        "deposit_1l": 2.00,
         "deposit": 1.00,                  # per 270 ml bottle
-        # Private customers (For home page; also shown on Home, Flavours and Order), 1 L only.
-        "home_bottle_1l": 9.00,           # single bottle
-        "home_sub_bottle_1l": 8.00,       # per bottle on the monthly subscription
-        "home_deposit_1l": 2.00,          # per 1 L bottle, refunded on return
+        # Private customers (For home page; also Home, Flavours and Order).
+        "home_bottle_1l": 9.00,           # single 1 L bottle
+        "home_bottle_270": 4.50,
+        "home_sub_bottle_1l": 8.00,       # per 1 L bottle on the monthly subscription
         "max_profit_per_bottle": 20.50,  # 1 L in five 200 ml glasses at €5.70 (slide 10)
         "glass_menu_price": 5.70,         # suggested menu price per 200 ml glass (slide 10)
     },
@@ -319,6 +322,18 @@ CONTENT = {
     # in euros, formatted per language by the `eur` filter; margins are whole percents.
     # Placeholders in copy ("{price}", "{max}", ...) are filled in by the template.
     "restaurants": {
+        # Price list right under the hero: prices.bottle_1l / bottle_270 with their deposits.
+        "prices": {
+            "eyebrow": {"en": "Your prices", "pt": "Os seus preços"},
+            "heading": {"en": "Prices for", "pt": "Preços para"},
+            "heading_accent": {"en": "restaurants & cafés", "pt": "restaurantes e cafés"},
+            "text": {
+                "en": "Every flavour costs the same. You get the deposit back when you return the "
+                      "empty bottles. VAT not included.",
+                "pt": "Todos os sabores têm o mesmo preço. O depósito é-lhe devolvido quando entrega "
+                      "as garrafas vazias. IVA não incluído.",
+            },
+        },
         "hero": {
             "eyebrow": {"en": "For restaurants & cafés", "pt": "Para restaurantes e cafés"},
             "heading": {"en": "Kombucha that pays off", "pt": "Kombucha que compensa"},
@@ -408,8 +423,10 @@ CONTENT = {
                 "per_bottle": {"en": "Profit per bottle", "pt": "Lucro por garrafa"},
             },
             "note": {
-                "en": "You pay {price} per 1 L bottle. Margin = profit ÷ menu price. VAT not included.",
-                "pt": "Paga {price} por garrafa de 1 L. Margem = lucro ÷ preço no menu. IVA não incluído.",
+                "en": "You pay {price} per 1 L bottle (+ {deposit} deposit, refunded). "
+                      "Margin = profit ÷ menu price. VAT not included.",
+                "pt": "Paga {price} por garrafa de 1 L (+ {deposit} de depósito, reembolsável). "
+                      "Margem = lucro ÷ preço no menu. IVA não incluído.",
             },
             # "{price}" = prices.glass_menu_price; "{multiple}" = money_back_multiple.
             "highlights": [
@@ -460,7 +477,7 @@ CONTENT = {
         # Slide 12. Totals exactly as in the spec.
         "month_example": {
             "bottles_1l": 8, "glasses": 40, "bottles_270": 24, "menu_price": 5.70,
-            "you_spend": 148, "guests_spend": 365, "extra_profit": 217, "deposit_total": 24,
+            "you_spend": 148, "guests_spend": 365, "extra_profit": 217, "deposit_total": 40,
         },
         "month": {
             "eyebrow": {"en": "A typical month", "pt": "Um mês típico"},
@@ -481,10 +498,11 @@ CONTENT = {
             "profit_calc": {"en": "every month, from one fridge shelf",
                             "pt": "todos os meses, com uma só prateleira do frigorífico"},
             "deposit_note": {
-                "en": "The {n270} × {deposit} deposit ({total}) comes back to you when the empties "
-                      "are returned, so it's not included as a cost. VAT not included.",
-                "pt": "O depósito de {n270} × {deposit} ({total}) é-lhe devolvido quando entrega as "
-                      "garrafas vazias, por isso não é contabilizado como custo. IVA não incluído.",
+                "en": "The deposit ({n1l} × {deposit_1l} + {n270} × {deposit} = {total}) comes back to "
+                      "you when the empties are returned, so it's not included as a cost. VAT not included.",
+                "pt": "O depósito ({n1l} × {deposit_1l} + {n270} × {deposit} = {total}) é-lhe devolvido "
+                      "quando entrega as garrafas vazias, por isso não é contabilizado como custo. "
+                      "IVA não incluído.",
             },
         },
         # Slide 9.
@@ -653,7 +671,7 @@ CONTENT = {
             "heading_accent": {"en": "every flavour", "pt": "todos os sabores"},
             "bottle_1l": {"en": "1 L bottle", "pt": "Garrafa de 1 L"},
             "bottle_270": {"en": "270 ml bottle", "pt": "Garrafa de 270 ml"},
-            # Under both sizes: "{deposit}" = prices.home_deposit_1l (1 L) or prices.deposit (270 ml).
+            # Under both sizes: "{deposit}" = prices.deposit_1l (1 L) or prices.deposit (270 ml).
             "deposit_note": {"en": "+ {deposit} deposit, refunded when you return the bottle",
                              "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
             "image": "assets/img/photos/bottles-bougainvillea.jpg",
@@ -662,12 +680,27 @@ CONTENT = {
                 "pt": "Duas garrafas de kombucha dourada com tampa mecânica sobre folhas de palmeira, "
                       "ao lado de buganvílias cor-de-rosa",
             },
-            "order": {"en": "Order now", "pt": "Encomendar agora"},
+            # Price table: one column per customer type; the subscription is 1 L only.
+            "cols": {
+                "size": {"en": "Per bottle", "pt": "Por garrafa"},
+                "home": {"en": "At home", "pt": "Em casa"},
+                "sub": {"en": "Home subscription", "pt": "Assinatura"},
+                "rest": {"en": "Restaurants & cafés", "pt": "Restaurantes e cafés"},
+            },
+            "not_offered": {"en": "not offered", "pt": "não disponível"},
+            "deposit_short": {"en": "+ {deposit} deposit", "pt": "+ {deposit} de depósito"},
+            "table_note": {
+                "en": "Home subscription: four 1 L bottles a week. The deposit is the same for everyone "
+                      "and refunded when you return the bottle.",
+                "pt": "Assinatura: quatro garrafas de 1 L por semana. O depósito é igual para todos e "
+                      "é reembolsado quando devolver a garrafa.",
+            },
+            "home": {"en": "For home", "pt": "Para casa"},
             "restaurants": {"en": "For restaurants", "pt": "Para restaurantes"},
         },
     },
-    # For home page: private customers, 1 L bottles only. Prices come from `prices`
-    # (home_bottle_1l, home_sub_bottle_1l, home_deposit_1l); "{price}", "{sub}", "{deposit}"
+    # For home page: private customers (subscription is 1 L only). Prices come from `prices`
+    # (home_bottle_1l, home_sub_bottle_1l, deposit_1l); "{price}", "{sub}", "{deposit}"
     # in the copy are filled in by the template. Subscription totals are computed there too.
     "for_home": {
         "hero": {
@@ -702,6 +735,9 @@ CONTENT = {
                     "pt": "Encomende uma ou mais garrafas, em qualquer um dos seis sabores. "
                           "Combinamos consigo o local de recolha.",
                 },
+                # "{price}" = prices.home_bottle_270, "{deposit}" = prices.deposit.
+                "small": {"en": "Also in 270 ml: {price} + {deposit} deposit",
+                          "pt": "Também em 270 ml: {price} + {deposit} de depósito"},
             },
             "subscription": {
                 "eyebrow": {"en": "Monthly subscription", "pt": "Assinatura mensal"},
@@ -713,7 +749,7 @@ CONTENT = {
                           "Entregues no Funchal ou em sua casa.",
                 },
             },
-            # "{deposit}" = prices.home_deposit_1l.
+            # "{deposit}" = prices.deposit_1l.
             "deposit_note": {"en": "+ {deposit} deposit, refunded when you return the bottle",
                              "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
         },
@@ -830,6 +866,8 @@ CONTENT = {
             # "{price}" = prices.home_sub_bottle_1l.
             "subscription_link": {"en": "Weekly subscription: {price} per 1 L bottle",
                                   "pt": "Assinatura semanal: {price} por garrafa de 1 L"},
+            "restaurants_link": {"en": "Prices for restaurants & cafés",
+                                 "pt": "Preços para restaurantes e cafés"},
         },
         "how": {
             "eyebrow": {"en": "How to order", "pt": "Como encomendar"},

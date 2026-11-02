@@ -65,12 +65,26 @@
       <div>
         <p class="eyebrow">{{ fp.sizes.eyebrow | t | e }}</p>
         <h2 class="h-section">{{ fp.sizes.heading | t | e }} <em>{{ fp.sizes.heading_accent | t | e }}</em></h2>
-        <dl class="price-list sizes-list">
-          <div><dt>{{ fp.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ fp.sizes.deposit_note | t | replace('{deposit}', content.prices.home_deposit_1l | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.home_bottle_1l | eur }}</dd></div>
-          <div><dt>{{ fp.sizes.bottle_270 | t | e }}<span class="price-list__note">{{ fp.sizes.deposit_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
-        </dl>
+{%- set pr = content.prices %}
+{%- set c = fp.sizes.cols %}
+        <table class="price-table">
+          <thead>
+            <tr><th scope="col">{{ c.size | t | e }}</th><th scope="col">{{ c.home | t | e }}</th><th scope="col">{{ c.sub | t | e }}</th><th scope="col">{{ c.rest | t | e }}</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><span class="price-table__size">{{ fp.sizes.bottle_1l | t | e }}</span><span class="price-list__note">{{ fp.sizes.deposit_short | t | replace('{deposit}', pr.deposit_1l | eur(0)) | e }}</span></th>
+              <td class="num">{{ pr.home_bottle_1l | eur }}</td><td class="num">{{ pr.home_sub_bottle_1l | eur }}</td><td class="num">{{ pr.bottle_1l | eur }}</td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="price-table__size">{{ fp.sizes.bottle_270 | t | e }}</span><span class="price-list__note">{{ fp.sizes.deposit_short | t | replace('{deposit}', pr.deposit | eur(0)) | e }}</span></th>
+              <td class="num">{{ pr.home_bottle_270 | eur }}</td><td class="price-table__none"><span aria-hidden="true">–</span><span class="visually-hidden">{{ fp.sizes.not_offered | t | e }}</span></td><td class="num">{{ pr.bottle_270 | eur }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="footnote price-table__note">{{ fp.sizes.table_note | t | e }}</p>
         <div class="btn-row">
-          <a class="btn btn--gold" href="{{ url('order') }}">{{ fp.sizes.order | t | e }}</a>
+          <a class="btn btn--gold" href="{{ url('for-home') }}">{{ fp.sizes.home | t | e }}</a>
           <a class="btn btn--gold" href="{{ url('restaurants') }}">{{ fp.sizes.restaurants | t | e }}</a>
         </div>
       </div>

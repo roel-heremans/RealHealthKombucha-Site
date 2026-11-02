@@ -49,8 +49,8 @@
         <p class="card__eyebrow">{{ h.paths.home_eyebrow | t | e }}</p>
         <h2 class="h-card">{{ h.paths.home_title | t | e }}</h2>
         <dl class="price-list">
-          <div><dt>{{ h.paths.bottle_1l | t | e }}<span class="price-list__note">{{ h.paths.deposit_note | t | replace('{deposit}', content.prices.home_deposit_1l | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.home_bottle_1l | eur }}</dd></div>
-          <div><dt>{{ h.paths.bottle_270 | t | e }}<span class="price-list__note">{{ h.paths.deposit_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.bottle_270 | eur }}</dd></div>
+          <div><dt>{{ h.paths.bottle_1l | t | e }}<span class="price-list__note">{{ h.paths.deposit_note | t | replace('{deposit}', content.prices.deposit_1l | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.home_bottle_1l | eur }}</dd></div>
+          <div><dt>{{ h.paths.bottle_270 | t | e }}<span class="price-list__note">{{ h.paths.deposit_note | t | replace('{deposit}', content.prices.deposit | eur(0)) | e }}</span></dt><dd class="num">{{ content.prices.home_bottle_270 | eur }}</dd></div>
         </dl>
         <p class="body path-card__text">{{ h.paths.home_text | t | e }}</p>
         <div class="btn-row"><a class="btn btn--gold" href="{{ url('for-home') }}">{{ h.paths.home_button | t | e }}</a></div>

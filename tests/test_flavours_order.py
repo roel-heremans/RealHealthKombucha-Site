@@ -146,9 +146,9 @@ def test_flavours_badges_sizes_and_footnote(built, lang):
     assert ("Naturally sparkling" if lang == "en" else "Naturalmente efervescente") in text
     assert "gaseificada" not in text
     sizes = _text(_section(html, "flavours-sizes"))
-    # 1 L at the home price (€9.00 + €2 deposit); restaurants see €8.00 on their own page.
-    assert fmt("€9.00", lang) in sizes and fmt("€2", lang) in sizes
-    assert fmt("€3.50", lang) in sizes and fmt("€1", lang) in sizes
+    # Home, subscription and restaurant prices side by side (exact table in test_for_home.py).
+    assert fmt("€9.00", lang) in sizes and fmt("€8.00", lang) in sizes and fmt("€2", lang) in sizes
+    assert fmt("€4.50", lang) in sizes and fmt("€3.50", lang) in sizes and fmt("€1", lang) in sizes
     assert "1 L" in sizes and "270 ml" in sizes
     assert HEALTH_NOTE[lang] in text
 
@@ -189,7 +189,7 @@ def test_order_prices(built, lang):
     # €8.00 weekly subscription on For home.
     assert ("by the glass" if lang == "en" else "ao copo") not in text
     assert fmt("€9.00", lang) in text and fmt("€2", lang) in text
-    assert fmt("€3.50", lang) in text and fmt("€1", lang) in text
+    assert fmt("€4.50", lang) in text and fmt("€1", lang) in text
     assert fmt("€8.00", lang) in text
     assert "1 L" in text and "270 ml" in text
 

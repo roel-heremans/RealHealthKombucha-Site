@@ -95,14 +95,45 @@ def test_buttons(built, lang):
 
 
 @LANGS
-def test_home_price_on_other_pages(built, lang):
-    """Order, Flavours and the home-page card show the 1 L home price with its €2 deposit;
-    the restaurant price (€8.00) stays on For Restaurants."""
-    for page_id, cls in (("order", "order-prices"), ("flavours", "flavours-sizes"),
-                         ("home", "home-paths")):
-        text = _text(_section(_file(built, page_id, lang).read_text(), cls))
-        assert fmt("€9.00", lang) in text, page_id
-        assert fmt("€2", lang) in text, page_id
-        assert fmt("€3.50", lang) in text, page_id
-    rest = _text(_file(built, "restaurants", lang).read_text())
-    assert fmt("€8.00", lang) in rest
+def test_small_bottle_on_for_home(built, lang):
+    text = _text(_section(_file(built, "for-home", lang).read_text(), "home-options"))
+    assert "270 ml" in text and fmt("€4.50", lang) in text and fmt("€1", lang) in text
+
+
+@LANGS
+def test_home_prices_on_order_and_home_card(built, lang):
+    """Order and the home-page card show home prices: 1 L €9.00 + €2, 270 ml €4.50 + €1."""
+    for page_id, cls in (("order", "order-prices"), ("home", "home-paths")):
+        sec = _section(_file(built, page_id, lang).read_text(), cls)
+        if page_id == "home":   # only the "For home" card, not the restaurant card
+            sec = re.findall(r"<article.*?</article>", sec, re.S)[1]
+        text = _text(sec)
+        for figure in ("€9.00", "€2", "€4.50", "€1"):
+            assert fmt(figure, lang) in text, (page_id, figure)
+        assert fmt("€3.50", lang) not in text, page_id
+
+
+@LANGS
+def test_restaurant_prices_section(built, lang):
+    text = _text(_section(_file(built, "restaurants", lang).read_text(), "rest-prices"))
+    for figure in ("€8.00", "€2", "€3.50", "€1"):
+        assert fmt(figure, lang) in text, figure
+    assert fmt("€9.00", lang) not in text and fmt("€4.50", lang) not in text
+
+
+@LANGS
+def test_flavours_price_table(built, lang):
+    """Rows 1 L and 270 ml; columns at home, home subscription, restaurants & cafés."""
+    table = re.search(r'<table class="price-table">(.*?)</table>',
+                      _file(built, "flavours", lang).read_text(), re.S).group(1)
+    rows = [[_text(c).strip() for c in re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)]
+            for r in re.findall(r"<tr>(.*?)</tr>", table.split("<tbody>")[1], re.S)]
+    none = "– not offered" if lang == "en" else "– não disponível"
+    assert rows == [[fmt("€9.00", lang), fmt("€8.00", lang), fmt("€8.00", lang)],
+                    [fmt("€4.50", lang), none, fmt("€3.50", lang)]]
+    heads = _text(table.split("<tbody>")[0])
+    for h in ({"en": ("At home", "Home subscription", "Restaurants & cafés"),
+               "pt": ("Em casa", "Assinatura", "Restaurantes e cafés")}[lang]):
+        assert h in heads, h
+    text = _text(table)
+    assert fmt("€2", lang) in text and fmt("€1", lang) in text

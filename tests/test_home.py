@@ -120,13 +120,13 @@ def test_two_paths(built, lang):
     assert len(cards) == 2
     rest, home = cards
     assert eur(20.5, lang) in _text(rest)
-    assert eur(9, lang) in _text(home) and eur(3.5, lang) in _text(home)
+    assert eur(9, lang) in _text(home) and eur(4.5, lang) in _text(home)
     if lang == "en":
-        assert "€20.50" in _text(rest) and "€9.00" in _text(home) and "€3.50" in _text(home)
+        assert "€20.50" in _text(rest) and "€9.00" in _text(home) and "€4.50" in _text(home)
         assert "€2 deposit" in _text(home)
     else:
         nb = "\u00a0"
-        assert f"20,50{nb}€" in _text(rest) and f"9,00{nb}€" in _text(home) and f"3,50{nb}€" in _text(home)
+        assert f"20,50{nb}€" in _text(rest) and f"9,00{nb}€" in _text(home) and f"4,50{nb}€" in _text(home)
         assert f"2{nb}€ de depósito" in _text(home)
     # Slide 10 highlights on the restaurant card.
     assert "72%" in _text(rest) and eur(5.7, lang) in _text(rest)

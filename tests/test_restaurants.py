@@ -89,7 +89,8 @@ def test_glass_table_exact(built, lang):
 def test_glass_note_and_highlights(built, lang):
     _, html = _page(built, lang)
     text = _text(_section(html, "rest-glass"))
-    assert fmt("€8.00", lang) in text           # "You pay €8.00 per 1 L bottle"
+    assert fmt("€8.00", lang) in text           # "You pay €8.00 per 1 L bottle (+ €2 deposit)"
+    assert fmt("€2", lang) in text
     assert "72%" in text and fmt("€5.70", lang) in text
     assert ("2.5×" if lang == "en" else "2,5×") in text
     assert ("VAT not included" if lang == "en" else "IVA não incluído") in text
@@ -115,8 +116,8 @@ def test_month_example_exact(built, lang):
     for figure in ("€148", "€365", "€217"):
         assert fmt(figure, lang) in text, figure
     assert f"8 × {fmt('€8.00', lang)} + 24 × {fmt('€3.50', lang)}" in text
-    # Deposit note: 24 × €1 = €24 comes back, not counted as a cost.
-    assert f"24 × {fmt('€1', lang)}" in text and fmt("€24", lang) in text
+    # Deposit note: 8 × €2 + 24 × €1 = €40 comes back, not counted as a cost.
+    assert f"8 × {fmt('€2', lang)} + 24 × {fmt('€1', lang)} = {fmt('€40', lang)}" in text
     assert ("not included as a cost" if lang == "en" else "não é contabilizado como custo") in text
 
 

@@ -10,7 +10,7 @@
 {%- set weeks = fh.subscription.weeks_per_month -%}
 {%- set total = per_week * weeks -%}
 {%- set sub = prices.home_sub_bottle_1l -%}
-{%- set dep = prices.home_deposit_1l -%}
+{%- set dep = prices.deposit_1l -%}
 {%- set first = per_week * (sub + dep) + (total - per_week) * sub -%}
 {%- set regular = total * sub -%}
 {%- set refund = per_week * dep -%}
@@ -45,6 +45,9 @@
         <p class="path-card__price"><span class="card__price num">{{ price | eur }}</span></p>
         <p class="card__note">{{ fh.options.per_bottle | t | e }} {{ fh.options.deposit_note | t | replace('{deposit}', deposit) | e }}</p>
         <p class="body path-card__text">{{ o.text | t | e }}</p>
+{%- if o.small %}
+        <p class="body path-card__small">{{ o.small | t | replace('{price}', prices.home_bottle_270 | eur) | replace('{deposit}', prices.deposit | eur(0)) | e }}</p>
+{%- endif %}
       </article>
 {%- endfor %}
     </div>
