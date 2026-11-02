@@ -121,7 +121,7 @@ CONTENT = {
     # Restaurants and cafés already serving it (names as text, not translated).
     "partners": [
         "Sun Spot", "Palm Spot", "Koa Spot", "Vegan World", "Casa Velha do Palheiro",
-        "Casa Velha Tea House", "Balancal", "Buddha & Sakura",
+        "Casa Velha Tea House", "Vista Balancal", "Buddha & Sakura",
     ],
     # Google reviews (slide 8), verbatim in their original English on both languages.
     "quotes": [

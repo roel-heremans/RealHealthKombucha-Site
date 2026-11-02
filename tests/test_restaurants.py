@@ -16,7 +16,7 @@ from i18n import page_path
 PAGES = {p["id"]: p for p in CONTENT["pages"]}
 NBSP = " "
 PARTNERS = ["Sun Spot", "Palm Spot", "Koa Spot", "Vegan World", "Casa Velha do Palheiro",
-            "Casa Velha Tea House", "Balancal", "Buddha & Sakura"]
+            "Casa Velha Tea House", "Vista Balancal", "Buddha & Sakura"]
 SIGNUP = "https://roel-heremans.github.io/kombucha-orders-app/?signup"
 WHATSAPP = "https://wa.me/351913000048"   # direct chat; the group invite is Contact-only
 WHATSAPP_GROUP = "https://chat.whatsapp.com/HFERsCciyntHTvYT8nuv6R"

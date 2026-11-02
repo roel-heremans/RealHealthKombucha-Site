@@ -12,7 +12,7 @@ HOME = CONTENT["home"]
 FLAVOUR_ORDER = ["ginger", "wild-orange", "lime", "green-mandarine", "metabolic-boost",
                  "lemon-turmeric"]
 PARTNERS = ["Sun Spot", "Palm Spot", "Koa Spot", "Vegan World", "Casa Velha do Palheiro",
-            "Casa Velha Tea House", "Balancal", "Buddha & Sakura"]
+            "Casa Velha Tea House", "Vista Balancal", "Buddha & Sakura"]
 
 
 def _home(built, lang):
