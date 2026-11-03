@@ -333,6 +333,9 @@ CONTENT = {
                 "pt": "Todos os sabores têm o mesmo preço. O depósito é-lhe devolvido quando entrega "
                       "as garrafas vazias. IVA não incluído.",
             },
+            "deck": {"en": "Download our presentation for restaurants (PowerPoint, 9 MB)",
+                     "pt": "Descarregue a nossa apresentação para restaurantes (PowerPoint, 9 MB, em inglês)"},
+            "deck_file": "assets/docs/real-health-kombucha-restaurants.pptx",
         },
         "hero": {
             "eyebrow": {"en": "For restaurants & cafés", "pt": "Para restaurantes e cafés"},

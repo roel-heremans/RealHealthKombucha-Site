@@ -293,3 +293,18 @@ def test_hero_facts_say_up_to(built, lang):
     text = _text(_section(html, "rest-glass"))
     assert (f"at {fmt('€5.70', lang)} per 200 ml glass" if lang == "en"
             else f"a {fmt('€5.70', lang)} por copo de 200 ml") in text
+
+
+DECK = "assets/docs/real-health-kombucha-restaurants.pptx"
+
+
+@pytest.mark.parametrize("lang", ["en", "pt"])
+def test_presentation_download_link(built, lang):
+    """Prices section links to the restaurant presentation, and the file is in the build."""
+    html = (built / page_path(PAGES["restaurants"], lang) / "index.html").read_text()
+    sec = re.search(r'<section[^>]*\brest-prices\b.*?</section>', html, re.S).group(0)
+    m = re.search(r'<a [^>]*href="([^"]*' + re.escape(DECK) + r')"[^>]*>(.*?)</a>', sec, re.S)
+    assert m, "no download link in prices section"
+    assert "download" in m.group(0)
+    assert ("presentation" if lang == "en" else "apresentação") in m.group(2)
+    assert (built / DECK).is_file()

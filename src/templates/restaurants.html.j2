@@ -36,6 +36,7 @@
         <p class="eyebrow">{{ r.prices.eyebrow | t | e }}</p>
         <h2 class="h-section">{{ r.prices.heading | t | e }} <em>{{ r.prices.heading_accent | t | e }}</em></h2>
         <p class="body order-prices__text">{{ r.prices.text | t | e }}</p>
+        <p class="order-prices__link"><a class="text-link" href="{{ root }}{{ r.prices.deck_file }}" download>{{ r.prices.deck | t | e }} &darr;</a></p>
       </div>
       <dl class="price-list">
         <div><dt>{{ content.flavours_page.sizes.bottle_1l | t | e }}<span class="price-list__note">{{ content.flavours_page.sizes.deposit_note | t | replace('{deposit}', prices.deposit_1l | eur(0)) | e }}</span></dt><dd class="num">{{ prices.bottle_1l | eur }}</dd></div>
