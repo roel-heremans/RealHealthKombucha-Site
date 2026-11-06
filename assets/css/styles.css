@@ -1047,3 +1047,34 @@ main { display: block; }
   }
   .review-banner__btn:hover { background: none; color: var(--white); }
 }
+
+/* For home: bottles-a-week picker; radios switch the month variant without JS. */
+.week-picker { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 32px auto 0; }
+.week-picker__label { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--on-dark-muted); }
+.week-picker__options { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.week-picker label {
+  display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px;
+  border: 1px solid var(--hairline-dark); border-radius: 50%; cursor: pointer;
+  font-family: var(--serif); font-size: 22px; font-variant-numeric: lining-nums; color: var(--on-dark); transition: background .2s, color .2s, border-color .2s;
+}
+.week-picker label:hover { border-color: var(--gold); }
+.month-variant { display: none; }
+.month-variant .rest-month__example { margin: 28px auto 48px; }
+#pw-4:checked ~ .month-variants .mv-4 { display: block; }
+#pw-5:checked ~ .month-variants .mv-5 { display: block; }
+#pw-6:checked ~ .month-variants .mv-6 { display: block; }
+#pw-7:checked ~ .month-variants .mv-7 { display: block; }
+#pw-8:checked ~ .month-variants .mv-8 { display: block; }
+#pw-9:checked ~ .month-variants .mv-9 { display: block; }
+#pw-4:checked ~ .week-picker label[for=pw-4],
+#pw-5:checked ~ .week-picker label[for=pw-5],
+#pw-6:checked ~ .week-picker label[for=pw-6],
+#pw-7:checked ~ .week-picker label[for=pw-7],
+#pw-8:checked ~ .week-picker label[for=pw-8],
+#pw-9:checked ~ .week-picker label[for=pw-9] { background: var(--gold); border-color: var(--gold); color: var(--forest, #1f3b2d); }
+#pw-4:focus-visible ~ .week-picker label[for=pw-4],
+#pw-5:focus-visible ~ .week-picker label[for=pw-5],
+#pw-6:focus-visible ~ .week-picker label[for=pw-6],
+#pw-7:focus-visible ~ .week-picker label[for=pw-7],
+#pw-8:focus-visible ~ .week-picker label[for=pw-8],
+#pw-9:focus-visible ~ .week-picker label[for=pw-9] { outline: 2px solid var(--gold); outline-offset: 3px; }

@@ -764,13 +764,21 @@ CONTENT = {
                              "pt": "+ {deposit} de depósito, reembolsado quando devolver a garrafa"},
         },
         # 4 bottles a week x 4 weeks = one month (a 5-week month still counts as 4 deliveries).
-        "subscription": {"bottles_per_week": 4, "weeks_per_month": 4},
+        "subscription": {"bottles_per_week": 4, "weeks_per_month": 4,
+                         # Picker choices; above `free_above` a week, one bottle a month is free.
+                         "per_week_options": [4, 5, 6, 7, 8, 9], "free_above": 4},
         "month": {
             "eyebrow": {"en": "The subscription", "pt": "A assinatura"},
             "heading": {"en": "What a month", "pt": "Quanto custa"},
             "heading_accent": {"en": "costs", "pt": "um mês"},
+            "picker": {"en": "Bottles a week", "pt": "Garrafas por semana"},
             "lead": {"en": "{per_week} bottles a week, {weeks} weeks a month: {total} bottles.",
                      "pt": "{per_week} garrafas por semana, {weeks} semanas por mês: {total} garrafas."},
+            "lead_free": {"en": "{per_week} bottles a week, {weeks} weeks a month: {total} bottles, "
+                                "and one of them is free.",
+                          "pt": "{per_week} garrafas por semana, {weeks} semanas por mês: {total} garrafas, "
+                                "e uma delas é grátis."},
+            "free_calc": {"en": " − {sub} for your free bottle", "pt": " − {sub} da garrafa grátis"},
             "first": {"en": "First month", "pt": "Primeiro mês"},
             "first_calc": {"en": "{per_week} × {with_deposit} + {rest} × {sub}: the first {per_week} "
                                  "bottles include the deposit",

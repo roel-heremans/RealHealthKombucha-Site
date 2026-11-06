@@ -8,12 +8,8 @@
     bottles, and refunded with the last week's. -#}
 {%- set per_week = fh.subscription.bottles_per_week -%}
 {%- set weeks = fh.subscription.weeks_per_month -%}
-{%- set total = per_week * weeks -%}
 {%- set sub = prices.home_sub_bottle_1l -%}
 {%- set dep = prices.deposit_1l -%}
-{%- set first = per_week * (sub + dep) + (total - per_week) * sub -%}
-{%- set regular = total * sub -%}
-{%- set refund = per_week * dep -%}
 {%- set deposit = dep | eur(0) -%}
 
 <section class="hero fh-hero">
@@ -59,26 +55,50 @@
     <div class="section-head center">
       <p class="eyebrow">{{ fh.month.eyebrow | t | e }}</p>
       <h2 class="h-section">{{ fh.month.heading | t | e }} <em>{{ fh.month.heading_accent | t | e }}</em></h2>
-      <p class="lead rest-month__example">{{ fh.month.lead | t | replace('{per_week}', per_week | string) | replace('{weeks}', weeks | string) | replace('{total}', total | string) | e }}</p>
     </div>
-    <ul class="month">
-      <li class="month__item">
-        <span class="month__label">{{ fh.month.first | t | e }}</span>
-        <span class="month__num">{{ first | eur(0) }}</span>
-        <span class="month__calc">{{ fh.month.first_calc | t | replace('{per_week}', per_week | string) | replace('{with_deposit}', (sub + dep) | eur) | replace('{rest}', (total - per_week) | string) | replace('{sub}', sub | eur) | e }}</span>
-      </li>
-      <li class="month__item month__item--profit">
-        <span class="month__label">{{ fh.month.regular | t | e }}</span>
-        <span class="month__num">{{ regular | eur(0) }}</span>
-        <span class="month__calc">{{ fh.month.regular_calc | t | replace('{total}', total | string) | replace('{sub}', sub | eur) | e }}</span>
-      </li>
-      <li class="month__item">
-        <span class="month__label">{{ fh.month.last | t | e }}</span>
-        <span class="month__num">{{ (regular - refund) | eur(0) }}</span>
-        <span class="month__calc">{{ fh.month.last_calc | t | replace('{regular}', regular | eur(0)) | replace('{refund}', refund | eur) | replace('{per_week}', per_week | string) | e }}</span>
-      </li>
-    </ul>
-    <p class="footnote center rest-month__note">{{ fh.month.note | t | replace('{deposit}', deposit) | replace('{per_week}', per_week | string) | e }}</p>
+    {#- Radios + labels switch the visible variant in CSS only (no JS); all variants are built here. #}
+{%- for n in fh.subscription.per_week_options %}
+    <input class="visually-hidden week-radio" type="radio" name="per-week" id="pw-{{ n }}" value="{{ n }}"{% if n == per_week %} checked{% endif %}>
+{%- endfor %}
+    <div class="week-picker" role="group" aria-label="{{ fh.month.picker | t | e }}">
+      <span class="week-picker__label" aria-hidden="true">{{ fh.month.picker | t | e }}</span>
+      <div class="week-picker__options">
+{%- for n in fh.subscription.per_week_options %}
+        <label for="pw-{{ n }}">{{ n }}</label>
+{%- endfor %}
+      </div>
+    </div>
+    <div class="month-variants" aria-live="polite">
+{%- for n in fh.subscription.per_week_options %}
+{%- set total = n * weeks %}
+{%- set free = sub if n > fh.subscription.free_above else 0 %}
+{%- set free_calc = (fh.month.free_calc | t | replace('{sub}', sub | eur)) if free else '' %}
+{%- set first = n * (sub + dep) + (total - n) * sub - free %}
+{%- set regular = total * sub - free %}
+{%- set refund = n * dep %}
+      <div class="month-variant mv-{{ n }}">
+        <p class="lead center rest-month__example">{{ (fh.month.lead_free if free else fh.month.lead) | t | replace('{per_week}', n | string) | replace('{weeks}', weeks | string) | replace('{total}', total | string) | e }}</p>
+        <ul class="month">
+          <li class="month__item">
+            <span class="month__label">{{ fh.month.first | t | e }}</span>
+            <span class="month__num">{{ first | eur(0) }}</span>
+            <span class="month__calc">{{ fh.month.first_calc | t | replace('{per_week}', n | string) | replace('{with_deposit}', (sub + dep) | eur) | replace('{rest}', (total - n) | string) | replace('{sub}', sub | eur) | replace(':', free_calc ~ ':', 1) | e }}</span>
+          </li>
+          <li class="month__item month__item--profit">
+            <span class="month__label">{{ fh.month.regular | t | e }}</span>
+            <span class="month__num">{{ regular | eur(0) }}</span>
+            <span class="month__calc">{{ fh.month.regular_calc | t | replace('{total}', total | string) | replace('{sub}', sub | eur) | replace(':', free_calc ~ ':', 1) | e }}</span>
+          </li>
+          <li class="month__item">
+            <span class="month__label">{{ fh.month.last | t | e }}</span>
+            <span class="month__num">{{ (regular - refund) | eur(0) }}</span>
+            <span class="month__calc">{{ fh.month.last_calc | t | replace('{regular}', regular | eur(0)) | replace('{refund}', refund | eur) | replace('{per_week}', n | string) | e }}</span>
+          </li>
+        </ul>
+        <p class="footnote center rest-month__note">{{ fh.month.note | t | replace('{deposit}', deposit) | replace('{per_week}', n | string) | e }}</p>
+      </div><!-- /mv -->
+{%- endfor %}
+    </div>
   </div>
 </section>
 

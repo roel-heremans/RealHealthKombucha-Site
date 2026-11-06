@@ -154,3 +154,34 @@ def test_hero_lead_any_amount_and_subscription(built, lang):
     for w in words:
         assert w in lead.lower(), w
     assert fmt("€8", lang) in lead and "{sub}" not in lead
+
+
+# Bottles a week -> (first, regular, last) month, typed out by hand:
+# first = n × €10 + 3n × €8, regular = 4n × €8, last = regular − n × €2,
+# and above 4 a week one bottle (€8) is free every month.
+MONTHS = {4: (136, 128, 120), 5: (162, 152, 142), 6: (196, 184, 172),
+          7: (230, 216, 202), 8: (264, 248, 232), 9: (298, 280, 262)}
+
+
+@LANGS
+def test_week_picker_options(built, lang):
+    sec = _section(_file(built, "for-home", lang).read_text(), "home-month")
+    radios = re.findall(r'<input[^>]*type="radio"[^>]*>', sec)
+    assert [re.search(r'value="(\d+)"', r).group(1) for r in radios] == [str(n) for n in MONTHS]
+    assert "checked" in radios[0] and not any("checked" in r for r in radios[1:])
+    for n in MONTHS:
+        assert re.search(rf'<label[^>]*for="pw-{n}"[^>]*>\s*{n}\s*</label>', sec), n
+
+
+@LANGS
+@pytest.mark.parametrize("n", list(MONTHS))
+def test_month_variant_totals(built, lang, n):
+    sec = _section(_file(built, "for-home", lang).read_text(), "home-month")
+    m = re.search(rf'<div class="month-variant mv-{n}"[^>]*>(.*?)<!-- /mv -->', sec, re.S)
+    assert m, n
+    nums = [_text(x).strip() for x in re.findall(r'<span class="month__num">(.*?)</span>', m.group(1))]
+    assert nums == [fmt(f"€{x}", lang) for x in MONTHS[n]]
+    text = _text(m.group(1))
+    assert f"{n * 4} " in text
+    free = "free" if lang == "en" else "grátis"
+    assert (free in text) == (n > 4)
