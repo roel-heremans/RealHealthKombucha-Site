@@ -68,13 +68,15 @@
     <div class="month-variants" aria-live="polite">
 {%- for n in fh.subscription.per_week_options %}
 {%- set total = n * weeks %}
-{%- set free = sub if n > fh.subscription.free_above else 0 %}
-{%- set free_calc = (fh.month.free_calc | t | replace('{sub}', sub | eur)) if free else '' %}
+{%- set ns = namespace(k=0) %}
+{%- for min_n, k in fh.subscription.free_tiers %}{% if n >= min_n %}{% set ns.k = k %}{% endif %}{% endfor %}
+{%- set free = ns.k * sub %}
+{%- set free_calc = (fh.month.free_calc[ns.k | string] | t | replace('{sub}', sub | eur)) if ns.k else '' %}
 {%- set first = n * (sub + dep) + (total - n) * sub - free %}
 {%- set regular = total * sub - free %}
 {%- set refund = n * dep %}
       <div class="month-variant mv-{{ n }}{% if n == per_week %} is-active{% endif %}" data-per-week="{{ n }}">
-        <p class="lead center rest-month__example">{{ (fh.month.lead_free if free else fh.month.lead) | t | replace('{per_week}', n | string) | replace('{weeks}', weeks | string) | replace('{total}', total | string) | e }}</p>
+        <p class="lead center rest-month__example">{{ (fh.month.lead_free if free else fh.month.lead) | t | replace('{free_words}', (fh.month.free_words[ns.k | string] | t) if ns.k else '') | replace('{per_week}', n | string) | replace('{weeks}', weeks | string) | replace('{total}', total | string) | e }}</p>
         <ul class="month">
           <li class="month__item">
             <span class="month__label">{{ fh.month.first | t | e }}</span>

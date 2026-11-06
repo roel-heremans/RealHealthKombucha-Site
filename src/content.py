@@ -714,12 +714,13 @@ CONTENT = {
             "lead": {
                 "en": "Order as many 1 L bottles as you like, whenever you like, without a "
                       "subscription. Or subscribe and we deliver from 4 bottles a week, 4 weeks a "
-                      "month, for {sub} a bottle, the same price restaurants pay. Take more than 4 "
-                      "bottles a week and you get one bottle free every new month.",
+                      "month, for {sub} a bottle, the same price restaurants pay. From 7 bottles "
+                      "a week you get one bottle free every month, from 10 a week two.",
                 "pt": "Encomende as garrafas de 1 L que quiser, quando quiser, sem assinatura. Ou "
                       "faça uma assinatura e entregamos a partir de 4 garrafas por semana, 4 semanas "
-                      "por mês, a {sub} por garrafa, o mesmo preço que os restaurantes pagam. Com "
-                      "mais de 4 garrafas por semana, recebe uma garrafa grátis em cada novo mês.",
+                      "por mês, a {sub} por garrafa, o mesmo preço que os restaurantes pagam. A "
+                      "partir de 7 garrafas por semana recebe uma garrafa grátis por mês, a partir "
+                      "de 10 por semana duas.",
             },
             "primary": {"en": "Order on WhatsApp", "pt": "Encomendar no WhatsApp"},
             "image": "assets/img/photos/bottles-bougainvillea.jpg",
@@ -752,11 +753,11 @@ CONTENT = {
                 "title": {"en": "From 4 bottles a week", "pt": "A partir de 4 garrafas por semana"},
                 "text": {
                     "en": "Fresh 1 L bottles every week, four weeks a month, at the restaurant "
-                          "price. More than 4 a week? One bottle free every new month. "
+                          "price. From 7 a week one bottle a month is free, from 10 a week two. "
                           "Delivered in Funchal or to your home.",
                     "pt": "Garrafas frescas de 1 L todas as semanas, quatro semanas por mês, ao "
-                          "preço dos restaurantes. Mais de 4 por semana? Uma garrafa grátis em cada "
-                          "novo mês. Entregues no Funchal ou em sua casa.",
+                          "preço dos restaurantes. A partir de 7 por semana, uma garrafa grátis por mês; "
+                          "a partir de 10, duas. Entregues no Funchal ou em sua casa.",
                 },
             },
             # "{deposit}" = prices.deposit_1l.
@@ -765,8 +766,10 @@ CONTENT = {
         },
         # 4 bottles a week x 4 weeks = one month (a 5-week month still counts as 4 deliveries).
         "subscription": {"bottles_per_week": 4, "weeks_per_month": 4,
-                         # Picker choices; above `free_above` a week, one bottle a month is free.
-                         "per_week_options": [4, 5, 6, 7, 8, 9], "free_above": 4},
+                         # Picker choices; free bottles a month by bottles a week:
+                         # from 7 a week one bottle free, from 10 a week two.
+                         "per_week_options": [4, 5, 6, 7, 8, 9, 10],
+                         "free_tiers": [[7, 1], [10, 2]]},
         "month": {
             "eyebrow": {"en": "The subscription", "pt": "A assinatura"},
             "heading": {"en": "What a month", "pt": "Quanto custa"},
@@ -775,10 +778,14 @@ CONTENT = {
             "lead": {"en": "{per_week} bottles a week, {weeks} weeks a month: {total} bottles.",
                      "pt": "{per_week} garrafas por semana, {weeks} semanas por mês: {total} garrafas."},
             "lead_free": {"en": "{per_week} bottles a week, {weeks} weeks a month: {total} bottles, "
-                                "and one of them is free.",
+                                "and {free_words}.",
                           "pt": "{per_week} garrafas por semana, {weeks} semanas por mês: {total} garrafas, "
-                                "e uma delas é grátis."},
-            "free_calc": {"en": " − {sub} for your free bottle", "pt": " − {sub} da garrafa grátis"},
+                                "e {free_words}."},
+            "free_words": {"1": {"en": "one of them is free", "pt": "uma delas é grátis"},
+                           "2": {"en": "two of them are free", "pt": "duas delas são grátis"}},
+            "free_calc": {"1": {"en": " − {sub} for your free bottle", "pt": " − {sub} da garrafa grátis"},
+                          "2": {"en": " − 2 × {sub} for your free bottles",
+                                "pt": " − 2 × {sub} das garrafas grátis"}},
             "first": {"en": "First month", "pt": "Primeiro mês"},
             "first_calc": {"en": "{per_week} × {with_deposit} + {rest} × {sub}: the first {per_week} "
                                  "bottles include the deposit",

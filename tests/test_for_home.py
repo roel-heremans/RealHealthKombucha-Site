@@ -151,9 +151,10 @@ def test_hero_lead_any_amount_and_subscription(built, lang):
     html = _file(built, "for-home", lang).read_text()
     lead = _text(re.search(r'<p class="lead">(.*?)</p>', html, re.S).group(1))
     words = {"en": ("without a subscription", "from 4 bottles a week", "restaurants pay",
-                    "more than 4", "one bottle free every new month"),
+                    "from 7 bottles a week", "one bottle free", "from 10", "two"),
              "pt": ("sem assinatura", "a partir de 4 garrafas por semana", "restaurantes pagam",
-                    "mais de 4", "uma garrafa grátis em cada novo mês")}[lang]
+                    "a partir de 7 garrafas por semana", "uma garrafa grátis", "a partir de 10",
+                    "duas")}[lang]
     for w in words:
         assert w in lead.lower(), w
     assert fmt("€8", lang) in lead and "{sub}" not in lead
@@ -161,9 +162,10 @@ def test_hero_lead_any_amount_and_subscription(built, lang):
 
 # Bottles a week -> (first, regular, last) month, typed out by hand:
 # first = n × €10 + 3n × €8, regular = 4n × €8, last = regular − n × €2,
-# and above 4 a week one bottle (€8) is free every month.
-MONTHS = {4: (136, 128, 120), 5: (162, 152, 142), 6: (196, 184, 172),
-          7: (230, 216, 202), 8: (264, 248, 232), 9: (298, 280, 262)}
+# and from 7 a week one bottle (€8) is free every month, from 10 a week two.
+MONTHS = {4: (136, 128, 120), 5: (170, 160, 150), 6: (204, 192, 180),
+          7: (230, 216, 202), 8: (264, 248, 232), 9: (298, 280, 262), 10: (324, 304, 284)}
+FREE = {4: 0, 5: 0, 6: 0, 7: 1, 8: 1, 9: 1, 10: 2}
 
 
 @LANGS
@@ -174,10 +176,10 @@ def test_week_picker_dropdown(built, lang):
     assert sel and re.search(r'<label[^>]*for="per-week"', sec)
     opts = re.findall(r'<option value="(\d+)"( selected)?>\s*(\d+)', sel.group(1))
     assert [o[0] for o in opts] == [str(n) for n in MONTHS] == [o[2] for o in opts]
-    assert [bool(o[1]) for o in opts] == [True] + [False] * 5
+    assert [bool(o[1]) for o in opts] == [True] + [False] * (len(MONTHS) - 1)
     assert "type=\"radio\"" not in sec
     variants = re.findall(r'<div class="month-variant mv-(\d+)( is-active)?"', sec)
-    assert [v for v, a in variants if a] == ["4"] and len(variants) == 6
+    assert [v for v, a in variants if a] == ["4"] and len(variants) == len(MONTHS)
 
 
 def test_picker_script_and_css():
@@ -206,4 +208,7 @@ def test_month_variant_totals(built, lang, n):
     text = _text(m.group(1))
     assert f"{n * 4} " in text
     free = "free" if lang == "en" else "grátis"
-    assert (free in text) == (n > 4)
+    assert (free in text) == (FREE[n] > 0)
+    if FREE[n] == 2:
+        assert ("two of them are free" if lang == "en" else "duas delas são grátis") in text
+        assert f"2 × {fmt('€8.00', lang)}" in text
