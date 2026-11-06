@@ -139,3 +139,18 @@ def test_flavours_price_table(built, lang):
         assert h in heads, h
     text = _text(table)
     assert fmt("€2", lang) in text and fmt("€1", lang) in text
+
+
+@LANGS
+def test_hero_lead_any_amount_and_subscription(built, lang):
+    """Lead: any number without subscription; subscription from 4/week at €8 (restaurant price),
+    one bottle free every new month above 4 a week."""
+    html = _file(built, "for-home", lang).read_text()
+    lead = _text(re.search(r'<p class="lead">(.*?)</p>', html, re.S).group(1))
+    words = {"en": ("without a subscription", "from 4 bottles a week", "restaurants pay",
+                    "more than 4", "one bottle free every new month"),
+             "pt": ("sem assinatura", "a partir de 4 garrafas por semana", "restaurantes pagam",
+                    "mais de 4", "uma garrafa grátis em cada novo mês")}[lang]
+    for w in words:
+        assert w in lead.lower(), w
+    assert fmt("€8", lang) in lead and "{sub}" not in lead

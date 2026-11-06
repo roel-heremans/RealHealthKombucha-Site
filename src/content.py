@@ -710,11 +710,16 @@ CONTENT = {
             "eyebrow": {"en": "For home", "pt": "Para casa"},
             "heading": {"en": "Fresh kombucha", "pt": "Kombucha fresca"},
             "heading_accent": {"en": "for your home", "pt": "para a sua casa"},
+            # "{sub}" = prices.home_sub_bottle_1l.
             "lead": {
-                "en": "Our 1 L bottles for you and your family: one bottle when you feel like it, "
-                      "or four fresh bottles every week with a subscription.",
-                "pt": "As nossas garrafas de 1 L para si e para a sua família: uma garrafa quando "
-                      "lhe apetecer, ou quatro garrafas frescas todas as semanas com uma assinatura.",
+                "en": "Order as many 1 L bottles as you like, whenever you like, without a "
+                      "subscription. Or subscribe and we deliver from 4 bottles a week, 4 weeks a "
+                      "month, for {sub} a bottle, the same price restaurants pay. Take more than 4 "
+                      "bottles a week and you get one bottle free every new month.",
+                "pt": "Encomende as garrafas de 1 L que quiser, quando quiser, sem assinatura. Ou "
+                      "faça uma assinatura e entregamos a partir de 4 garrafas por semana, 4 semanas "
+                      "por mês, a {sub} por garrafa, o mesmo preço que os restaurantes pagam. Com "
+                      "mais de 4 garrafas por semana, recebe uma garrafa grátis em cada novo mês.",
             },
             "primary": {"en": "Order on WhatsApp", "pt": "Encomendar no WhatsApp"},
             "image": "assets/img/photos/bottles-bougainvillea.jpg",
@@ -733,9 +738,9 @@ CONTENT = {
                 "eyebrow": {"en": "Single bottle", "pt": "Garrafa avulsa"},
                 "title": {"en": "Whenever you like", "pt": "Quando lhe apetecer"},
                 "text": {
-                    "en": "Order one or more bottles in any of the six flavours. "
+                    "en": "Order any number of bottles in any of the six flavours. "
                           "We agree a pickup with you.",
-                    "pt": "Encomende uma ou mais garrafas, em qualquer um dos seis sabores. "
+                    "pt": "Encomende as garrafas que quiser, em qualquer um dos seis sabores. "
                           "Combinamos consigo o local de recolha.",
                 },
                 # "{price}" = prices.home_bottle_270, "{deposit}" = prices.deposit.
@@ -744,12 +749,14 @@ CONTENT = {
             },
             "subscription": {
                 "eyebrow": {"en": "Monthly subscription", "pt": "Assinatura mensal"},
-                "title": {"en": "4 bottles every week", "pt": "4 garrafas todas as semanas"},
+                "title": {"en": "From 4 bottles a week", "pt": "A partir de 4 garrafas por semana"},
                 "text": {
-                    "en": "Four fresh 1 L bottles a week, four weeks a month. "
+                    "en": "Fresh 1 L bottles every week, four weeks a month, at the restaurant "
+                          "price. More than 4 a week? One bottle free every new month. "
                           "Delivered in Funchal or to your home.",
-                    "pt": "Quatro garrafas frescas de 1 L por semana, quatro semanas por mês. "
-                          "Entregues no Funchal ou em sua casa.",
+                    "pt": "Garrafas frescas de 1 L todas as semanas, quatro semanas por mês, ao "
+                          "preço dos restaurantes. Mais de 4 por semana? Uma garrafa grátis em cada "
+                          "novo mês. Entregues no Funchal ou em sua casa.",
                 },
             },
             # "{deposit}" = prices.deposit_1l.

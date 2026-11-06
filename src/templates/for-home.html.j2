@@ -20,7 +20,7 @@
   <div class="hero__text">
     <p class="eyebrow">{{ fh.hero.eyebrow | t | e }}</p>
     <h1 class="display display--hero">{{ fh.hero.heading | t | e }} <em>{{ fh.hero.heading_accent | t | e }}</em></h1>
-    <p class="lead">{{ fh.hero.lead | t | e }}</p>
+    <p class="lead">{{ fh.hero.lead | t | replace('{sub}', prices.home_sub_bottle_1l | eur(0)) | e }}</p>
     <div class="btn-row">
       <a class="btn btn--gold" href="{{ whatsapp }}" target="_blank" rel="noopener">{{ fh.hero.primary | t | e }}</a>
     </div>
