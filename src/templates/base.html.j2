@@ -23,7 +23,7 @@
 <link rel="preload" href="{{ root }}assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ root }}assets/fonts/cormorant-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ root }}assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{{ root }}assets/css/styles.css">
+<link rel="stylesheet" href="{{ root }}assets/css/styles.css?v={{ asset_v }}">
 <script>document.documentElement.classList.add("js");</script>
 </head>
 <body class="page-{{ page.id }}">
@@ -40,6 +40,6 @@
 {% endblock %}
 </main>
 {% include "partials/footer.html.j2" %}
-<script src="{{ root }}assets/js/site.js" defer></script>
+<script src="{{ root }}assets/js/site.js?v={{ asset_v }}" defer></script>
 </body>
 </html>

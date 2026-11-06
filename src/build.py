@@ -65,6 +65,12 @@ def build(out_dir: Path, content: dict) -> None:
         return order_mailto(lang, content)
 
     env.globals.update(url=url, page_path=page_path, LANGS=LANGS, order_mailto=mailto)
+    # Cache-busting: a short hash of the CSS/JS so browsers refetch them after a change.
+    import hashlib
+    h = hashlib.sha1()
+    for f in ("assets/css/styles.css", "assets/js/site.js"):
+        h.update((ROOT / f).read_bytes())
+    env.globals["asset_v"] = h.hexdigest()[:10]
     year = datetime.date.today().year
 
     for page in content["pages"]:

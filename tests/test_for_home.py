@@ -11,6 +11,9 @@ import pytest
 
 from content import CONTENT
 from i18n import page_path
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 PAGES = {p["id"]: p for p in CONTENT["pages"]}
 NBSP = " "
@@ -164,20 +167,39 @@ MONTHS = {4: (136, 128, 120), 5: (162, 152, 142), 6: (196, 184, 172),
 
 
 @LANGS
-def test_week_picker_options(built, lang):
+def test_week_picker_dropdown(built, lang):
+    """A <select> 4-9 (4 selected); only the 4-bottle card set is shown before any choice."""
     sec = _section(_file(built, "for-home", lang).read_text(), "home-month")
-    radios = re.findall(r'<input[^>]*type="radio"[^>]*>', sec)
-    assert [re.search(r'value="(\d+)"', r).group(1) for r in radios] == [str(n) for n in MONTHS]
-    assert "checked" in radios[0] and not any("checked" in r for r in radios[1:])
-    for n in MONTHS:
-        assert re.search(rf'<label[^>]*for="pw-{n}"[^>]*>\s*{n}\s*</label>', sec), n
+    sel = re.search(r'<select[^>]*id="per-week"[^>]*>(.*?)</select>', sec, re.S)
+    assert sel and re.search(r'<label[^>]*for="per-week"', sec)
+    opts = re.findall(r'<option value="(\d+)"( selected)?>\s*(\d+)', sel.group(1))
+    assert [o[0] for o in opts] == [str(n) for n in MONTHS] == [o[2] for o in opts]
+    assert [bool(o[1]) for o in opts] == [True] + [False] * 5
+    assert "type=\"radio\"" not in sec
+    variants = re.findall(r'<div class="month-variant mv-(\d+)( is-active)?"', sec)
+    assert [v for v, a in variants if a] == ["4"] and len(variants) == 6
+
+
+def test_picker_script_and_css():
+    js = (ROOT / "assets/js/site.js").read_text()
+    assert "per-week" in js and "is-active" in js
+    css = (ROOT / "assets/css/styles.css").read_text()
+    assert re.search(r"\.month-variant\s*\{\s*display:\s*none", css)
+    assert re.search(r"\.month-variant\.is-active\s*\{\s*display:\s*block", css)
+
+
+def test_css_js_links_are_versioned(built):
+    """Browsers must refetch styles.css / site.js after a deploy (cache-busting query)."""
+    html = _file(built, "for-home", "en").read_text()
+    assert re.search(r'assets/css/styles\.css\?v=[0-9a-f]{8,}"', html)
+    assert re.search(r'assets/js/site\.js\?v=[0-9a-f]{8,}"', html)
 
 
 @LANGS
 @pytest.mark.parametrize("n", list(MONTHS))
 def test_month_variant_totals(built, lang, n):
     sec = _section(_file(built, "for-home", lang).read_text(), "home-month")
-    m = re.search(rf'<div class="month-variant mv-{n}"[^>]*>(.*?)<!-- /mv -->', sec, re.S)
+    m = re.search(rf'<div class="month-variant mv-{n}(?: is-active)?"[^>]*>(.*?)<!-- /mv -->', sec, re.S)
     assert m, n
     nums = [_text(x).strip() for x in re.findall(r'<span class="month__num">(.*?)</span>', m.group(1))]
     assert nums == [fmt(f"€{x}", lang) for x in MONTHS[n]]

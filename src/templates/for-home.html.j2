@@ -56,17 +56,14 @@
       <p class="eyebrow">{{ fh.month.eyebrow | t | e }}</p>
       <h2 class="h-section">{{ fh.month.heading | t | e }} <em>{{ fh.month.heading_accent | t | e }}</em></h2>
     </div>
-    {#- Radios + labels switch the visible variant in CSS only (no JS); all variants are built here. #}
+    {#- All variants are built here; site.js shows the one picked in the dropdown (no JS: the default). #}
+    <div class="week-picker">
+      <label class="week-picker__label" for="per-week">{{ fh.month.picker | t | e }}</label>
+      <select class="week-picker__select" id="per-week">
 {%- for n in fh.subscription.per_week_options %}
-    <input class="visually-hidden week-radio" type="radio" name="per-week" id="pw-{{ n }}" value="{{ n }}"{% if n == per_week %} checked{% endif %}>
+        <option value="{{ n }}"{% if n == per_week %} selected{% endif %}>{{ n }}</option>
 {%- endfor %}
-    <div class="week-picker" role="group" aria-label="{{ fh.month.picker | t | e }}">
-      <span class="week-picker__label" aria-hidden="true">{{ fh.month.picker | t | e }}</span>
-      <div class="week-picker__options">
-{%- for n in fh.subscription.per_week_options %}
-        <label for="pw-{{ n }}">{{ n }}</label>
-{%- endfor %}
-      </div>
+      </select>
     </div>
     <div class="month-variants" aria-live="polite">
 {%- for n in fh.subscription.per_week_options %}
@@ -76,7 +73,7 @@
 {%- set first = n * (sub + dep) + (total - n) * sub - free %}
 {%- set regular = total * sub - free %}
 {%- set refund = n * dep %}
-      <div class="month-variant mv-{{ n }}">
+      <div class="month-variant mv-{{ n }}{% if n == per_week %} is-active{% endif %}" data-per-week="{{ n }}">
         <p class="lead center rest-month__example">{{ (fh.month.lead_free if free else fh.month.lead) | t | replace('{per_week}', n | string) | replace('{weeks}', weeks | string) | replace('{total}', total | string) | e }}</p>
         <ul class="month">
           <li class="month__item">

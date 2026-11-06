@@ -42,4 +42,16 @@
     });
   }, { rootMargin: "0px 0px -10% 0px" });
   items.forEach(function (el) { io.observe(el); });
+
+  // For home: the bottles-a-week dropdown shows only the matching month variant.
+  var perWeek = document.getElementById("per-week");
+  if (perWeek) {
+    var showWeek = function () {
+      document.querySelectorAll(".month-variant").forEach(function (v) {
+        v.classList.toggle("is-active", v.getAttribute("data-per-week") === perWeek.value);
+      });
+    };
+    perWeek.addEventListener("change", showWeek);
+    showWeek(); // the browser may restore a previous choice on back/refresh
+  }
 })();
